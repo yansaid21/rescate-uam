@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
-const EmergencyButton = ({ onPress }) => {
+const EmergencyButton = () => {
     // Estado para controlar el color del botón
     const [isYellow, setIsYellow] = useState(true);
     // Función para manejar el cambio de color
     const handlePress = () => {
         setIsYellow(!isYellow); // Alterna entre amarillo y azul
-        if (onPress) onPress(); // Llama a la función onPress pasada como prop si existe
     };
     return (
         <Pressable 
