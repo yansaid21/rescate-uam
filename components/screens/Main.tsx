@@ -12,7 +12,6 @@ export default function Main() {
             {/* <EmergencyButton/> */}
             <TypeEmergencyButton text= 'Evacuación'/>
             <RedBrigadistaButton text= 'Brigadista'/>
-
         </View>
     )
 }

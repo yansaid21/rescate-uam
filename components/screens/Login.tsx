@@ -25,7 +25,7 @@ export default function Login() {
             />
             <Text style={styles.text}>Entrar con</Text>
             <GoogleButton/>
-            <Link href='/Register' style={styles.register}>Registrarse</Link>
+            <Link href='/register' style={styles.register}>Registrarse</Link>
         </View>
     )
 }
