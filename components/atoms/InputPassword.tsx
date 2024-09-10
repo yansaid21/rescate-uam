@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { EyeIcon } from '../atoms/icons';
+import { EyeIcon } from './Icons';
 
 export default function InputPassword() {
     const [isPasswordVisible, setPasswordVisible] = useState(false);

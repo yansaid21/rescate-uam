@@ -4,9 +4,10 @@ type CustomButtonProps = {
     text: string,
     customFun: () => void,
     color?: string;
+    href: string
 }
 
-export default function CustomButton( { text, customFun, color = "blue"  }: CustomButtonProps) {
+export default function CustomButton( { text, customFun, color = "blue", href  }: CustomButtonProps) {
     return (
         <Pressable
             onPress={customFun}
