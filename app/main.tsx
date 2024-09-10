@@ -1,15 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
+import Main from '../components/screens/Main';
 
-const login = () => {
+const main = () => {
     return (
-        <View style={styles.container}>
-            <Text> Login Screen </Text>
-            <Link href='/'>
-                Go to home
-            </Link>
-        </View>
+        <Main/>
     );
 }
 
@@ -22,5 +18,5 @@ const styles = StyleSheet.create({
     }
 })
 
-export default login;
+export default main;
 
