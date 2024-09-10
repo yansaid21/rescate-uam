@@ -7,6 +7,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen'
 import { useCallback, useEffect } from 'react';
 import { FiraSans_400Regular,FiraSans_900Black } from '@expo-google-fonts/fira-sans';
+import Register from './components/screens/Register';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -33,7 +34,7 @@ if(fontsLoaded){
     <View style={styles.container} onLayout={onLayout}>
       {/* <Text>Hola</Text> */}
       <StatusBar style='auto'/>
-      <Login/>
+      <Register/>
     </View>
   );
 }
