@@ -12,7 +12,7 @@ function ModBrigadistaButton({ text }: CustomButtonProps) {
     <Pressable style={styles.buttonContainer}>
         <View style={styles.button}>
             <Text style={styles.buttonText}>
-                <Link href='../screens/Brigadista'>{text}</Link>
+                <Link href='/crudBrigradist'>{text}</Link>
             </Text>
         </View>
     </Pressable>

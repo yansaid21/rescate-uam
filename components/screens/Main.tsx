@@ -3,6 +3,7 @@ import { Link } from "expo-router"
 import EmergencyButton from "../atoms/EmergencyButton"
 import TypeEmergencyButton from "../atoms/TypeEmergencyButton"
 import RedBrigadistaButton from "../atoms/RedBrigadistaButton"
+import ModBrigadistaButton from "../atoms/ModBrigadistaButton"
 
 export default function Main() {
     return (
@@ -11,7 +12,7 @@ export default function Main() {
             <Link href="/login">Login</Link> */}
             {/* <EmergencyButton/> */}
             <TypeEmergencyButton text= 'Evacuación'/>
-            <RedBrigadistaButton text= 'Brigadista'/>
+            <ModBrigadistaButton text = 'Tabla'/>
 
         </View>
     )
