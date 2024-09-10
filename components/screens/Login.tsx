@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from "react-native"
+import { View, Text, Image, StyleSheet } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import GoogleButton from "../atoms/GoogleButton";
 import CustomButton from "../atoms/CustomButton";
