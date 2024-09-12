@@ -21,8 +21,7 @@ const Register = () => {
             <Input text='Programa'/>
             <CustomButton 
                 text="Registrarse" 
-                customFun={() => alert('Button Pressed!')} 
-                color="#0069A3" 
+                href='/' 
             />
         </View>
     );

@@ -6,18 +6,17 @@ const Navbar: React.FC = () => {
   return (
     <View style={styles.navbar}>
       <View style={styles.iconsContainer}>
-        <View style={styles.iconsStyle}>
         <TouchableOpacity>
-          <Icon name="notifications" size={30} color="#fff" />
+          <Icon name="notifications"  size={30} style={styles.icon}   color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity>
           <Icon name="insert-chart-outlined" // Nombre del icono
-        type="material" size={30} color="#fff" />
+        type="material" size={30} style={styles.icon} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Icon name="menu" size={30} color="#fff" />
+          <Icon name="menu" size={30} style={styles.icon} color="#fff" />
         </TouchableOpacity>
-        </View>
+
       </View>
     </View>
   );
@@ -29,21 +28,22 @@ const styles = StyleSheet.create({
     width:'100%',
     display:"flex",
     backgroundColor: '#0069A3',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    borderBottomLeftRadius: 15,  // Agrega el borde redondeado en la esquina inferior izquierda
+    flexDirection: 'row',
+
+    borderBottomLeftRadius: 15,  
     borderBottomRightRadius: 15,
     marginTop:0
   },
   iconsContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    width: "100%", // Ajusta el ancho según la separación deseada
+    width: "100%", 
   },
-  iconsStyle:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: "100%",
+  icon:{
+    margin:10
+
   }
 });
 

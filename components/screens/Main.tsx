@@ -4,17 +4,18 @@ import TypeEmergencyButton from "../atoms/TypeEmergencyButton";
 import Navbar from "../molecules/Nav";
 import { BigEmergencyButton } from "../atoms/BigEmergencyButton";
 import RedBrigadistaButton from "../atoms/RedBrigadistaButton"
+import ModBrigadistaButton from "../atoms/ModBrigadistaButton"
 
 export default function Main() {
   return (
-    <View style={styles.container}>
-        <View style={{backgroundColor: "#0069A3"}}>
+    <View className="h-full flex flex-col" >
+        
       <StatusBar barStyle="light-content" backgroundColor="#0069A3" />
       <Navbar />
-        </View>
-      <View style={styles.content}>
+      <View className="flex justify-center align-center paddingTop:60">
         <BigEmergencyButton />
         <TypeEmergencyButton text="Evacuación" />
+        <ModBrigadistaButton text = 'Tabla'/>
       </View>
     </View>
   );
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 60, // Ajusta para que el contenido no se superponga con el navbar
+    paddingTop: 60, 
   },
   navbar: {
     position: "absolute",
@@ -40,6 +41,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: '#ddd',
+    borderTopColor: '#ddd',  
+    borderBottomLeftRadius: 15,  
+    borderBottomRightRadius: 15,
   },
 });

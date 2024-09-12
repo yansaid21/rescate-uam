@@ -20,8 +20,7 @@ export default function Login() {
             <InputPassword/>
             <CustomButton 
                 text="Aceptar" 
-                customFun={() => alert('Button Pressed!')} 
-                color="#0069A3" 
+                href="/main"
             />
             <Text style={styles.text}>Entrar con</Text>
             <GoogleButton/>
@@ -39,8 +38,8 @@ const styles= StyleSheet.create({
             margin: 20
     },
     logo:{
-        width:"auto",
-        height: 100
+        width:200,
+        height: 95
     },
     title:{
         fontFamily: 'Fira Sans',

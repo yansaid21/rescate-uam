@@ -1,24 +1,21 @@
 import { Pressable, Text, StyleSheet }  from "react-native";
+import { Link } from "expo-router";
 
 type CustomButtonProps = {
     text: string,
-    customFun: () => void,
-    color?: string;
+    href: string
 }
 
-export default function CustomButton( { text, customFun, color = "blue"  }: CustomButtonProps) {
+export default function CustomButton( { text,  href  }: CustomButtonProps) {
     return (
-        <Pressable
-            onPress={customFun}
-            style={({ pressed }) => [
-                {
-                    backgroundColor: pressed ? `${color}AA` : color, 
-                },
-                styles.button
-            ]}
+        <Link href={href} asChild 
+            style={[styles.button,]}
         >
-            <Text style={styles.text}>{text}</Text>
-        </Pressable>
+            <Pressable
+            >
+                <Text style={styles.text}>{text}</Text>
+            </Pressable>
+        </Link>
     )
 }
 
@@ -29,7 +26,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         width: 212,
-        height: 49
+        height: 49,
+        backgroundColor: '#0069A3'
     },
     text: {
         color: "#FFFFFF",

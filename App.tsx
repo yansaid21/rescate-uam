@@ -34,7 +34,7 @@ if(fontsLoaded){
     <View style={styles.container} onLayout={onLayout}>
       {/* <Text>Hola</Text> */}
       <StatusBar style='auto'/>
-      <Register/>
+      <Login/>
     </View>
   );
 }
