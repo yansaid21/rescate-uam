@@ -3,12 +3,13 @@ import React from 'react';
 
 export default function GoogleButton() {
   return (
-    <View style={styles.container}>
+    <View className='flex-row items-center justify-center bg-[#fff] p-[10px] rounded-[10px] border-gray-400
+                    shadow-black w-[200px]'>
       <Image
         source={require('../../assets/google.png')}
-        style={styles.logo} 
+        className='w-12 h-12 mr-2'
       />
-      <Text style={styles.text}>Google</Text>
+      <Text className='text-base font-sans font-black'>Google</Text>
     </View>
   );
 }
@@ -28,14 +29,5 @@ const styles = StyleSheet.create({
     shadowRadius: 3, 
     elevation: 5, 
     width: 200
-  },
-  logo: {
-    width: 50,
-    height: 50,
-    marginRight: 10, 
-  },
-  text: {
-    fontFamily: 'FiraSans_900Black', 
-    fontSize: 16, 
   },
 });
