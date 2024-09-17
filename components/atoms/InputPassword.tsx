@@ -1,45 +1,32 @@
 import React, { useState } from 'react';
-import { TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { EyeIcon } from './Icons';
+import { Pressable, TextInput, View } from 'react-native';
+import { EyeIcon, EyeOffIcon } from './Icons';
 
-export default function InputPassword() {
+type CustomButtonProps = {
+    text: string,
+}
+
+export default function InputPassword({ text }: CustomButtonProps) {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     return (
-        <View style={styles.container}>
+        <View>
             <TextInput
-                style={styles.input}
-                placeholder="Contraseña"
+                className='w-[280px] h-12 rounded-[20px] bg-[#D9D9D9] px-[15px]'
+                placeholder={text}
                 placeholderTextColor={'#000000'}
                 secureTextEntry={!isPasswordVisible}  // Controla si la contraseña es visible o no
             />
-            <View style={styles.icon}>
-                <EyeIcon
-                    size={24}
-                    color="black"
-                />
+            <View className='absolute top-[10px] right-[10px]'>
+            <Pressable onPress={() => setPasswordVisible(!isPasswordVisible)}>
+                    {isPasswordVisible ? (
+                        <EyeOffIcon size={24} color="black" />  // Ícono de ojo cerrado
+                    ) : (
+                        <EyeIcon size={24} color="black" />     // Ícono de ojo abierto
+                    )}
+                </Pressable>
             </View>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        flexDirection: 'row',  // Para alinear el TextInput y el ícono en la misma línea
-        alignItems: 'center',
-        position: 'relative',
-    },
-    input: {
-        height: 48,
-        width: 280,
-        borderRadius: 20,
-        backgroundColor: '#D9D9D9',
-        paddingHorizontal: 15
-    },
-    icon: {
-        position: 'absolute',
-        right: 10,
-        top: 10
-    }
-});
