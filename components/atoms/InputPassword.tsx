@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TextInput, View } from 'react-native';
-import { EyeIcon } from './Icons';
+import { Pressable, TextInput, View } from 'react-native';
+import { EyeIcon, EyeOffIcon } from './Icons';
 
 type CustomButtonProps = {
     text: string,
@@ -18,10 +18,13 @@ export default function InputPassword({ text }: CustomButtonProps) {
                 secureTextEntry={!isPasswordVisible}  // Controla si la contraseña es visible o no
             />
             <View className='absolute top-[10px] right-[10px]'>
-                <EyeIcon
-                    size={24}
-                    color="black"
-                />
+            <Pressable onPress={() => setPasswordVisible(!isPasswordVisible)}>
+                    {isPasswordVisible ? (
+                        <EyeOffIcon size={24} color="black" />  // Ícono de ojo cerrado
+                    ) : (
+                        <EyeIcon size={24} color="black" />     // Ícono de ojo abierto
+                    )}
+                </Pressable>
             </View>
         </View>
     );

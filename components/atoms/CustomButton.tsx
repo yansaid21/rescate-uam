@@ -1,4 +1,4 @@
-import { Pressable, Text, StyleSheet }  from "react-native";
+import { Pressable, Text }  from "react-native";
 import { Link } from "expo-router";
 
 type CustomButtonProps = {
@@ -13,17 +13,9 @@ export default function CustomButton( { text,  href  }: CustomButtonProps) {
         >
             <Pressable
             >
-                <Text className="text-lg font-bold text-center text-[#FFFFFF] ">{text}</Text>
+                <Text className="text-lg font-bold text-center text-[#FFFFFF] text-shadow-custom">{text}</Text>
             </Pressable>
         </Link>
     )
 }
-
-const styles = StyleSheet.create({
-    text: {
-        textShadowOffset: { width: 0, height: 4 },  // Equivale a 0px 4px en CSS
-        textShadowRadius: 4,                        // Equivale a 4px de radio de difuminado
-        textShadowColor: 'rgba(0, 0, 0, 0.25)', 
-    },
-});
 

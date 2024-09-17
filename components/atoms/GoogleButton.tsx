@@ -3,8 +3,8 @@ import React from 'react';
 
 export default function GoogleButton() {
   return (
-    <View className='flex-row items-center justify-center bg-[#fff] p-[10px] rounded-[10px] border-gray-400
-                    shadow-black w-[200px]'>
+    <View className='flex-row items-center justify-center bg-[#fff] p-[10px] rounded-[10px]
+                    border-[#D1D1D6] border-2  shadow-black w-[200px] shadow-2xl z-10'>
       <Image
         source={require('../../assets/google.png')}
         className='w-12 h-12 mr-2'
@@ -13,21 +13,3 @@ export default function GoogleButton() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    backgroundColor: '#fff',
-    padding: 10, 
-    borderRadius: 10, 
-    borderColor: "gray",
-    shadowColor: '#000', 
-    shadowOffset: { width: 0, height: 2 }, 
-    shadowOpacity: 0.2, 
-    shadowRadius: 3, 
-    elevation: 5, 
-    width: 200
-  },
-});

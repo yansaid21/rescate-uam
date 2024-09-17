@@ -5,8 +5,14 @@ module.exports = {
     "./app/**/*.{js,jsx,ts,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      textShadow: {
+        'custom': '0px 4px 4px rgba(0, 0, 0, 0.25)',
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-textshadow')
+  ],
 }
 
