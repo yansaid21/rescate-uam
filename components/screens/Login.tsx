@@ -20,11 +20,11 @@ export default function Login() {
             <InputPassword/>
             <CustomButton 
                 text="Aceptar" 
-                href="/main"
+                href="/loggedIn/main"
             />
             <Text style={styles.text}>Entrar con</Text>
             <GoogleButton/>
-            <Link href='/register' style={styles.register}>Registrarse</Link>
+            <Link href='/loggedOut/register' style={styles.register}>Registrarse</Link>
         </View>
     )
 }
