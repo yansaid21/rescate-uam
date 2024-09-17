@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
-import Main from '../components/screens/Main';
+import Main from '../../components/screens/Main';
 
 const main = () => {
     return (

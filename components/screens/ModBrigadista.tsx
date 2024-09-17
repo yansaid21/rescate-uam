@@ -14,12 +14,14 @@ export default function ModBrigadista() {
   const widthArr = [100, 100, 100]; 
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Lista comunidad uam</Text>
-      <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+    <View className="flex p-1 pt-7 bg-white justify-center items-center">
+      <Text className="text-base font-bold mb-1">Lista comunidad uam</Text>
+      <View className="border-2 border-[#000000]">
+      <Table  borderStyle={{ borderWidth: 2, borderColor: '#000000' }}>
         <Row data={tableHead} style={styles.head} textStyle={styles.headText} widthArr={widthArr} />
         <Rows data={tableData} textStyle={styles.text} widthArr={widthArr} />
       </Table>
+      </View>
     </View>
   );
 }
@@ -27,7 +29,7 @@ export default function ModBrigadista() {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
-  head: { height: 50, backgroundColor: '#f1f8ff' },
+  head: { height: 50, backgroundColor: '#ffffff' },
   headText: { margin: 10, fontSize: 16, fontWeight: 'bold' },
   text: { margin: 10, fontSize: 12 },
 });

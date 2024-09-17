@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements'
@@ -7,14 +8,20 @@ const Navbar: React.FC = () => {
     <View style={styles.navbar}>
       <View style={styles.iconsContainer}>
         <TouchableOpacity>
+          <Link href='/loggedIn/main'>
           <Icon name="notifications"  size={30} style={styles.icon}   color="#fff" />
+          </Link>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Icon name="insert-chart-outlined" // Nombre del icono
+          <Link href="/loggedIn/crudBrigradist">
+          <Icon name="insert-chart-outlined"
         type="material" size={30} style={styles.icon} color="#fff" />
+        </Link>
         </TouchableOpacity>
         <TouchableOpacity>
+{/*           <Link href=''> */}
           <Icon name="menu" size={30} style={styles.icon} color="#fff" />
+{/*           </Link> */}
         </TouchableOpacity>
 
       </View>

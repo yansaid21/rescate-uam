@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { Slot } from 'expo-router';
+import { Slot, Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Layout = () => {
@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        paddingVertical: 40
+        padding:0
     }
 })
 

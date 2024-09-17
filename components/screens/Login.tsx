@@ -19,11 +19,11 @@ export default function Login() {
             <InputPassword text="Contraseña"/>
             <CustomButton 
                 text="Aceptar" 
-                href="/main"
+                href="/loggedIn/main"
             />
             <Text className="text-lg text-center text-[#BDBDBD]">Entrar con</Text>
             <GoogleButton/>
-            <Link href='/register' className="text-lg text-center text-[#BDBDBD] underline">Registrarse</Link>
+            <Link href='/loggedOut/register' className="text-lg text-center text-[#BDBDBD] underline">Registrarse</Link>
         </View>
     )
 }
