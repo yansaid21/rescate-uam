@@ -33,6 +33,13 @@ export default function Login() {
             setEmailError('');
         }
 
+        if (email.length === 0) {
+            setEmailError('La contraseña es requerida');
+            isValid = false;
+        } else {
+            setEmailError('');
+        }
+
         if (password.length === 0) {
             setPasswordError('La contraseña es requerida');
             isValid = false;
@@ -54,15 +61,13 @@ export default function Login() {
             <Input 
                 text="Correo"
                 value={email}
-                onChangeText={setEmail}
-                errorMessage={email ? '' : 'El correo es requerido'}    
+                onChangeText={setEmail}    
             />
             {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
             <InputPassword 
                 text="Contraseña"
                 value={password}
-                onChangeText={setPassword}
-                errorMessage={password ? '' : 'La contraseña es requerida'}     
+                onChangeText={setPassword}    
             />
             {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
             <CustomButton 
