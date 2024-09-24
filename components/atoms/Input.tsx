@@ -6,10 +6,9 @@ type CustomButtonProps = {
     text: string,
     value: string;
     onChangeText: (text: string) => void;
-    errorMessage?: string;
 }
 
-export default function Input({ text, value, onChangeText, errorMessage }: CustomButtonProps) {
+export default function Input({ text, value, onChangeText }: CustomButtonProps) {
     return (
         <View>
             <TextInput 
@@ -19,7 +18,6 @@ export default function Input({ text, value, onChangeText, errorMessage }: Custo
                 value={value}
                 onChangeText={onChangeText}
             />
-            {errorMessage ? <Text className="text-red-500" >{errorMessage}</Text> : null}
         </View>
     )
 }

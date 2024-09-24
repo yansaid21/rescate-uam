@@ -7,10 +7,9 @@ type CustomButtonProps = {
     text: string,
     value: string;
     onChangeText: (text: string) => void;
-    errorMessage?: string;
 }
 
-export default function InputPassword({ text, value, onChangeText, errorMessage }: CustomButtonProps) {
+export default function InputPassword({ text, value, onChangeText }: CustomButtonProps) {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     return (
@@ -23,7 +22,6 @@ export default function InputPassword({ text, value, onChangeText, errorMessage 
                 value={value}
                 onChangeText={onChangeText}
             />
-            {errorMessage ? <Text className="text-red-500" >{errorMessage}</Text> : null}
             <View className='absolute top-[10px] right-[10px]'>
             <Pressable onPress={() => setPasswordVisible(!isPasswordVisible)}>
                     {isPasswordVisible ? (

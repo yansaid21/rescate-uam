@@ -48,6 +48,13 @@ const Register = () => {
             setEmailError('');
         }
 
+        if (email.length === 0) {
+            setEmailError('El correo es requerido');
+            isValid = false;
+        } else {
+            setEmailError('');
+        }
+
         if (password.length < 8) {
             setPasswordError('La contraseña debe tener al menos 8 caracteres');
             isValid = false;
@@ -55,8 +62,22 @@ const Register = () => {
             setPasswordError('');
         }
 
+        if (password.length === 0) {
+            setPasswordError('La contraseña es requerida');
+            isValid = false;
+        } else {
+            setPasswordError('');
+        }
+
         if (repassword !== password) {
             setRepasswordError('Las contraseñas no coinciden');
+            isValid = false;
+        } else {
+            setRepasswordError('');
+        }
+
+        if (repassword.length === 0) {
+            setRepasswordError('La contraseña es requerida');
             isValid = false;
         } else {
             setRepasswordError('');
@@ -70,8 +91,22 @@ const Register = () => {
             setIdError('');
         }
 
+        if (id.length === 0) {
+            setIdError('La identificación es requerida');
+            isValid = false;
+        } else {
+            setIdError('');
+        }
+
         if (validateString(name)) {
             setNameError('El nombre solo debe contener letras');
+            isValid = false;
+        } else {
+            setNameError('');
+        }
+
+        if (name.length === 0) {
+            setNameError('El nombre es requerido');
             isValid = false;
         } else {
             setNameError('');
@@ -84,8 +119,22 @@ const Register = () => {
             setLastnameError('');
         }
 
+        if (lastname.length === 0) {
+            setLastnameError('El apellido es requerido');
+            isValid = false;
+        } else {
+            setLastnameError('');
+        }
+
         if (validateString(program)) {
             setProgramError('El programa solo debe contener letras');
+            isValid = false;
+        } else {
+            setProgramError('');
+        }
+
+        if (program.length === 0) {
+            setProgramError('El programa es requerido');
             isValid = false;
         } else {
             setProgramError('');
@@ -113,50 +162,43 @@ const Register = () => {
             <Input 
                 text='Correo UAM'
                 value={email}
-                onChangeText={setEmail}
-                errorMessage={email ? '' : 'El correo es requerido'}      
+                onChangeText={setEmail}   
             />
             {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
             <InputPassword 
                 text='Contraseña'
                 value={password}
                 onChangeText={setPassword}
-                errorMessage={password ? '' : 'La contraseña es requerida'} 
             />
             {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
             <InputPassword 
                 text='Repetir contraseña'
                 value={repassword}
-                onChangeText={setRepassword}
-                errorMessage={repassword ? '' : 'Escribe la contraseña de nuevo'} 
+                onChangeText={setRepassword} 
             />
             {repassword ? <Text className="text-red-500">{repasswordError}</Text> : null}
             <Input 
                 text='Cédula/Tarjeta de identidad'
                 value={id}
                 onChangeText={setId}
-                errorMessage={id ? '' : 'La identificación es requerida'} 
             />
             {id ? <Text className="text-red-500">{idError}</Text> : null}
             <Input 
                 text='Nombre'
                 value={name}
                 onChangeText={setName}
-                errorMessage={name ? '' : 'El nombre es requerido'} 
             />
             {name ? <Text className="text-red-500">{nameError}</Text> : null}
             <Input 
                 text='Apellido'
                 value={lastname}
                 onChangeText={setLastname}
-                errorMessage={lastname ? '' : 'El apellido es requerido'} 
             />
             {lastname ? <Text className="text-red-500">{lastnameError}</Text> : null}
             <Input 
                 text='Programa'
                 value={program}
                 onChangeText={setProgram}
-                errorMessage={program ? '' : 'El programa es requerido'} 
             />
             {program ? <Text className="text-red-500">{programError}</Text> : null}
             <View className="flex-row items-center">
