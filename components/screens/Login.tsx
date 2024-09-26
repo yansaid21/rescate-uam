@@ -7,6 +7,7 @@ import { Link } from "expo-router";
 import Input from "../atoms/Input";
 import { useState } from "react";
 import { useRouter } from "expo-router";
+import { loginUser } from "../../auth/auth";
 
 export default function Login() {
     const insets = useSafeAreaInsets();
@@ -48,7 +49,16 @@ export default function Login() {
         }
 
         if (isValid) {
-            router.push('/loggedIn/main'); 
+            
+            let data =  loginUser(email,password,"any")
+            if(!data){
+                console.log("no llega nada mi fai");
+                
+            }else{
+                console.log("esto es data",data);
+                
+                router.push("/loggedIn/main")
+            }
         }
     }
     return (

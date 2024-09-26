@@ -6,6 +6,7 @@ import CustomButton from '../atoms/CustomButton';
 import { Checkbox } from 'react-native-paper'; 
 import { Link } from 'expo-router';
 import { useRouter } from "expo-router";
+import { registerUser } from '../../auth/register';
 
 const Register = () => {
     const router = useRouter();
@@ -148,7 +149,13 @@ const Register = () => {
         }
 
         if (isValid) {
-            router.push('/'); 
+            let data=registerUser(name,lastname,email,password,1,"s","d","211",true,3)
+            if(!data){
+                console.log("no hay nada para registrar mi rey, hay un error");
+                
+            }else{
+                router.push("/")
+            }
         }
     }
 
