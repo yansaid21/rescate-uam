@@ -19,9 +19,9 @@ const Navbar: React.FC = () => {
         </Link>
         </TouchableOpacity>
         <TouchableOpacity>
-{/*           <Link href=''> */}
+          <Link href='/loggedIn/account'>
           <Icon name="menu" size={30} style={styles.icon} color="#fff" />
-{/*           </Link> */}
+          </Link>
         </TouchableOpacity>
 
       </View>
