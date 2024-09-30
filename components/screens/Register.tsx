@@ -96,6 +96,7 @@ const Register = () => {
             setIdError('La identificación es requerida');
             isValid = false;
         } else {
+            
             setIdError('');
         }
 
@@ -149,7 +150,8 @@ const Register = () => {
         }
 
         if (isValid) {
-            let data=registerUser(name,lastname,email,password,1,"s","d","211",true,3)
+            const numericId = Number(id);
+            let data = registerUser(name,lastname,email,password,numericId,"O+","1234567890","3216549870",1,"XYZ123")
             if(!data){
                 console.log("no hay nada para registrar mi rey, hay un error");
                 
