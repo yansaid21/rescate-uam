@@ -54,25 +54,25 @@ export default function Login() {
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} // Diferente comportamiento en iOS vs Android
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 30}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Diferente comportamiento en iOS vs Android
         >
+            <Image
+                className="w-52 h-24"
+                source={require('../../assets/UAM/Logos_UAM-07.png')}
+            />
             <ScrollView 
                 contentContainerStyle={styles.container} 
-                keyboardShouldPersistTaps="handled"
             >
                 <View className="flex-1 flex-col justify-between items-center m-5">
-                    <Image
-                        className="w-52 h-24"
-                        source={require('../../assets/UAM/Logos_UAM-07.png')}
-                        />
                     <Text className="text-4xl text-center text-[#0090D0]">Bienvenido a Rescates UAM</Text>
-                    <Input 
-                        text="Correo"
-                        value={email}
-                        onChangeText={setEmail}    
-                    />
-                    {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
+                    <View style={{ marginBottom: 20 }}>
+                        <Input 
+                            text="Correo"
+                            value={email}
+                            onChangeText={setEmail}    
+                        />
+                        {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
+                    </View>
                     <InputPassword 
                         text="Contraseña"
                         value={password}
