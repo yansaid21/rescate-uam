@@ -1,7 +1,7 @@
 import { User } from "../types/user"
 
 export async function loginUser(email: string, password: string, device_name: string) {
-  const uri = "http://localhost:8000/api/auth/login";
+  const uri = "http://192.168.1.9:8000/api/auth/login";
 
   try {
     const response = await fetch(uri, {
@@ -18,15 +18,16 @@ export async function loginUser(email: string, password: string, device_name: st
     });
 
     // Verifica si la respuesta fue exitosa
+    console.log();
+    
     if (!response.ok) {
-      throw new Error(`Error: ${response.statusText}`);
+    throw new Error(`Error: ${response.statusText}`);
     }
+    
 
     const json = await response.json();
-    console.log(json);
-
-    const { data } = json;
-    return data;
+    
+    return json;
 
   } catch (error) {
     console.error("Error during login:", error);
