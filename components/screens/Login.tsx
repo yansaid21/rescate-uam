@@ -1,5 +1,5 @@
-import { View, Text, Image, ScrollView, KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { View, Text, Image, ScrollView, KeyboardAvoidingView, Platform, StyleSheet } from "react-native"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 import GoogleButton from "../atoms/GoogleButton";
 import CustomButton from "../atoms/CustomButton";
 import InputPassword from "../atoms/InputPassword";
@@ -23,7 +23,7 @@ export default function Login() {
         return emailRegex.test(email);
     }
 
-    const handleSubmit = async () => {  // Convertimos handleSubmit en una función asíncrona
+    const handleSubmit = async () => {
         let isValid = true;
 
         // Validar el correo
@@ -35,7 +35,7 @@ export default function Login() {
         }
 
         if (email.length === 0) {
-            setEmailError('El correo es requerido');
+            setEmailError('La contraseña es requerida');
             isValid = false;
         } else {
             setEmailError('');
@@ -62,11 +62,10 @@ export default function Login() {
             }
         }
     }
-
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} // Diferente comportamiento en iOS vs Android
             keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 30}
         >
             <Image
@@ -77,40 +76,40 @@ export default function Login() {
                 contentContainerStyle={styles.container} 
                 keyboardShouldPersistTaps="handled"
             >
-                <View className="flex-1 flex-col justify-between items-center m-5 py-8">
-                    <Image
-                        className="w-52 h-24"
-                        source={require('../../assets/UAM/Logos_UAM-07.png')}
-                    />
-                    <Text className="text-4xl text-center text-[#0090D0]">Bienvenido a Rescates UAM</Text>
-                    <Input 
-                        text="Correo"
-                        value={email}
-                        onChangeText={setEmail}    
-                    />
-                    {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
-                    <InputPassword 
-                        text="Contraseña"
-                        value={password}
-                        onChangeText={setPassword}    
-                    />
-                    {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
+                <View className="flex-1 flex-col justify-between items-center m-5">
+                    <View className="mb-10">
+                        <Text className="text-4xl text-center text-[#0090D0] mb-5">Bienvenido a Rescates UAM</Text>
+                        <Input 
+                            text="Correo"
+                            value={email}
+                            onChangeText={setEmail}    
+                        />
+                        {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
+                    </View>
+                    <View className="mb-10">
+                        <InputPassword 
+                            text="Contraseña"
+                            value={password}
+                            onChangeText={setPassword}    
+                        />
+                        {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
+                    </View>
                     <CustomButton 
                         text="Aceptar" 
                         onPress={handleSubmit}
-                    />
+                        />
                     <Text className="text-lg text-center text-[#BDBDBD]">Entrar con</Text>
-                    <GoogleButton />
+                    <GoogleButton/>
                     <Link href='/loggedOut/register' className="text-lg text-center text-[#BDBDBD] underline">Registrarse</Link>
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         justifyContent: 'center',
-    },
+    }
 });
