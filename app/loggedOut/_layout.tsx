@@ -6,11 +6,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Layout = () => {
     return (
-        <SafeAreaProvider>
             <View style={styles.container}>
                 <Slot/>
             </View>
-        </SafeAreaProvider>
     );
 }
 
@@ -19,6 +17,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingTop:50,
+        paddingBottom:20
     }
 })
 
