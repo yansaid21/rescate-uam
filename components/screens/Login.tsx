@@ -69,6 +69,10 @@ export default function Login() {
             behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 30}
         >
+            <Image
+                className="w-52 h-24 mx-auto"
+                source={require('../../assets/UAM/Logos_UAM-07.png')}
+            />
             <ScrollView 
                 contentContainerStyle={styles.container} 
                 keyboardShouldPersistTaps="handled"
