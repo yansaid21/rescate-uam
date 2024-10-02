@@ -67,28 +67,32 @@ export default function Login() {
             behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} // Diferente comportamiento en iOS vs Android
             keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 30}
         >
+            <Image
+                className="w-52 h-24 mx-auto"
+                source={require('../../assets/UAM/Logos_UAM-07.png')}
+            />
             <ScrollView 
                 contentContainerStyle={styles.container} 
                 keyboardShouldPersistTaps="handled"
             >
                 <View className="flex-1 flex-col justify-between items-center m-5">
-                    <Image
-                        className="w-52 h-24"
-                        source={require('../../assets/UAM/Logos_UAM-07.png')}
+                    <View className="mb-10">
+                        <Text className="text-4xl text-center text-[#0090D0] mb-5">Bienvenido a Rescates UAM</Text>
+                        <Input 
+                            text="Correo"
+                            value={email}
+                            onChangeText={setEmail}    
                         />
-                    <Text className="text-4xl text-center text-[#0090D0]">Bienvenido a Rescates UAM</Text>
-                    <Input 
-                        text="Correo"
-                        value={email}
-                        onChangeText={setEmail}    
-                    />
-                    {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
-                    <InputPassword 
-                        text="Contraseña"
-                        value={password}
-                        onChangeText={setPassword}    
-                    />
-                    {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
+                        {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
+                    </View>
+                    <View className="mb-10">
+                        <InputPassword 
+                            text="Contraseña"
+                            value={password}
+                            onChangeText={setPassword}    
+                        />
+                        {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
+                    </View>
                     <CustomButton 
                         text="Aceptar" 
                         onPress={handleSubmit}
