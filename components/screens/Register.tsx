@@ -6,6 +6,7 @@ import CustomButton from '../atoms/CustomButton';
 import { Checkbox } from 'react-native-paper'; 
 import { Link } from 'expo-router';
 import { useRouter } from "expo-router";
+import { registerUser } from '../../auth/register';
 
 const Register = () => {
     const router = useRouter();
@@ -95,6 +96,7 @@ const Register = () => {
             setIdError('La identificación es requerida');
             isValid = false;
         } else {
+            
             setIdError('');
         }
 
@@ -148,7 +150,14 @@ const Register = () => {
         }
 
         if (isValid) {
-            router.push('/'); 
+            const numericId = Number(id);
+            let data = registerUser(name,lastname,email,password,numericId,"O+","1234567890","3216549870",1,"XYZ123")
+            if(!data){
+                console.log("no hay nada para registrar mi rey, hay un error");
+                
+            }else{
+                router.push("/")
+            }
         }
     }
 

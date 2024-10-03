@@ -8,6 +8,10 @@ export const BigEmergencyButton = () => {
         setIsYellow(!isYellow); 
     };
 
+    const logoSource = isYellow 
+        ? require('../../assets/UAM/Logos_UAM-08.png') 
+        : require('../../assets/UAM/Logos_UAM-10.png');
+
     return (
         <Pressable 
             onPress={handlePress}
@@ -15,7 +19,7 @@ export const BigEmergencyButton = () => {
         >
             <View style={[styles.button, isYellow ? styles.button : styles.buttonPressed]}>
                 <Image
-                    source={require('../../assets/UAM/Logos_UAM-10.png')}
+                    source={logoSource}  
                     style={styles.logo} 
                 />
             </View>
@@ -32,15 +36,15 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     button: {
-        backgroundColor: '#0090D0',
-        width: 300,  // Ajusta el tamaño según lo grande que lo quieras
-        height: 300, // Ajusta el tamaño según lo grande que lo quieras
-        borderRadius: 150,  // Mitad de width y height para que sea un círculo
+        backgroundColor: '#F4D73B', 
+        width: 300,  
+        height: 300, 
+        borderRadius: 150, 
         justifyContent: 'center',
         alignItems: 'center',
     },
     buttonPressed: {
-        backgroundColor: '#F4D73B', 
+        backgroundColor: '#0090D0',
     },
     logo: {
         width: 150,

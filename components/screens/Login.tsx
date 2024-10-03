@@ -7,6 +7,7 @@ import { Link } from "expo-router";
 import Input from "../atoms/Input";
 import { useState } from "react";
 import { useRouter } from "expo-router";
+import { loginUser } from "../../auth/auth";
 
 export default function Login() {
     const insets = useSafeAreaInsets();
@@ -22,7 +23,7 @@ export default function Login() {
         return emailRegex.test(email);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         let isValid = true;
 
         // Validar el correo
@@ -48,7 +49,17 @@ export default function Login() {
         }
 
         if (isValid) {
-            router.push('/loggedIn/main'); 
+            try {
+                const data = await loginUser(email, password, "any");
+                console.log("data que llega antes del if",data);
+                
+                if (data !=null) {
+                    console.log("Inicio de sesión exitoso", data);
+                    router.push("/loggedIn/main");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
         }
     }
     return (
@@ -57,6 +68,10 @@ export default function Login() {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Diferente comportamiento en iOS vs Android
         >
             <Image
+                className="w-52 h-24 mx-auto"
+                source={require('../../assets/UAM/Logos_UAM-07.png')}
+            />
+            <Image
                 className="w-52 h-24"
                 source={require('../../assets/UAM/Logos_UAM-07.png')}
             />
@@ -64,8 +79,8 @@ export default function Login() {
                 contentContainerStyle={styles.container} 
             >
                 <View className="flex-1 flex-col justify-between items-center m-5">
-                    <Text className="text-4xl text-center text-[#0090D0]">Bienvenido a Rescates UAM</Text>
-                    <View style={{ marginBottom: 20 }}>
+                    <View className="mb-10">
+                        <Text className="text-4xl text-center text-[#0090D0] mb-5">Bienvenido a Rescates UAM</Text>
                         <Input 
                             text="Correo"
                             value={email}
@@ -73,12 +88,14 @@ export default function Login() {
                         />
                         {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
                     </View>
-                    <InputPassword 
-                        text="Contraseña"
-                        value={password}
-                        onChangeText={setPassword}    
-                    />
-                    {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
+                    <View className="mb-10">
+                        <InputPassword 
+                            text="Contraseña"
+                            value={password}
+                            onChangeText={setPassword}    
+                        />
+                        {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
+                    </View>
                     <CustomButton 
                         text="Aceptar" 
                         onPress={handleSubmit}
@@ -98,4 +115,3 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     }
 });
-

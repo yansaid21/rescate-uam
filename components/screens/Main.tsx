@@ -9,13 +9,20 @@ import ModBrigadistaButton from "../atoms/ModBrigadistaButton"
 export default function Main() {
   return (
     <View className="h-full " >  
-      <StatusBar barStyle="light-content" backgroundColor="#0069A3" />
-      <Navbar />
+      
       <View className=" justify-center items-center pt-12">
         <View className="pb-4" >
         <BigEmergencyButton/>
         </View>
+        <View className="p-5">
         <TypeEmergencyButton text="Evacuación" />
+        </View>
+        <View className="p-5">
+        <TypeEmergencyButton text="Incendio" />
+        </View>
+        <View className="p-5">
+        <TypeEmergencyButton text="Sismo" />
+        </View>
       </View>
     </View>
   );
