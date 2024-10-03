@@ -65,8 +65,7 @@ export default function Login() {
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} // Diferente comportamiento en iOS vs Android
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 30}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Diferente comportamiento en iOS vs Android
         >
             <Image
                 className="w-52 h-24 mx-auto"
@@ -74,7 +73,6 @@ export default function Login() {
             />
             <ScrollView 
                 contentContainerStyle={styles.container} 
-                keyboardShouldPersistTaps="handled"
             >
                 <View className="flex-1 flex-col justify-between items-center m-5">
                     <View className="mb-10">

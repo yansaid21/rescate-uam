@@ -4,9 +4,7 @@ import EditProfile from '../../components/screens/EditProfile';
 
 const EditAccount = () => {
     return (
-        <View>
-            <EditProfile/>
-        </View>
+        <EditProfile/>
     );
 }
 
