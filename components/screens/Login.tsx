@@ -71,10 +71,6 @@ export default function Login() {
                 className="w-52 h-24 mx-auto"
                 source={require('../../assets/UAM/Logos_UAM-07.png')}
             />
-            <Image
-                className="w-52 h-24"
-                source={require('../../assets/UAM/Logos_UAM-07.png')}
-            />
             <ScrollView 
                 contentContainerStyle={styles.container} 
             >
