@@ -17,7 +17,6 @@ const Register = () => {
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [lastname, setLastname] = useState('');
-    const [program, setProgram] = useState('');
     const [isChecked, setIsChecked] = useState(false);
 
     const [emailError, setEmailError] = useState('');
@@ -26,14 +25,13 @@ const Register = () => {
     const [idError, setIdError] = useState('');
     const [nameError, setNameError] = useState('');
     const [lastnameError, setLastnameError] = useState('');
-    const [programError, setProgramError] = useState('');
     const [checkboxError, setCheckboxError] = useState('');
 
-    const validateEmail = (email) => {
+    const validateEmail = (email:string) => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@autonoma\.([a-z]{2,})(\.[a-z]{2,})?$/;
         return emailRegex.test(email);
     }
-    const validateString = (string) => {
+    const validateString = (string:string) => {
         const stringRegex = /^[0-9]+$/;
         return stringRegex.test(string);
     }
@@ -128,20 +126,6 @@ const Register = () => {
             setLastnameError('');
         }
 
-        if (validateString(program)) {
-            setProgramError('El programa solo debe contener letras');
-            isValid = false;
-        } else {
-            setProgramError('');
-        }
-
-        if (program.length === 0) {
-            setProgramError('El programa es requerido');
-            isValid = false;
-        } else {
-            setProgramError('');
-        }
-
         if (!isChecked) {
             setCheckboxError('Debes aceptar los términos y condiciones');
             isValid = false;
@@ -204,12 +188,6 @@ const Register = () => {
                 onChangeText={setLastname}
             />
             {lastname ? <Text className="text-red-500">{lastnameError}</Text> : null}
-            <Input 
-                text='Programa'
-                value={program}
-                onChangeText={setProgram}
-            />
-            {program ? <Text className="text-red-500">{programError}</Text> : null}
             <View className="flex-row items-center">
                 <Checkbox
                     status={isChecked ? 'checked' : 'unchecked'}

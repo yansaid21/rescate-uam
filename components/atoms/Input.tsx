@@ -17,6 +17,7 @@ export default function Input({ text, value, onChangeText }: CustomButtonProps) 
                         placeholderTextColor={'#000000'}
                         value={value}
                         onChangeText={onChangeText}
+                        autoCapitalize='none' 
                         />
                 </View>
     )
