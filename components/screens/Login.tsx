@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, KeyboardAvoidingView, Platform, StyleSheet, Modal, Button, Pressable } from "react-native"
+import { View, Text, Image, ScrollView, KeyboardAvoidingView, Platform, StyleSheet, Modal, Pressable } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import GoogleButton from "../atoms/GoogleButton";
 import CustomButton from "../atoms/CustomButton";
@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useRouter } from "expo-router";
 import { loginUser } from "../../auth/auth";
 import { useForm, Controller } from "react-hook-form";
+import ErrorModal from "../molecules/ErrorModal";
 
 interface FormData {
     email: string;
@@ -26,10 +27,13 @@ export default function Login() {
     const onSubmit = async (data: FormData) => {
         try {
             const result = await loginUser(data.email, data.password, "any");
+            
             if (result) {
                 router.push("/loggedIn/main");
             }
         } catch (error: any) {
+            console.log('en login ', error);
+            
             setErrorMessage(error.message);
             setModalVisible(true);
         }
@@ -47,7 +51,7 @@ export default function Login() {
             <ScrollView 
                 contentContainerStyle={styles.container} 
             >
-                <View className="flex-1 flex-col justify-between items-center m-5">
+                <View className="flex-1 flex-col justify-evenly items-center m-5">
                     <View className="mb-5">
                         <Text className="text-4xl text-center text-[#0090D0] mb-10">Bienvenido a Rescates UAM</Text>
                         <Controller
@@ -91,29 +95,12 @@ export default function Login() {
                         text="Aceptar" 
                         onPress={handleSubmit(onSubmit)}
                         />
-                    <Text className="text-lg text-center text-[#BDBDBD]">Entrar con</Text>
-                    <GoogleButton/>
                     <Link href='/loggedOut/register' className="text-lg text-center text-[#BDBDBD] underline">Registrarse</Link>
-                    <Modal
-                        transparent={true}
-                        visible={modalVisible}
-                        animationType="slide"
-                        onRequestClose={() => setModalVisible(false)}
-                    >
-                        <View className='flex-1 justify-center items-center bg-black/50'>
-                            <View className='w-72 p-5 bg-white rounded-lg items-center'>
-                                <Text className='mb-4 text-lg text-center'>
-                                    {errorMessage}
-                                </Text>
-                                <Pressable 
-                                    onPress={() => setModalVisible(false)}
-                                    className='p-[10px] rounded-[19px] w-[212px] h-[49px] bg-[#0069A3] justify-center items-center'
-                                >
-                                    <Text className='text-white text-lg'>Cerrar</Text>
-                                </Pressable>
-                            </View>
-                        </View>
-                    </Modal>
+                    <ErrorModal 
+                        visible={modalVisible} 
+                        errorMessage={errorMessage} 
+                        onClose={() => setModalVisible(false)} 
+                    />
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>

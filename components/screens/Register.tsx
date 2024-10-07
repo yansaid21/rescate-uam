@@ -8,6 +8,8 @@ import { Link } from 'expo-router';
 import { useRouter } from "expo-router";
 import { useForm, Controller } from 'react-hook-form'; 
 import { registerUser } from '../../auth/register';
+import { getAllUsers } from '../../auth/get';
+import ErrorModal from '../molecules/ErrorModal';
 
 interface FormData {
     email: string;
@@ -25,30 +27,48 @@ const Register = () => {
     const { control, handleSubmit, formState: { errors }, watch } = useForm<FormData>();
     const [isChecked, setIsChecked] = useState(false);
     const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     
     const onSubmit = async (data: FormData) => {
-        console.log('hasAttemptedSubmit:', hasAttemptedSubmit, 'isChecked:', isChecked);
         setHasAttemptedSubmit(true); 
         if (!isChecked) {
             return; 
         }
-        const numericId = Number(data.id);
-        let result = await registerUser(
-            data.name,
-            data.lastname,
-            data.email,
-            data.password,
-            numericId,
-            "O+",
-            "1234567890",
-            "3216549870",
-            1,
-            "XYZ123"
+        const users = await getAllUsers();
+
+        // Verificar si el email o el id ya están registrados
+        const userExists = users.some(
+            (user: any) => user.email === data.email || user.id_card === Number(data.id)
         );
-        if (result) {
-            router.push("/");
-        } else {
-            console.log("Error al registrar");
+
+        if (userExists) {
+            // Mostrar error si ya existe el usuario
+            setErrorMessage("El usuario ya está registrado.");
+            setModalVisible(true); // Si tienes un modal para errores
+            return; // No continuar con el registro
+        }
+        try {
+            const numericId = Number(data.id);
+            let result = await registerUser(
+                data.name,
+                data.lastname,
+                data.email,
+                data.password,
+                numericId,
+                "O+",
+                "1234567890",
+                "3216549870",
+                1,
+                "XYZ123"
+            );
+
+            if (result) {
+                router.push("/");
+            }
+        } catch (error: any) {
+            console.log("Error al registrar", error);
         }
     };
 
@@ -149,7 +169,7 @@ const Register = () => {
                 <Controller
                 control={control}
                 name="name"
-                rules={{ required: 'El nombre es requerido', pattern: { value: /^[A-Za-z]+$/, message: 'El nombre solo debe contener letras' } }}
+                rules={{ required: 'El nombre es requerido', pattern: { value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/, message: 'El nombre solo debe contener letras' } }}
                 render={({ field: { onChange } }) => (
                     <>
                     <Input
@@ -165,7 +185,7 @@ const Register = () => {
                 <Controller
                     control={control}
                     name="lastname"
-                    rules={{ required: 'El apellido es requerido', pattern: { value: /^[A-Za-z]+$/, message: 'El apellido solo debe contener letras' } }}
+                    rules={{ required: 'El apellido es requerido', pattern: { value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/, message: 'El apellido solo debe contener letras' } }}
                     render={({ field: { onChange } }) => (
                         <>
                         <Input
@@ -195,13 +215,15 @@ const Register = () => {
             <View className="mb-5">
                 <CustomButton 
                 text="Registrarse" 
-                
-                onPress={() => {
-                    console.log('Intentando enviar el formulario'); // Verifica si se llama al botón
-                    handleSubmit(onSubmit)();
-                }}
+                onPress={handleSubmit(onSubmit)} 
                 />
             </View>
+            <Link href='/' className="text-lg text-center text-[#BDBDBD] underline">Iniciar Sesión</Link>
+            <ErrorModal 
+                visible={modalVisible} 
+                errorMessage={errorMessage} 
+                onClose={() => setModalVisible(false)} 
+            />
             </ScrollView>
         </View>
         </KeyboardAvoidingView>
