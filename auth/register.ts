@@ -40,9 +40,11 @@ export async function registerUser(
       body: JSON.stringify(requestBody), // Convertir el objeto en JSON antes de enviarlo
     });
 
-    // Verifica si la respuesta fue exitosa
     if (!response.ok) {
-      throw new Error(`Error: ${response.statusText}`);
+      const errorData = await response.json();
+      let errorMessage = `Error: ${response.statusText}`;
+      errorMessage += ` - ${errorData.message}`;
+      throw new Error(errorMessage);
     }
 
     const json = await response.json();

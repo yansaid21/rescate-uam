@@ -18,13 +18,16 @@ export async function loginUser(email: string, password: string, device_name: st
       }),
     });
 
-    // Verifica si la respuesta fue exitosa
-    console.log();
-    
     if (!response.ok) {
-    throw new Error(`Error: ${response.statusText}`);
+      const errorData = await response.json();
+      if (response.status === 404) {
+        throw new Error("El usuario no está registrado. Por favor, regístrate.");
+      } else if (response.status === 401) {
+        throw new Error("La contraseña es incorrecta. Inténtalo de nuevo.");
+      } else {
+        throw new Error(errorData.message || "Error al iniciar sesión. Inténtalo más tarde.");
+      }
     }
-
 
     const json = await response.json();
     await AsyncStorage.setItem('id', json.user.id.toString());
@@ -34,5 +37,6 @@ export async function loginUser(email: string, password: string, device_name: st
 
   } catch (error) {
     console.error("Error during login:", error);
+    throw  error;
   }
 }

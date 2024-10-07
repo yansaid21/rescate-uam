@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, View, Text } from 'react-native';
+import { Image, View, Text, KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
 import Input from '../atoms/Input';
 import InputPassword from '../atoms/InputPassword';
 import CustomButton from '../atoms/CustomButton';
@@ -146,48 +146,68 @@ const Register = () => {
     }
 
     return (
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Diferente comportamiento en iOS vs Android
+        >
         <View className="flex-1 flex-col justify-between items-center m-5">
             <Image
                 className="w-52 h-24"
                 source={require('../../assets/UAM/Logos_UAM-07.png')}
-            />
+                />
+            <ScrollView 
+                contentContainerStyle={styles.container} 
+            >
             <Text className="text-4xl text-center text-[#0090D0] mb-[10px]">Regístrate en Rescates UAM</Text>
-            <Input 
-                text='Correo UAM'
-                value={email}
-                onChangeText={setEmail}   
-            />
-            {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
-            <InputPassword 
-                text='Contraseña'
-                value={password}
-                onChangeText={setPassword}
-            />
-            {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
-            <InputPassword 
-                text='Repetir contraseña'
-                value={repassword}
-                onChangeText={setRepassword} 
-            />
-            {repassword ? <Text className="text-red-500">{repasswordError}</Text> : null}
-            <Input 
-                text='Cédula/Tarjeta de identidad'
-                value={id}
-                onChangeText={setId}
-            />
-            {id ? <Text className="text-red-500">{idError}</Text> : null}
-            <Input 
-                text='Nombre'
-                value={name}
-                onChangeText={setName}
-            />
-            {name ? <Text className="text-red-500">{nameError}</Text> : null}
-            <Input 
-                text='Apellido'
-                value={lastname}
-                onChangeText={setLastname}
-            />
-            {lastname ? <Text className="text-red-500">{lastnameError}</Text> : null}
+            <View className="mb-5">
+                <Input 
+                    text='Correo UAM'
+                    value={email}
+                    onChangeText={setEmail}   
+                    />
+                {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
+            </View>
+            <View className="mb-5">
+                <InputPassword 
+                    text='Contraseña'
+                    value={password}
+                    onChangeText={setPassword}
+                    />
+                {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
+            </View>
+            <View className="mb-5">
+                <InputPassword 
+                    text='Repetir contraseña'
+                    value={repassword}
+                    onChangeText={setRepassword} 
+                />
+                {repassword ? <Text className="text-red-500">{repasswordError}</Text> : null}
+            </View>
+            <View className="mb-5">
+                <Input 
+                    text='Cédula/Tarjeta de identidad'
+                    value={id}
+                    onChangeText={setId}
+                    />
+                {id ? <Text className="text-red-500">{idError}</Text> : null}
+            </View>
+            <View className="mb-5">
+                <Input 
+                    text='Nombre'
+                    value={name}
+                    onChangeText={setName}
+                    />
+                {name ? <Text className="text-red-500">{nameError}</Text> : null}
+            </View>
+            <View className="mb-5">
+                <Input 
+                    text='Apellido'
+                    value={lastname}
+                    onChangeText={setLastname}
+                    />
+                {lastname ? <Text className="text-red-500">{lastnameError}</Text> : null}
+            </View>
+            <View className="mb-5">
             <View className="flex-row items-center">
                 <Checkbox
                     status={isChecked ? 'checked' : 'unchecked'}
@@ -195,18 +215,31 @@ const Register = () => {
                         setIsChecked(!isChecked);
                     }}
                     color="#0090D0"
-                />
+                    />
                 <Link className="text-sm underline text-[#0090D0]" href='/loggedOut/conditions'>
                     Términos y condiciones
                 </Link>
             </View>
             {checkboxError ? <Text className="text-red-500">{checkboxError}</Text> : null}
-            <CustomButton 
-                text="Registrarse" 
-                onPress={handleSubmit}
-            />
+            </View>
+            <View className="mb-5">
+                <CustomButton 
+                    text="Registrarse" 
+                    onPress={handleSubmit}
+                    />
+            </View>
+            </ScrollView>
         </View>
+        </KeyboardAvoidingView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+});
 
 export default Register;
