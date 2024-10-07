@@ -8,6 +8,12 @@ import Input from "../atoms/Input";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import { loginUser } from "../../auth/auth";
+import { useForm, Controller } from "react-hook-form";
+
+interface FormData {
+    email: string;
+    password: string;
+}
 
 export default function Login() {
     const insets = useSafeAreaInsets();
@@ -15,63 +21,24 @@ export default function Login() {
     const [modalVisible, setModalVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
+    const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-    const validateEmail = (email: string) => {
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@autonoma\.([a-z]{2,})(\.[a-z]{2,})?$/;
-        return emailRegex.test(email);
-    }
-
-    const handleSubmit = async () => {
-        let isValid = true;
-
-        // Validar el correo
-        if (!validateEmail(email)) {
-            setEmailError('Correo inválido');
-            isValid = false;
-        } else {
-            setEmailError('');
-        }
-
-        if (email.length === 0) {
-            setEmailError('La contraseña es requerida');
-            isValid = false;
-        } else {
-            setEmailError('');
-        }
-
-        if (password.length === 0) {
-            setPasswordError('La contraseña es requerida');
-            isValid = false;
-        } else {
-            setPasswordError('');
-        }
-
-        if (isValid) {
-            try {
-                const data = await loginUser(email, password, "any");
-                console.log("data que llega antes del if",data);
-                console.log('data error ', data.error);
-                
-                if (data == undefined) {
-                } else {
-                    console.log("Inicio de sesión exitoso", data);
-                    router.push("/loggedIn/main");
-                }
-            } catch (error:any) {
-                setErrorMessage(error.message);
-                setModalVisible(true);
-                console.error("Error:", error);
+    const onSubmit = async (data: FormData) => {
+        try {
+            const result = await loginUser(data.email, data.password, "any");
+            if (result) {
+                router.push("/loggedIn/main");
             }
+        } catch (error: any) {
+            setErrorMessage(error.message);
+            setModalVisible(true);
         }
-    }
+    };
+
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Diferente comportamiento en iOS vs Android
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
         >
             <Image
                 className="w-52 h-24 mx-auto"
@@ -83,24 +50,46 @@ export default function Login() {
                 <View className="flex-1 flex-col justify-between items-center m-5">
                     <View className="mb-5">
                         <Text className="text-4xl text-center text-[#0090D0] mb-10">Bienvenido a Rescates UAM</Text>
-                        <Input 
-                            text="Correo"
-                            value={email}
-                            onChangeText={setEmail}    
+                        <Controller
+                            control={control}
+                            name="email"
+                            rules={{
+                                required: 'El correo es requerido',
+                                pattern: {
+                                value: /^[a-zA-Z0-9._%+-]+@autonoma\.([a-z]{2,})(\.[a-z]{2,})?$/,
+                                message: 'Correo inválido',
+                                }
+                            }}
+                            render={({ field: { onChange } }) => (
+                                <>
+                                <Input
+                                    text="Correo"
+                                    onChangeText={onChange} 
+                                />
+                                {errors.email && <Text className="text-red-500">{errors.email.message}</Text>}
+                                </>
+                            )}
                         />
-                        {emailError ? <Text className="text-red-500">{emailError}</Text> : null}
                     </View>
                     <View className="mb-5">
-                        <InputPassword 
-                            text="Contraseña"
-                            value={password}
-                            onChangeText={setPassword}    
+                    <Controller
+                        control={control}
+                        name="password"
+                        rules={{ required: 'La contraseña es requerida' }}
+                        render={({ field: { onChange } }) => (
+                            <>
+                            <InputPassword
+                                text="Contraseña"
+                                onChangeText={onChange}
+                            />
+                            {errors.password && <Text className="text-red-500">{errors.password.message}</Text>}
+                            </>
+                        )}
                         />
-                        {passwordError ? <Text className="text-red-500">{passwordError}</Text> : null}
                     </View>
                     <CustomButton 
                         text="Aceptar" 
-                        onPress={handleSubmit}
+                        onPress={handleSubmit(onSubmit)}
                         />
                     <Text className="text-lg text-center text-[#BDBDBD]">Entrar con</Text>
                     <GoogleButton/>
