@@ -1,31 +1,55 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, View, Image } from 'react-native';
 
-export const BigEmergencyButton = () => {
-    const [isYellow, setIsYellow] = useState(true);
+// Definimos los tipos de los props
+interface BigEmergencyButtonProps {
+    initialIsYellow: boolean;
+    buttonWidth: number;
+    buttonHeight: number;
+    buttonBorderRadius: number;
+    logoWidth: number;
+    logoHeight: number;
+}
+
+export const BigEmergencyButton: React.FC<BigEmergencyButtonProps> = ({
+    initialIsYellow,
+    buttonWidth,
+    buttonHeight,
+    buttonBorderRadius,
+    logoWidth,
+    logoHeight
+}) => {
+    const [isYellow, setIsYellow] = useState(initialIsYellow);
 
     const handlePress = () => {
-        setIsYellow(!isYellow); 
+        setIsYellow(!isYellow);
     };
 
-    const logoSource = isYellow 
-        ? require('../../assets/UAM/Logos_UAM-08.png') 
+    const logoSource = isYellow
+        ? require('../../assets/UAM/Logos_UAM-08.png')
         : require('../../assets/UAM/Logos_UAM-10.png');
 
     return (
-        <Pressable 
-            onPress={handlePress}
-            style={styles.buttonContainer}
-        >
-            <View style={[styles.button, isYellow ? styles.button : styles.buttonPressed]}>
+        <Pressable onPress={handlePress} style={styles.buttonContainer}>
+            <View
+                style={[
+                    styles.button,
+                    {
+                        width: buttonWidth,
+                        height: buttonHeight,
+                        borderRadius: buttonBorderRadius,
+                        backgroundColor: isYellow ? '#F4D73B' : '#0090D0',
+                    },
+                ]}
+            >
                 <Image
-                    source={logoSource}  
-                    style={styles.logo} 
+                    source={logoSource}
+                    style={{ width: logoWidth, height: logoHeight }}
                 />
             </View>
         </Pressable>
     );
-}
+};
 
 const styles = StyleSheet.create({
     buttonContainer: {
@@ -34,20 +58,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 4,
-    },
-    button: {
-        backgroundColor: '#F4D73B', 
-        width: 300,  
-        height: 300, 
-        borderRadius: 150, 
         justifyContent: 'center',
         alignItems: 'center',
     },
-    buttonPressed: {
-        backgroundColor: '#0090D0',
-    },
-    logo: {
-        width: 150,
-        height: 250,
+    button: {
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
