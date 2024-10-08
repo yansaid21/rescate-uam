@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { KeyIcon, PencilIcon, ProfileIcon } from '../atoms/Icons';
+import { KeyIcon, LoggOutIcon, PencilIcon, ProfileIcon } from '../atoms/Icons';
 import { Link } from 'expo-router';
 import { getUserInfo } from '../../auth/get';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -40,8 +40,8 @@ const Profile = () => {
             <Text className='font-medium text-center text-[24px]'>{role}</Text>
             <View className='m-9 items-start'>
                 <View className='flex-row items-center m-2'>
-                    <View className='w-[52px] h-[50px] b-[#0090D0] rounded-[50px] items-center justify-center'>
-                        <PencilIcon size={35} color='#D9D9D9'/>
+                    <View className='w-[52px] h-[50px] bg-[#0090D0] rounded-[50px] items-center justify-center mr-3'>
+                        <PencilIcon size={35} color='#fff'/>
                     </View>
                     <Link 
                         href='/loggedIn/editAccount' 
@@ -52,11 +52,15 @@ const Profile = () => {
                     </Link>
                 </View>
                 <View className='flex-row items-center m-2'>
-                    <View className='w-[52px] h-[50px] b-[#0090D0] rounded-[50px] items-center justify-center'>
-                        <KeyIcon size={35} color='#D9D9D9'/>
+                    <View className='w-[52px] h-[50px] bg-[#0090D0] rounded-[50px] items-center justify-center mr-3'>
+                        <KeyIcon size={35} color='#fff'/>
                     </View>
                     <Link href='/loggedIn/changePassword' className='font-medium text-center text-[24px]'>Cambiar contraseña</Link>
                 </View>
+            </View>
+            <View className='justify-items-end items-center m-7'>
+                <LoggOutIcon size={40} color='#0090D0'/>
+                <Text className='text-center mt-4 text-[#0090D0] text-lg'>Cerrar sesión</Text>
             </View>
         </View>
     );
