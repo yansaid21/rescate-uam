@@ -1,6 +1,6 @@
 // api/userService.ts
 export async function getUserInfo(id_user: number, token: string) {
-    const uri = `http://192.168.20.21:8000/api/users/${id_user}`;
+    const uri = `http://192.168.1.2:8000/api/users/${id_user}`;
 
     try {
         const response = await fetch(uri, {
