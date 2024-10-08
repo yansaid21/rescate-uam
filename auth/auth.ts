@@ -2,7 +2,7 @@ import { User } from "../types/user"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export async function loginUser(email: string, password: string, device_name: string) {
-  const uri = "http://192.168.1.72:8000/api/auth/login";
+  const uri = "http://192.168.1.10:8000/api/auth/login";
 
   try {
     const response = await fetch(uri, {

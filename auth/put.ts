@@ -1,6 +1,6 @@
 // api/userService.ts
 export async function updateUserInfo(id_user: number, token: string, userData: any) {
-    const uri = `http://192.168.1.72:8000/api/users/${id_user}`;
+    const uri = `http://192.168.1.10:8000/api/users/${id_user}`;
     console.log("Log de userData: ",userData);
     
     const formData = new FormData();
@@ -40,7 +40,7 @@ export async function updateUserInfo(id_user: number, token: string, userData: a
 }
 
 export async function updateUserInfoWithoutEmail(id_user: number, token: string, userData: any) {
-    const uri = `http://192.168.1.72:8000/api/users/${id_user}`;
+    const uri = `http://192.168.1.10:8000/api/users/${id_user}`;
     console.log("Log de userData: ",userData);
     
     const formData = new FormData();

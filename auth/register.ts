@@ -12,7 +12,7 @@ export async function registerUser(
   institution_id: number,
   code: string
 ) {
-  const uri = "http://192.168.1.72:8000/api/users";
+  const uri = "http://192.168.1.10:8000/api/users";
 
   const requestBody = {
     name,
