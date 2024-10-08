@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Alert } from 'react-native';
 import Input from '../atoms/Input';
 import CustomButton from '../atoms/CustomButton';
 import { getUserInfo } from '../../auth/get';
-import { updateUserInfo } from '../../auth/put'; // Importa la función de actualización
+import { updateUserInfo, updateUserInfoWithoutEmail } from '../../auth/put'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditProfile = () => {
@@ -11,6 +11,8 @@ const EditProfile = () => {
     const [name, setName] = useState('');
     const [lastname, setLastname] = useState('');
     const [id, setId] = useState('');
+    const [dif, setDif] = useState(false);
+    const [loadedEmail, setLoadedEmail] = useState(false); // Para manejar el estado inicial de la carga del email
 
     useEffect(() => {
         const fetchUserInfo = async () => {
@@ -20,9 +22,20 @@ const EditProfile = () => {
 
                 if (token && id_user) {
                     const user = await getUserInfo(Number(id_user), token); 
-                    
                     if (user && user.data) {
-                        setEmail(user.data.email);
+                        const fetchedEmail = user.data.email;
+
+                        // Verificar si ya cargamos el email inicial
+                        if (!loadedEmail) {
+                            setEmail(fetchedEmail);
+                            setLoadedEmail(true); // Marcar como cargado
+                        } else if (fetchedEmail !== email) {
+                            setEmail(fetchedEmail);
+                            setDif(true);  // Actualiza `dif` solo si el email es diferente
+                        } else {
+                            setDif(false); // No se requiere actualización si el email es el mismo
+                        }
+
                         setName(user.data.name);
                         setLastname(user.data.last_name);
                         setId(user.data.id_card.toString()); 
@@ -34,7 +47,7 @@ const EditProfile = () => {
         };
 
         fetchUserInfo();
-    }, []);
+    }, [loadedEmail, email]); // Añadido email y loadedEmail como dependencias para evitar bucles infinitos
 
     const handleSave = async () => {
         try {
@@ -49,8 +62,15 @@ const EditProfile = () => {
                     id_card: id
                 };
 
-                const response = await updateUserInfo(Number(id_user), token, userData); 
-                
+                let response;
+                if (dif) {
+                    console.log("Actualizando con email");
+                    response = await updateUserInfo(Number(id_user), token, userData);
+                } else {
+                    console.log("Actualizando sin email");
+                    response = await updateUserInfoWithoutEmail(Number(id_user), token, userData);
+                }
+
                 if (response) {
                     Alert.alert("Éxito", "Perfil actualizado correctamente");
                 } else {
@@ -88,12 +108,12 @@ const EditProfile = () => {
             />
             <CustomButton 
                 text="Guardar" 
-                onPress={handleSave}  // Llama a handleSave al presionar el botón
+                onPress={handleSave}  
             />
         </View>
     );
-}
+};
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
 
 export default EditProfile;
