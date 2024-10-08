@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
-import { Pressable, TextInput, View, KeyboardAvoidingView, ScrollView, Platform, StyleSheet } from 'react-native';
+import { Pressable, TextInput, View } from 'react-native';
 import { EyeIcon, EyeOffIcon } from './Icons';
-import { Text } from 'react-native-elements';
 
 type CustomButtonProps = {
     text: string,
-    value: string;
     onChangeText: (text: string) => void;
 }
 
-export default function InputPassword({ text, value, onChangeText }: CustomButtonProps) {
+export default function InputPassword({ text, onChangeText }: CustomButtonProps) {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     return (
-        <View>
+        <View className='relative w-[300px]'>
             <TextInput
-                className='w-[280px] h-12 rounded-[20px] bg-[#D9D9D9] px-[15px]'
+                className='w-full h-12 rounded-[20px] bg-[#D9D9D9] px-4 pr-10'
                 placeholder={text}
                 placeholderTextColor={'#000000'}
-                secureTextEntry={!isPasswordVisible}  
-                value={value}
+                secureTextEntry={!isPasswordVisible} 
                 onChangeText={onChangeText}
                 autoCapitalize='none' 
                 />
@@ -36,9 +33,3 @@ export default function InputPassword({ text, value, onChangeText }: CustomButto
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flexGrow: 1,
-        justifyContent: 'center',
-    }
-});

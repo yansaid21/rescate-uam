@@ -12,7 +12,7 @@ export async function registerUser(
   institution_id: number,
   code: string
 ) {
-  const uri = "http://192.168.1.2:8000/api/users";
+  const uri = "http://192.168.1.72:8000/api/users";
 
   const requestBody = {
     name,
@@ -37,13 +37,23 @@ export async function registerUser(
         "Content-Type": "application/json",
         "Accept": "application/json",
       },
-      body: JSON.stringify(requestBody), // Convertir el objeto en JSON antes de enviarlo
+      body: JSON.stringify(requestBody), 
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      let errorMessage = `Error: ${response.statusText}`;
-      errorMessage += ` - ${errorData.message}`;
+      console.log("errorData ", errorData);
+      
+      // Extraer el mensaje de error o crear uno por defecto
+      let errorMessage = errorData.message || "Ocurrió un error durante el registro";
+      
+      // Si el error tiene más detalles, agregarlos
+      if (errorData.errors) {
+        const errorDetails = Object.values(errorData.errors).flat().join(", ");
+        errorMessage += `: ${errorDetails}`;
+      }
+
+      // Lanzar el error con el mensaje extraído
       throw new Error(errorMessage);
     }
 
@@ -53,7 +63,8 @@ export async function registerUser(
     const { data } = json;
     return data;
 
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error during registration:", error);
+    return Promise.reject(error.message);
   }
 }

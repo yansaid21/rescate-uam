@@ -35,3 +35,7 @@ export const PencilIcon = ({ size, color }: IconsProps) => (
 export const KeyIcon = ({ size, color }: IconsProps) => (
     <Ionicons name="key" size={size} color={color} />
 )
+
+export const LoggOutIcon = ({ size, color }: IconsProps) => (
+    <Ionicons name="log-out-outline" size={size} color={color} />
+)
