@@ -38,7 +38,22 @@ export default function Login() {
             const result = await loginUser(email, data.password, "any");
             
             if (result) {
-                router.push("/loggedIn/main");
+                const userRole = result.user.role_id;
+
+                switch (userRole) {
+                    case 1: // Administrator
+                        router.push("/loggedIn/main");
+                        break;
+                    case 2: // Brigadier
+                        router.push("/loggedIn/emergency");
+                        break;
+                    case 3: // Final User
+                        router.push("/loggedIn/emergency");
+                        break;
+                    default:
+                        router.push("/loggedIn/emergency");
+                        break;
+                }
             }
         } catch (error: any) {
             console.log('en login ', error);

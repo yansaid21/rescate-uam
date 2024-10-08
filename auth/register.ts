@@ -15,6 +15,7 @@ export async function registerUser(
 ) {
   const uri = `http://${SERVER_IP}:8000/api/users`;
 
+
   const requestBody = {
     name,
     last_name,
