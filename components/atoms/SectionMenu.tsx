@@ -2,21 +2,29 @@ import { View, Text, Pressable } from 'react-native'
 import React from 'react'
 import { NextIcon, UserIcon } from './Icons'
 import * as Tokens from '../tokens'
+import { Link } from 'expo-router'
+import { Icon } from 'react-native-elements'
 
 type CustomButtonProps = {
     text: string,
-    href: string;
+    href: string,
+    logo: string,
+    color:string;
 }
 
-export default function SectionMenu({ text, href }: CustomButtonProps) {
+export default function SectionMenu({ text, href, logo,color }: CustomButtonProps) {
   return (
-    <Pressable className=' w-[352px] h-11 flex-row justify-between items-center p-2 bg-red-600 px-[15px]'>
+    <View className='flex items-center justify-center p-2'>
+      <Link href={href}>
+    <View className=' w-[352px] h-11 flex-row justify-between items-center p-2 px-[15px]'>
         <View className='w-11 h-11 shadow-black shadow-md px-[15px] justify-center items-center bg-slate-50 rounded-[20px]'>
-            <UserIcon size={20} color='#130138'/>
+            <Icon className="w-16" size={18} color={color} name={logo}/>
         </View>
-        <Text>Brigadista</Text>
+        <Text>{text}</Text>
         <NextIcon size={20} color='#363853'/>
-    </Pressable>
+    </View>
+      </Link>
+    </View>
   )
 }
 
