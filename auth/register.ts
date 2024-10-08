@@ -1,4 +1,5 @@
 import { User } from "../types/user";
+import { SERVER_IP } from '../utils/constants';
 
 export async function registerUser(
   name: string,
@@ -6,13 +7,14 @@ export async function registerUser(
   email: string,
   password: string,
   id_card: number,
-  rhgb: string,
+  /* rhgb: string,
   social_security: string,
-  phone_number: string,
+  phone_number: string, */
   institution_id: number,
   code: string
 ) {
-  const uri = "http://192.168.1.10:8000/api/users";
+  const uri = `http://${SERVER_IP}:8000/api/users`;
+
 
   const requestBody = {
     name,
@@ -20,9 +22,9 @@ export async function registerUser(
     email,
     password,
     id_card,
-    rhgb,
+    /* rhgb,
     social_security,
-    phone_number,
+    phone_number, */
     institution_id,
     code,
   };
@@ -42,18 +44,14 @@ export async function registerUser(
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.log("errorData ", errorData);
       
-      // Extraer el mensaje de error o crear uno por defecto
       let errorMessage = errorData.message || "Ocurrió un error durante el registro";
       
-      // Si el error tiene más detalles, agregarlos
       if (errorData.errors) {
         const errorDetails = Object.values(errorData.errors).flat().join(", ");
         errorMessage += `: ${errorDetails}`;
       }
 
-      // Lanzar el error con el mensaje extraído
       throw new Error(errorMessage);
     }
 

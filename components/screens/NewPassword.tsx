@@ -11,7 +11,7 @@ const NewPassword = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     return (
-        <View className='flex-col justify-between items-center m-5'>
+        <View className='flex-1 flex-col justify-evenly items-center m-5'>
             <ProfileIcon size={200} color='#000' />
             <Text className='font-medium text-center text-[24px] m-5'>Editar perfil</Text>
             <Input 
@@ -36,6 +36,5 @@ const NewPassword = () => {
     );
 }
 
-const styles = StyleSheet.create({})
 
 export default NewPassword;

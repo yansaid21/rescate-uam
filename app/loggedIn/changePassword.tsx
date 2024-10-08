@@ -4,9 +4,7 @@ import NewPassword from '../../components/screens/NewPassword';
 
 const ChangePassword = () => {
     return (
-        <View>
-            <NewPassword/>
-        </View>
+        <NewPassword/>
     );
 }
 

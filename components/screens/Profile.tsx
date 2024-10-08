@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { KeyIcon, LoggOutIcon, PencilIcon } from '../atoms/Icons';
+import { KeyIcon, LoggOutIcon, PencilIcon, ProfileIcon } from '../atoms/Icons';
 import { Link } from 'expo-router';
 import { getUserInfo } from '../../auth/get';
 import AsyncStorage from '@react-native-async-storage/async-storage';

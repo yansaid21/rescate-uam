@@ -10,6 +10,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { registerUser } from '../../auth/register';
 import { getAllUsers } from '../../auth/get';
 import ErrorModal from '../molecules/ErrorModal';
+import * as Tokens from '../tokens';
 
 interface FormData {
     email: string;
@@ -37,17 +38,17 @@ const Register = () => {
             return; 
         }
         const users = await getAllUsers();
-
-        // Verificar si el email o el id ya están registrados
+        
         const userExists = users.some(
             (user: any) => user.email === data.email || user.id_card === Number(data.id)
         );
 
         if (userExists) {
-            // Mostrar error si ya existe el usuario
+            console.log('user exists ', userExists);
+            
             setErrorMessage("El usuario ya está registrado.");
-            setModalVisible(true); // Si tienes un modal para errores
-            return; // No continuar con el registro
+            setModalVisible(true); 
+            return; 
         }
         try {
             const numericId = Number(data.id);
@@ -57,9 +58,9 @@ const Register = () => {
                 data.email,
                 data.password,
                 numericId,
-                "O+",
+                /* "O+",
                 "1234567890",
-                "3216549870",
+                "3216549870", */
                 1,
                 "XYZ123"
             );
@@ -85,7 +86,7 @@ const Register = () => {
             <ScrollView 
                 contentContainerStyle={styles.container} 
             >
-            <Text className="text-4xl text-center text-[#0090D0] mb-[10px]">Regístrate en Rescates UAM</Text>
+            <Text className={`${Tokens.textTitleStyle}`}>Regístrate en Rescates UAM</Text>
             <View className="mb-5">
                 <Controller
                     control={control}
@@ -102,6 +103,7 @@ const Register = () => {
                         <Input
                             text="Correo UAM"
                             onChangeText={onChange}
+                            autoCapitalize="none"
                         />
                         {errors.email && <Text className="text-red-500">{errors.email.message}</Text>}
                         </>
@@ -159,6 +161,7 @@ const Register = () => {
                     <Input
                         text="Cédula/Tarjeta de identidad"
                         onChangeText={onChange}
+                        autoCapitalize="none"
                     />
                     {errors.id && <Text className="text-red-500">{errors.id.message}</Text>}
                     </>
@@ -175,6 +178,7 @@ const Register = () => {
                     <Input
                         text="Nombre"
                         onChangeText={onChange}
+                        autoCapitalize="sentences"
                     />
                     {errors.name && <Text className="text-red-500">{errors.name.message}</Text>}
                     </>
@@ -191,6 +195,7 @@ const Register = () => {
                         <Input
                             text="Apellido"
                             onChangeText={onChange}
+                            autoCapitalize="sentences"
                         />
                         {errors.lastname && <Text className="text-red-500">{errors.lastname.message}</Text>}
                         </>
@@ -218,7 +223,7 @@ const Register = () => {
                 onPress={handleSubmit(onSubmit)} 
                 />
             </View>
-            <Link href='/' className="text-lg text-center text-[#BDBDBD] underline">Iniciar Sesión</Link>
+            <Link href='/' className={`${Tokens.textLinkStyle}`}>Iniciar Sesión</Link>
             <ErrorModal 
                 visible={modalVisible} 
                 errorMessage={errorMessage} 

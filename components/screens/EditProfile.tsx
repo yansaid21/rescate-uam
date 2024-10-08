@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert, Image } from 'react-native';
 import Input from '../atoms/Input';
 import CustomButton from '../atoms/CustomButton';
 import { getUserInfo } from '../../auth/get';
 import { updateUserInfo, updateUserInfoWithoutEmail } from '../../auth/put'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SERVER_IP } from '../../utils/constants';
+import { ProfileIcon } from '../atoms/Icons';
 
 const EditProfile = () => {
     const [email, setEmail] = useState('');
@@ -13,6 +15,7 @@ const EditProfile = () => {
     const [id, setId] = useState('');
     const [dif, setDif] = useState(false);
     const [loadedEmail, setLoadedEmail] = useState(false); // Para manejar el estado inicial de la carga del email
+    const [photo, setPhoto] = useState('');
 
     useEffect(() => {
         const fetchUserInfo = async () => {
@@ -39,6 +42,12 @@ const EditProfile = () => {
                         setName(user.data.name);
                         setLastname(user.data.last_name);
                         setId(user.data.id_card.toString()); 
+
+                        if (user.data.photo_path) {
+                            const photoUri = user.data.photo_path.replace(/\\/g, '/');  // Reemplazar las barras invertidas por barras normales
+                            console.log('photoUri ', photoUri);
+                            setPhoto(photoUri);  // Guardar la URL de la imagen en el estado
+                        }
                     }
                 }
             } catch (error) {
@@ -84,7 +93,15 @@ const EditProfile = () => {
     };
 
     return (
-        <View className='flex-1 flex-col justify-between items-center m-5'>
+        <View className='flex-1 flex-col justify-evenly items-center m-5'>
+            {photo ? (
+                <Image 
+                    source={{ uri: `http://${SERVER_IP}:8000/storage/${photo}` }} 
+                    style={{ width: 200, height: 200, borderRadius: 100 }} 
+                />
+            ) : (
+                <ProfileIcon size={200} color='#000' />
+            )}
             <Text className='font-medium text-center text-[24px] m-5'>Editar perfil</Text>
             <Input 
                 text="Correo"

@@ -15,7 +15,9 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIViewControllerBasedStatusBarAppearance": false
+        "UIViewControllerBasedStatusBarAppearance": false,
+        "NSCameraUsageDescription": "Esta aplicación necesita acceder a la cámara para que puedas tomar fotos.",
+        "NSPhotoLibraryUsageDescription": "Esta aplicación necesita acceso a tu biblioteca de fotos."
       }
     },
     "android": {

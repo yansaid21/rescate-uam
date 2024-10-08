@@ -1,6 +1,8 @@
 // api/userService.ts
+import { SERVER_IP } from '../utils/constants';
+
 export async function getUserInfo(id_user: number, token: string) {
-    const uri = `http://192.168.1.2:8000/api/users/${id_user}`;
+    const uri = `http://${SERVER_IP}:8000/api/users/${id_user}`;
 
     try {
         const response = await fetch(uri, {
@@ -25,7 +27,7 @@ export async function getUserInfo(id_user: number, token: string) {
 }
 
 export async function getAllUsers() {
-    const uri = "http://192.168.20.21:8000/api/users";
+    const uri = `http://${SERVER_IP}:8000/api/users`;
 
     try {
         const response = await fetch(uri, {
