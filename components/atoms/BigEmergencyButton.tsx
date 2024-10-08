@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Pressable, StyleSheet, View, Image } from 'react-native';
+    import React, { useState } from 'react';
+    import { Pressable, StyleSheet, View, Image } from 'react-native';
 
 // Definimos los tipos de los props
 interface BigEmergencyButtonProps {
