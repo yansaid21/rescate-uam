@@ -40,3 +40,7 @@ export const UploadImageIcon = ({ size, color }: IconsProps) => (
     <Ionicons name="cloud-upload-outline" size={size} color={color} />
 )
 
+export const LoggOutIcon = ({ size, color }: IconsProps) => (
+    <Ionicons name="log-out-outline" size={size} color={color} />
+)
+

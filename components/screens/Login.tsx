@@ -9,6 +9,7 @@ import { useRouter } from "expo-router";
 import { loginUser } from "../../auth/auth";
 import { useForm, Controller } from "react-hook-form";
 import ErrorModal from "../molecules/ErrorModal";
+import * as Tokens from '../tokens';
 
 interface FormData {
     email: string;
@@ -32,7 +33,6 @@ export default function Login() {
             }
         } catch (error: any) {
             console.log('en login ', error);
-            
             setErrorMessage(error.message);
             setModalVisible(true);
         }
@@ -52,7 +52,7 @@ export default function Login() {
             >
                 <View className="flex-1 flex-col justify-evenly items-center m-5">
                     <View className="mb-5">
-                        <Text className="text-4xl text-center text-[#0090D0] mb-10">Bienvenido a Rescates UAM</Text>
+                        <Text className={`${Tokens.textTitleStyle}`}>Bienvenido a Rescates UAM</Text>
                         <Controller
                             control={control}
                             name="email"
@@ -68,6 +68,7 @@ export default function Login() {
                                 <Input
                                     text="Correo"
                                     onChangeText={onChange} 
+                                    autoCapitalize="none"
                                 />
                                 {errors.email && <Text className="text-red-500">{errors.email.message}</Text>}
                                 </>
@@ -94,7 +95,7 @@ export default function Login() {
                         text="Aceptar" 
                         onPress={handleSubmit(onSubmit)}
                         />
-                    <Link href='/loggedOut/register' className="text-lg text-center text-[#BDBDBD] underline">Registrarse</Link>
+                    <Link href='/loggedOut/register' className={`${Tokens.textLinkStyle}`}>Registrarse</Link>
                     <ErrorModal 
                         visible={modalVisible} 
                         errorMessage={errorMessage} 

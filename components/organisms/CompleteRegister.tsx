@@ -15,7 +15,8 @@ interface FormData {
     rhgb: string,
     social_security: string,
     phone_number: Number,
-    imageUri: string | null;
+    code: string,
+    photo_path: string | null;
 }
 
 const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClose }) => {
@@ -23,7 +24,9 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
     const [imageError, setImageError] = useState<string | null>(null);
 
     const onSubmit = async (data: FormData) => {
-        if (!data.imageUri) {
+        console.log('data en complete register ', data);
+        
+        if (!data.photo_path) {
             setImageError('La foto es obligatoria');
             return;
         }
@@ -39,7 +42,7 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
     };
 
     const handleImageSelect = (imageUri: string) => {
-        setValue('imageUri', imageUri); // Set image URI in form data
+        setValue('photo_path', imageUri); // Set image URI in form data
         setImageError(null); // Clear image error
     };
 
@@ -69,6 +72,7 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
                                 <Input
                                     text="Grupo sanguíneo"
                                     onChangeText={onChange} 
+                                    autoCapitalize="characters"
                                     />
                                 {errors.rhgb && <Text className="text-red-500">{errors.rhgb.message}</Text>}
                                 </>
@@ -113,6 +117,29 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
                                 <Input
                                     text="EPS"
                                     onChangeText={onChange} 
+                                    autoCapitalize="sentences"
+                                />
+                                {errors.social_security && <Text className="text-red-500">{errors.social_security.message}</Text>}
+                                </>
+                            )}
+                            />
+                    </View>
+                    <View className="mb-5">
+                        <Controller
+                            control={control}
+                            name="code"
+                            rules={{
+                                required: 'Campo requerido',
+                                pattern: {
+                                    value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9\s]+$/,
+                                    message: 'Inválido',
+                                }
+                            }}
+                            render={({ field: { onChange } }) => (
+                                <>
+                                <Input
+                                    text="Código UAM"
+                                    onChangeText={onChange} 
                                 />
                                 {errors.social_security && <Text className="text-red-500">{errors.social_security.message}</Text>}
                                 </>
@@ -124,7 +151,7 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
                     <CustomButton 
                         text="Aceptar" 
                         onPress={handleSubmit(onSubmit)}
-                        />
+                    />
                 </View>
             </View>
         </Modal>
