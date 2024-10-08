@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import SectionMenu from '../../components/atoms/SectionMenu';
+import Menu from '../../components/screens/Menu';
 
-const Menu = () => {
+const menu = () => {
     return (
-        <SectionMenu/>
+        <Menu/>
     );
 }
 

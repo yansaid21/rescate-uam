@@ -26,7 +26,16 @@ export default function Login() {
 
     const onSubmit = async (data: FormData) => {
         try {
-            const result = await loginUser(data.email, data.password, "any");
+            let email = data.email;
+            const domain = '@autonoma.edu.co';
+    
+            // Si el correo no contiene el dominio, se lo añadimos
+            if (!email.includes(domain)) {
+                email += domain;
+            }
+    
+            // Realiza el login con el correo completo
+            const result = await loginUser(email, data.password, "any");
             
             if (result) {
                 router.push("/loggedIn/main");
@@ -37,6 +46,7 @@ export default function Login() {
             setModalVisible(true);
         }
     };
+    
 
     return (
         <KeyboardAvoidingView
@@ -50,7 +60,7 @@ export default function Login() {
             <ScrollView 
                 contentContainerStyle={styles.container} 
             >
-                <View className="flex-1 flex-col justify-evenly items-center m-5">
+                <View className="flex-1 flex-col justify-evenly items-center m-20">
                     <View className="mb-5">
                         <Text className={`${Tokens.textTitleStyle}`}>Bienvenido a Rescates UAM</Text>
                         <Controller
@@ -59,9 +69,9 @@ export default function Login() {
                             rules={{
                                 required: 'El correo es requerido',
                                 pattern: {
-                                value: /^[a-zA-Z0-9._%+-]+@autonoma\.([a-z]{2,})(\.[a-z]{2,})?$/,
-                                message: 'Correo inválido',
-                                }
+                                    value: /^[a-zA-Z0-9._%+-]+(@autonoma\.([a-z]{2,})(\.[a-z]{2,})?)?$/,
+                                    message: 'Correo inválido',
+                                },
                             }}
                             render={({ field: { onChange } }) => (
                                 <>

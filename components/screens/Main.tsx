@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, StatusBar,SafeAreaView } from "react-native";
 import TypeEmergencyButton from "../atoms/TypeEmergencyButton";
-import Navbar from "../molecules/Nav";
 import { BigEmergencyButton } from "../atoms/BigEmergencyButton";
 import RedBrigadistaButton from "../atoms/RedBrigadistaButton"
 import ModBrigadistaButton from "../atoms/ModBrigadistaButton"
@@ -50,20 +49,26 @@ export default function Main() {
   };
 
   return (
-    <View className="h-full " >  
-      
-      <View className=" justify-center items-center pt-12">
-        <View className="pb-4" >
-        <BigEmergencyButton/>
+    <View className="h-full">
+      <View className="justify-center items-center pt-12">
+        <View className="pb-4">
+          <BigEmergencyButton
+            initialIsYellow={false} 
+            buttonWidth={250} 
+            buttonHeight={250} 
+            buttonBorderRadius={125} 
+            logoWidth={100} 
+            logoHeight={150} 
+          />
         </View>
         <View className="p-5">
-        <TypeEmergencyButton text="Evacuación" />
+          <TypeEmergencyButton text="Evacuación" />
         </View>
         <View className="p-5">
-        <TypeEmergencyButton text="Incendio" />
+          <TypeEmergencyButton text="Incendio" />
         </View>
         <View className="p-5">
-        <TypeEmergencyButton text="Sismo" />
+          <TypeEmergencyButton text="Sismo" />
         </View>
       </View>
       <CompleteRegister visible={modalVisible} onClose={handleCloseModal} />

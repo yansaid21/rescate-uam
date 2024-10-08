@@ -5,7 +5,8 @@ import CustomButton from '../atoms/CustomButton';
 import { useForm, Controller } from "react-hook-form";
 import { router } from 'expo-router';
 import ImageUploadComponent from '../atoms/ImageUploadComponent';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { updateUserInfoComplete } from '../../auth/put';
 interface CompleteRegisterModalProps {
     visible: boolean;
     onClose: () => void;
@@ -31,13 +32,18 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
             return;
         }
         try {
-            //const result = await loginUser(data.rhgb, data.social_security, data.phone_number, data.code);
-            let result = ""
-            if (result) {
-                router.push("/loggedIn/main");
+            const token = await AsyncStorage.getItem('token'); 
+            const id_user = await AsyncStorage.getItem('id');
+            if (token && id_user) {
+                const result = await updateUserInfoComplete(Number(id_user), token, data);
+                console.log('result in complete register ', result);
+                
+                if (result) {
+                    router.push("/loggedIn/main");
+                }
             }
         } catch (error: any) {
-            console.log('en login ', error);
+            console.log('en complete register ', error);
         }
     };
 

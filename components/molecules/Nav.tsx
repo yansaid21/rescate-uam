@@ -22,9 +22,9 @@ const Navbar: React.FC = () => {
         </Link>
         </TouchableOpacity>
         <TouchableOpacity>
- {/*          <Link href='#'> */}
+          <Link href='/loggedIn/menu'>
           <Icon name="menu" size={30} className='m-3' color="#fff" />
- {/*          </Link> */}
+          </Link>
         </TouchableOpacity>
         <TouchableOpacity>
 
