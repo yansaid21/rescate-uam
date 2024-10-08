@@ -1,42 +1,35 @@
 import React, { useState } from 'react';
-import { TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { EyeIcon } from './Icons';
+import { Pressable, TextInput, View } from 'react-native';
+import { EyeIcon, EyeOffIcon } from './Icons';
 
-export default function InputPassword() {
+type CustomButtonProps = {
+    text: string,
+    onChangeText: (text: string) => void;
+}
+
+export default function InputPassword({ text, onChangeText }: CustomButtonProps) {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     return (
-        <View style={styles.container}>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Contraseña"
-                    placeholderTextColor={'#000000'}
-                    secureTextEntry={!isPasswordVisible}  // Controla si la contraseña es visible o no
+        <View className='relative w-[300px]'>
+            <TextInput
+                className='w-full h-12 rounded-[20px] bg-[#D9D9D9] px-4 pr-10'
+                placeholder={text}
+                placeholderTextColor={'#000000'}
+                secureTextEntry={!isPasswordVisible} 
+                onChangeText={onChangeText}
+                autoCapitalize='none' 
                 />
-                <TouchableOpacity onPress={() => setPasswordVisible(!isPasswordVisible)}>
-                    <EyeIcon
-                        size={24}
-                        color="white"
-                    />
-                </TouchableOpacity>
+            <View className='absolute top-[10px] right-[10px]'>
+                <Pressable onPress={() => setPasswordVisible(!isPasswordVisible)}>
+                    {isPasswordVisible ? (
+                        <EyeOffIcon size={24} color="black" />  
+                    ) : (
+                        <EyeIcon size={24} color="black" />    
+                    )}
+                </Pressable>
             </View>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-    },
-    inputContainer: {
-        flexDirection: 'row',  // Para alinear el TextInput y el ícono en la misma línea
-        alignItems: 'center',
-    },
-    input: {
-        height: 48,
-        width: 280,
-        borderRadius: 20,
-        backgroundColor: '#D9D9D9',
-        paddingHorizontal: 15,
-    },
-});

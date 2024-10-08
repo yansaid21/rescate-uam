@@ -1,28 +1,24 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, TextInput } from 'react-native'
 import React from 'react'
 
 type CustomButtonProps = {
     text: string,
+    value?: string
+    onChangeText: (text: string) => void;
 }
 
-export default function Input({ text }: CustomButtonProps) {
-    return (
-        <View>
+export default function Input({ text, value, onChangeText }: CustomButtonProps) {
+    return (   
+        <View className='w-full'>
             <TextInput 
-                style={styles.input}
+                className='w-[300px] h-12 rounded-[20px] bg-[#D9D9D9] px-[15px]'
                 placeholder={text}
                 placeholderTextColor={'#000000'}
-            />
+                value={value}
+                onChangeText={onChangeText}
+                autoCapitalize='none' 
+                />
         </View>
     )
 }
 
-const styles= StyleSheet.create({
-    input: {
-        height: 48,
-        width: 280,
-        borderRadius: 20,
-        backgroundColor: '#D9D9D9',
-        paddingHorizontal: 15,
-    },
-})
