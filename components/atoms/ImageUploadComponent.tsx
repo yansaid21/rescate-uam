@@ -16,9 +16,10 @@ const ImageUploadComponent: React.FC<ImageUploadComponentProps> = ({ onImageSele
         alert('Permission to access media library is required!');
         return;
         }
-
+        console.log(status);
+        
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             quality: 1,
         });

@@ -30,8 +30,14 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router",
-      "expo-font"
-    ]
+  "expo-router",
+  "expo-font",
+  [
+    "expo-image-picker",
+    {
+      "photosPermission": "Share images with your friends."
+    }
+  ]
+]
   }
 }
