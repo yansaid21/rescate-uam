@@ -100,7 +100,7 @@ export async function updateUserInfoComplete(id_user: number, token: string, use
         const fileType = mime.lookup(fileUri) || 'application/octet-stream'; // Detectar tipo MIME o usar un genérico
         const fileName = fileUri.split('/').pop();  // Obtener el nombre del archivo desde la ruta
 
-        formData.append('photo_path', {
+        formData.append('photo', {
             uri: fileUri,
             name: fileName,  // Nombre del archivo
             type: fileType,  // Tipo de archivo detectado

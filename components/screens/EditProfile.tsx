@@ -96,7 +96,7 @@ const EditProfile = () => {
         <View className='flex-1 flex-col justify-evenly items-center m-5'>
             {photo ? (
                 <Image 
-                    source={{ uri: `http://${SERVER_IP}:8000/storage/${photo}` }} 
+                    source={{ uri: `http://${SERVER_IP}:8000${photo}` }} 
                     style={{ width: 200, height: 200, borderRadius: 100 }} 
                 />
             ) : (
