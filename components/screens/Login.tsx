@@ -10,6 +10,8 @@ import { loginUser } from "../../auth/auth";
 import { useForm, Controller } from "react-hook-form";
 import ErrorModal from "../molecules/ErrorModal";
 import * as Tokens from '../tokens';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { LoginScheme } from "../../schemes/loginScheme";
 
 interface FormData {
     email: string;
@@ -17,12 +19,13 @@ interface FormData {
 }
 
 export default function Login() {
-    const insets = useSafeAreaInsets();
     const router = useRouter();
     const [modalVisible, setModalVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+        resolver: zodResolver(LoginScheme)
+    });
 
     const onSubmit = async (data: FormData) => {
         try {
@@ -81,45 +84,35 @@ export default function Login() {
                         <Controller
                             control={control}
                             name="email"
-                            rules={{
-                                required: 'El correo es requerido',
-                                pattern: {
-                                    value: /^[a-zA-Z0-9._%+-]+(@autonoma\.([a-z]{2,})(\.[a-z]{2,})?)?$/,
-                                    message: 'Correo inválido',
-                                },
-                            }}
                             render={({ field: { onChange } }) => (
-                                <>
                                 <Input
                                     text="Correo"
                                     onChangeText={onChange} 
                                     autoCapitalize="none"
                                 />
-                                {errors.email && <Text className="text-red-500">{errors.email.message}</Text>}
+                            )}
+                        />
+                        {errors.email && <Text className="text-red-500">{errors.email.message}</Text>}
+                    </View>
+                    <View className="mb-5">
+                        <Controller
+                            control={control}
+                            name="password"
+                            render={({ field: { onChange } }) => (
+                                <>
+                                    <InputPassword
+                                        text="Contraseña"
+                                        onChangeText={onChange}
+                                    />
                                 </>
                             )}
                         />
-                    </View>
-                    <View className="mb-5">
-                    <Controller
-                        control={control}
-                        name="password"
-                        rules={{ required: 'La contraseña es requerida' }}
-                        render={({ field: { onChange } }) => (
-                            <>
-                            <InputPassword
-                                text="Contraseña"
-                                onChangeText={onChange}
-                            />
-                            {errors.password && <Text className="text-red-500">{errors.password.message}</Text>}
-                            </>
-                        )}
-                        />
+                        {errors.password && <Text className="text-red-500">{errors.password.message}</Text>}
                     </View>
                     <CustomButton 
                         text="Aceptar" 
                         onPress={handleSubmit(onSubmit)}
-                        />
+                    />
                     <Link href='/loggedOut/register' className={`${Tokens.textLinkStyle}`}>Registrarse</Link>
                     <ErrorModal 
                         visible={modalVisible} 

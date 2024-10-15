@@ -11,6 +11,8 @@ import { registerUser } from '../../auth/register';
 import { getAllUsers } from '../../auth/get';
 import ErrorModal from '../molecules/ErrorModal';
 import * as Tokens from '../tokens';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { RegisterScheme } from '../../schemes/registerScheme';
 
 interface FormData {
     email: string;
@@ -19,24 +21,23 @@ interface FormData {
     id: string;
     name: string;
     lastname: string;
-    isChecked: boolean;
+    termsAccepted: boolean;
 }
 
 const Register = () => {
     const router = useRouter();
     
-    const { control, handleSubmit, formState: { errors }, watch } = useForm<FormData>();
-    const [isChecked, setIsChecked] = useState(false);
-    const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
+    const { control, handleSubmit, formState: { errors }, watch } = useForm<FormData>({
+        resolver: zodResolver(RegisterScheme), 
+        defaultValues: {
+            termsAccepted: false,
+        }
+    });
 
     const [modalVisible, setModalVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     
     const onSubmit = async (data: FormData) => {
-        setHasAttemptedSubmit(true); 
-        if (!isChecked) {
-            return; 
-        }
         const users = await getAllUsers();
         
         const userExists = users.some(
@@ -58,9 +59,6 @@ const Register = () => {
                 data.email,
                 data.password,
                 numericId,
-                /* "O+",
-                "1234567890",
-                "3216549870", */
                 1,
                 "XYZ123"
             );
@@ -91,131 +89,116 @@ const Register = () => {
                 <Controller
                     control={control}
                     name="email"
-                    rules={{
-                        required: 'El correo es requerido',
-                        pattern: {
-                        value: /^[a-zA-Z0-9._%+-]+@autonoma\.([a-z]{2,})(\.[a-z]{2,})?$/,
-                        message: 'Correo inválido',
-                        },
-                    }}
                     render={({ field: { onChange } }) => (
                         <>
-                        <Input
-                            text="Correo UAM"
-                            onChangeText={onChange}
-                            autoCapitalize="none"
-                        />
-                        {errors.email && <Text className="text-red-500">{errors.email.message}</Text>}
+                            <Input
+                                text="Correo UAM"
+                                onChangeText={onChange}
+                                autoCapitalize="none"
+                            />
                         </>
                     )}
                 />
+                {errors.email && <Text className="text-red-500">{errors.email.message}</Text>}
             </View>
             <View className="mb-5">
                 <Controller
                     control={control}
                     name="password"
-                    rules={{ required: 'La contraseña es requerida', minLength: { value: 8, message: 'Mínimo 8 caracteres' } }}
                     render={({ field: { onChange } }) => (
                         <>
-                        <InputPassword
-                            text="Contraseña"
-                            onChangeText={onChange}
-                        />
-                        {errors.password && <Text className="text-red-500">{errors.password.message}</Text>}
+                            <InputPassword
+                                text="Contraseña"
+                                onChangeText={onChange}
+                            />
                         </>
                     )}
                 />
+                {errors.password && <Text className="text-red-500">{errors.password.message}</Text>}
             </View>
             <View className="mb-5">
                 <Controller
                     control={control}
                     name="repassword"
-                    rules={{
-                        required: 'La contraseña es requerida',
-                        validate: value => value === watch('password') || 'Las contraseñas no coinciden'
-                    }}
                     render={({ field: { onChange } }) => (
                         <>
-                        <InputPassword
-                            text="Repetir contraseña"
-                            onChangeText={onChange}
-                        />
-                        {errors.repassword && <Text className="text-red-500">{errors.repassword.message}</Text>}
+                            <InputPassword
+                                text="Repetir contraseña"
+                                onChangeText={onChange}
+                            />
                         </>
                     )}
                 />
+                {errors.repassword && <Text className="text-red-500">{errors.repassword.message}</Text>}
             </View>
             <View className="mb-5">
                 <Controller
                 control={control}
                 name="id"
-                rules={{
-                    required: 'La identificación es requerida',
-                    pattern: {
-                    value: /^[0-9]+$/,
-                    message: 'La identificación debe contener solo números',
-                    },
-                }}
                 render={({ field: { onChange } }) => (
                     <>
-                    <Input
-                        text="Cédula/Tarjeta de identidad"
-                        onChangeText={onChange}
-                        autoCapitalize="none"
-                    />
-                    {errors.id && <Text className="text-red-500">{errors.id.message}</Text>}
+                        <Input
+                            text="Cédula/Tarjeta de identidad"
+                            onChangeText={onChange}
+                            autoCapitalize="none"
+                        />
                     </>
                 )}
-                />
+            />
+            {errors.id && <Text className="text-red-500">{errors.id.message}</Text>}
             </View>
             <View className="mb-5">
                 <Controller
                 control={control}
                 name="name"
-                rules={{ required: 'El nombre es requerido', pattern: { value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/, message: 'El nombre solo debe contener letras' } }}
                 render={({ field: { onChange } }) => (
                     <>
-                    <Input
-                        text="Nombre"
-                        onChangeText={onChange}
-                        autoCapitalize="sentences"
-                    />
-                    {errors.name && <Text className="text-red-500">{errors.name.message}</Text>}
+                        <Input
+                            text="Nombre"
+                            onChangeText={onChange}
+                            autoCapitalize="sentences"
+                        />
                     </>
                 )}
-                />
+            />
+            {errors.name && <Text className="text-red-500">{errors.name.message}</Text>}
             </View>
             <View className="mb-5">
                 <Controller
                     control={control}
                     name="lastname"
-                    rules={{ required: 'El apellido es requerido', pattern: { value: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/, message: 'El apellido solo debe contener letras' } }}
                     render={({ field: { onChange } }) => (
                         <>
-                        <Input
-                            text="Apellido"
-                            onChangeText={onChange}
-                            autoCapitalize="sentences"
-                        />
-                        {errors.lastname && <Text className="text-red-500">{errors.lastname.message}</Text>}
+                            <Input
+                                text="Apellido"
+                                onChangeText={onChange}
+                                autoCapitalize="sentences"
+                            />
                         </>
                     )}
                 />
+                {errors.lastname && <Text className="text-red-500">{errors.lastname.message}</Text>}
             </View>
             <View className="mb-5">
                 <View className="flex-row items-center">
-                    <Checkbox
-                        status={isChecked ? 'checked' : 'unchecked'}
-                        onPress={() => setIsChecked(!isChecked)}
-                        color="#0090D0"
+                    <Controller
+                        control={control}
+                        name="termsAccepted"
+                        render={({ field: { onChange, value } }) => (
+                            <>
+                                <Checkbox
+                                    status={value ? 'checked' : 'unchecked'}
+                                    onPress={() => onChange(!value)}
+                                    color="#0090D0"
+                                />
+                                <Link className="text-sm underline text-[#0090D0]" href='/loggedOut/conditions'>
+                                    Términos y condiciones
+                                </Link>
+                            </>
+                        )}
                     />
-                    <Link className="text-sm underline text-[#0090D0]" href='/loggedOut/conditions'>
-                        Términos y condiciones
-                    </Link>
                 </View>
-                {!isChecked && hasAttemptedSubmit && (
-                    <Text className="text-red-500">Debes aceptar los términos y condiciones</Text>
-                )}
+                {errors.termsAccepted && <Text className="text-red-500">{errors.termsAccepted.message}</Text>}
             </View>
             <View className="mb-5">
                 <CustomButton 
