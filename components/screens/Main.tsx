@@ -69,10 +69,10 @@ export default function Main() {
 
         try {
           const db = await SQLite.openDatabaseAsync('example.db');
-          await db.execAsync(`
+          /* await db.execAsync(`
             DROP TABLE IF EXISTS users;
             DROP TABLE IF EXISTS roles;
-          `);
+          `); */
           await db.execAsync(`
           CREATE TABLE IF NOT EXISTS roles (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -103,13 +103,17 @@ export default function Main() {
             FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
           );
           `);
-            if(userData){
-              await db.execAsync(`
-                INSERT INTO users (name, last_name, email, id_card, role_id)
-                VALUES 
-                ('${userData.data.name}', '${userData.data.last_name}', '${userData.data.email}', '${userData.data.id_card}', '${userData.data.adminRoleId}');
-                `);
-            }
+          if (userData && userData.data && userData.data.name && userData.data.last_name && userData.data.email && userData.data.id_card && userData.data.adminRoleId) {
+            await db.execAsync(`
+              INSERT INTO users (name, last_name, email, id_card, role_id)
+              VALUES 
+              ('${userData.data.name}', '${userData.data.last_name}', '${userData.data.email}', '${userData.data.id_card}', '${userData.data.adminRoleId}');
+            `);
+            console.log("user creado con ", userData.data);
+          } else {
+            /* console.log('Faltan datos de usuario para insertar en la base de datos:', userData.data.adminRoleId); */
+          }
+          
 
             await db.withTransactionAsync(async() => {
               const roles = await db.getFirstAsync('SELECT * FROM roles');
