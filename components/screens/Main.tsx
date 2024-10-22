@@ -11,10 +11,20 @@ import { getUserInfo } from "../../auth/get";
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as SQLite from 'expo-sqlite'
 
+interface UserData {
+  data: {
+    name: string;
+    last_name: string;
+    email: string;
+    id_card: number; // O el tipo que corresponda
+    adminRoleId: number; // O el tipo que corresponda
+    // Otras propiedades que puedas necesitar
+  };
+}
 
 export default function Main() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
 
   const checkUserInfo = async () => {
     try {
@@ -27,7 +37,6 @@ export default function Main() {
 
       if (token && id_user) {
         const user = await getUserInfo(Number(id_user), token); 
-        console.log('user en main ', user);
         
         if (user && user.data) {
           console.log('user data en main ', user.data);
@@ -56,57 +65,71 @@ export default function Main() {
   
   
   useEffect(() => {
-    const executeDatabaseOperations = async () => {
-    try {
-      const db = await SQLite.openDatabaseAsync('example.db');
+      const executeDatabaseOperations = async () => {
 
-      await db.execAsync(`
-      CREATE TABLE IF NOT EXISTS roles (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-      );
-      SET @adminRoleId = (SELECT id FROM roles WHERE name = 'Administrator' LIMIT 1);
-      SET @brigadierRoleId = (SELECT id FROM roles WHERE name = 'Brigadier' LIMIT 1);
-      SET @finalUserRoleId = (SELECT id FROM roles WHERE name = 'Final User' LIMIT 1);
-
-      CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        last_name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
-        id_card BIGINT NOT NULL,
-        rhgb VARCHAR(3) NOT NULL,
-        social_security VARCHAR(255) NOT NULL,
-        phone_number VARCHAR(20) NOT NULL,
-        is_active BOOLEAN DEFAULT TRUE,
-        role_id INT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
-      );
-      `);
-        if(userData){
+        try {
+          const db = await SQLite.openDatabaseAsync('example.db');
           await db.execAsync(`
-            INSERT INTO users (name, last_name, email, id_card, role_id)
-            VALUES 
-            ('${userData.name}', '${userData.last_name}', '${userData.email}', '${userData.id_card}',${userData.adminRoleId});
-            `);
+            DROP TABLE IF EXISTS users;
+            DROP TABLE IF EXISTS roles;
+          `);
+          await db.execAsync(`
+          CREATE TABLE IF NOT EXISTS roles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          );
+
+          INSERT OR IGNORE INTO roles (name) VALUES 
+          ('Administrator'), 
+          ('Brigadier'), 
+          ('Final User');
+
+          CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) UNIQUE NOT NULL,
+            password VARCHAR(255),
+            id_card BIGINT NOT NULL,
+            rhgb VARCHAR(3),
+            social_security VARCHAR(255),
+            phone_number VARCHAR(20),
+            is_active BOOLEAN DEFAULT 1,
+            role_id INTEGER,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
+          );
+          `);
+            if(userData){
+              await db.execAsync(`
+                INSERT INTO users (name, last_name, email, id_card, role_id)
+                VALUES 
+                ('${userData.data.name}', '${userData.data.last_name}', '${userData.data.email}', '${userData.data.id_card}', '${userData.data.adminRoleId}');
+                `);
             }
 
-      setIsLoading(false);
+            await db.withTransactionAsync(async() => {
+              const roles = await db.getFirstAsync('SELECT * FROM roles');
+              console.log('ROLES', roles);
+            });
 
-    } catch (error) {
-      console.error("Error ejecutando operaciones de base de datos: ", error);
-    }
-  };
+            await db.withTransactionAsync(async() => {
+              const users = await db.getFirstAsync('SELECT * FROM users');
+              console.log('USERS', users);
+            });
+            
+          setIsLoading(false);
+        } catch (error) {
+          console.error("Error ejecutando operaciones de base de datos: ", error);
+        }
+    };
 
-  executeDatabaseOperations();
+    executeDatabaseOperations();
 
-}, []);  
- 
+  }, []);  
 
   if (isLoading ){
     return (
