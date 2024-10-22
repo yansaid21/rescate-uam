@@ -8,6 +8,7 @@ import { useCallback, useEffect } from 'react';
 import Register from './components/screens/Register';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
+
 export default function App() {
 
   const insets = useSafeAreaInsets()
@@ -18,6 +19,9 @@ export default function App() {
     }
     prepare();
   },[])
+  useEffect(()=>{
+    /* const unsubscribe; */
+  })
 
   return (
     <SafeAreaProvider style={{ paddingBottom: insets.bottom, paddingTop: insets.top }}>
