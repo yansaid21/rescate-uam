@@ -7,6 +7,8 @@ import { updateUserInfo, updateUserInfoWithoutEmail } from '../../auth/put';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SERVER_IP } from '../../utils/constants';
 import { ProfileIcon } from '../atoms/Icons';
+import { set } from 'react-hook-form';
+import Spinner from '../molecules/Spinner';
 
 const EditProfile = () => {
     const [email, setEmail] = useState('');
@@ -16,6 +18,7 @@ const EditProfile = () => {
     const [dif, setDif] = useState(false);
     const [loadedEmail, setLoadedEmail] = useState(false); // Para manejar el estado inicial de la carga del email
     const [photo, setPhoto] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchUserInfo = async () => {
@@ -48,6 +51,8 @@ const EditProfile = () => {
                             console.log('photoUri ', photoUri);
                             setPhoto(photoUri);  // Guardar la URL de la imagen en el estado
                         }
+                        setIsLoading(false);
+                        
                     }
                 }
             } catch (error) {
@@ -71,6 +76,8 @@ const EditProfile = () => {
                     id_card: id
                 };
 
+                
+
                 let response;
                 if (dif) {
                     console.log("Actualizando con email");
@@ -91,6 +98,14 @@ const EditProfile = () => {
             console.error("Error updating user info:", error);
         }
     };
+
+    if(isLoading) {
+        return (
+            <View className='flex-1 flex-col items-center justify-center'>
+                <Spinner/>
+            </View>
+        )
+    }
 
     return (
         <View className='flex-1 flex-col justify-evenly items-center m-5'>
@@ -131,6 +146,5 @@ const EditProfile = () => {
     );
 };
 
-const styles = StyleSheet.create({});
 
 export default EditProfile;

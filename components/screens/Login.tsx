@@ -7,9 +7,10 @@ import Input from "../atoms/Input";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import { loginUser } from "../../auth/auth";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, set } from "react-hook-form";
 import ErrorModal from "../molecules/ErrorModal";
 import * as Tokens from '../tokens';
+import Spinner from "../molecules/Spinner";
 
 interface FormData {
     email: string;
@@ -21,10 +22,12 @@ export default function Login() {
     const router = useRouter();
     const [modalVisible, setModalVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading,setIsLoading] = useState(false)
 
     const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const onSubmit = async (data: FormData) => {
+        setIsLoading(true);
         try {
             let email = data.email;
             const domain = '@autonoma.edu.co';
@@ -54,6 +57,7 @@ export default function Login() {
                         router.push("/loggedIn/emergency");
                         break;
                 }
+                setIsLoading(false);
             }
         } catch (error: any) {
             console.log('en login ', error);
@@ -62,7 +66,9 @@ export default function Login() {
         }
     };
     
-
+    if (isLoading) {
+        return <Spinner />;
+    }
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
