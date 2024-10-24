@@ -30,6 +30,8 @@ export async function getAllUsers() {
     const uri = `http://${SERVER_IP}:8000/api/users`;
 
     try {
+        console.log("obteniendo a todos los usuarios");
+        
         const response = await fetch(uri, {
             method: "GET",
             headers: {

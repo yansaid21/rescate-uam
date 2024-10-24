@@ -29,7 +29,7 @@ export default function App() {
       <View style={styles.container}>
         {/* <Text>Hola</Text> */}
         <StatusBar style='auto'/>
-        <Spinner/>
+        <Login/>
       </View>
     </SafeAreaProvider>
   );

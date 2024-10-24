@@ -1,8 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
+import { getAllUsers } from '../../auth/get';
 
 export default function ModBrigadista() {
+const [allUsers, setAllUsers] = useState([]);
+  useEffect(()=>{
+    const getUsers = async() =>{
+      try{
+
+    const users= await getAllUsers();
+    setAllUsers(users);
+      }catch(e){
+        console.log(e);
+      }
+    }
+    getUsers();
+  } ,[])
+  console.log("todos los usuarios>>>",allUsers);
+  
   const [tableHead, setTableHead] = useState(['Cedula', 'Nombre', 'Programa']);
   const [tableData, setTableData] = useState([
     ['123', 'Juan Quintero', 'Ing. sistemas'],
