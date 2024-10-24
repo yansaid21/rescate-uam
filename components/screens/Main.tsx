@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUserInfo } from "../../auth/get";
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as SQLite from 'expo-sqlite'
+import Spinner from "../molecules/Spinner";
 
 interface UserData {
   data: {
@@ -125,10 +126,10 @@ export default function Main() {
               console.log('USERS', users);
             });
             
+          } catch (error) {
+            console.error("Error ejecutando operaciones de base de datos: ", error);
+          }
           setIsLoading(false);
-        } catch (error) {
-          console.error("Error ejecutando operaciones de base de datos: ", error);
-        }
     };
 
     executeDatabaseOperations();
@@ -137,9 +138,7 @@ export default function Main() {
 
   if (isLoading ){
     return (
-      <View>
-        <Text>Cargando lo que se necesita mientras añadimos un spin</Text>
-      </View>
+      <Spinner />
     )
   }
 
