@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Animated, StyleSheet } from 'react-native';
 
-const NewtonsCradle = () => {
+const Spinner = () => {
   const swingAnim1 = useRef(new Animated.Value(0)).current;
   const swingAnim2 = useRef(new Animated.Value(0)).current;
 
@@ -113,4 +113,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewtonsCradle;
+export default Spinner;

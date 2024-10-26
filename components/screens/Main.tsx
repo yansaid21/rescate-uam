@@ -123,7 +123,7 @@ export default function Main() {
 
             await db.withTransactionAsync(async() => {
               const users = await db.getFirstAsync('SELECT * FROM users');
-              console.log('USERS', users);
+              console.log('USERS...', users);
             });
             
           } catch (error) {
