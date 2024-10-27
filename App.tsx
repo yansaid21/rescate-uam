@@ -7,6 +7,8 @@ import * as SplashScreen from 'expo-splash-screen'
 import { useCallback, useEffect } from 'react';
 import Register from './components/screens/Register';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import Spinner from './components/molecules/Spinner';
+
 
 export default function App() {
 
@@ -18,6 +20,9 @@ export default function App() {
     }
     prepare();
   },[])
+  useEffect(()=>{
+    /* const unsubscribe; */
+  })
 
   return (
     <SafeAreaProvider style={{ paddingBottom: insets.bottom, paddingTop: insets.top }}>

@@ -32,7 +32,7 @@ export async function loginUser(email: string, password: string, device_name: st
 
     const json = await response.json();
     await AsyncStorage.setItem('id', json.user.id.toString());
-    await AsyncStorage.setItem('token', json.token);
+    await AsyncStorage.setItem('token', json.token);  
     
     return json;
 

@@ -30,6 +30,9 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
         if (!data.photo_path) {
             setImageError('La foto es obligatoria');
             return;
+        }else{
+            console.log("lo que llega porque si hay photo_path>>>>>>",data.photo_path);
+            
         }
         try {
             const token = await AsyncStorage.getItem('token'); 
