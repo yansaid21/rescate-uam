@@ -26,7 +26,7 @@ export const BigEmergencyButton: React.FC<BigEmergencyButtonProps> = ({
     };
 
     const logoSource = isYellow
-        ? require('../../assets/UAM/Logos_UAM-08.png')
+        ? require('../../assets/UAM/Logos_UAM-06.png')
         : require('../../assets/UAM/Logos_UAM-10.png');
 
     return (
