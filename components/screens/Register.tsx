@@ -95,6 +95,7 @@ const Register = () => {
                                 text="Correo UAM"
                                 onChangeText={onChange}
                                 autoCapitalize="none"
+                                keyboardType="email-address"
                             />
                         </>
                     )}
@@ -140,7 +141,7 @@ const Register = () => {
                         <Input
                             text="Cédula/Tarjeta de identidad"
                             onChangeText={onChange}
-                            autoCapitalize="none"
+                            keyboardType="numeric"
                         />
                     </>
                 )}

@@ -7,9 +7,10 @@ type CustomButtonProps = {
     value?: string
     onChangeText: (text: string) => void;
     autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters',
+    keyboardType?: 'default' | 'email-address' | 'numeric'
 }
 
-export default function Input({ text, value, onChangeText, autoCapitalize = 'none' }: CustomButtonProps) {
+export default function Input({ text, value, onChangeText, autoCapitalize = 'none', keyboardType = 'default' }: CustomButtonProps) {
     return (   
         <View>
             <TextInput 
@@ -19,6 +20,7 @@ export default function Input({ text, value, onChangeText, autoCapitalize = 'non
                 value={value}
                 onChangeText={onChangeText}
                 autoCapitalize={autoCapitalize}
+                keyboardType={keyboardType}
                 />
         </View>
     )
