@@ -97,9 +97,9 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
                                     </Picker>
                                 )}
                             />
-                        </View>
                         {errors.rhgb && <Text className="text-red-500 text-left">{errors.rhgb.message}</Text>}
-                        <View className="mb-5">
+                        </View>
+                        <View className="mb-5 mt-5">
                             <Controller
                                 control={control}
                                 name="phone_number"
