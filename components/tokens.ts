@@ -11,3 +11,4 @@ export const ButtonStyle = `p-[10px] rounded-[19px] w-[212px] h-[49px] bg-[${col
 export const InputStyle = `w-[300px] h-12 rounded-[20px] px-[15px] bg-[${colorInputGray}]`;
 export const textLinkStyle = `text-lg text-center text-[${colorTextGray}] underline`;
 export const textTitleStyle = `text-4xl text-center text-[${colorTextBlue}] mb-10`;
+export const TextAreaStyle = `w-[300px] h-32 rounded-[20px] px-[15px] bg-[${colorInputGray}] text-left`;
