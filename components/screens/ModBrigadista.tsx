@@ -6,16 +6,16 @@ import { getAllUsers } from '../../auth/get';
 export default function ModBrigadista() {
   const [tableData, setTableData] = useState([]);  
 
-  // Encabezado de la tabla sin la columna "Rol"
+  
   const [tableHead, setTableHead] = useState(['Cedula', 'Nombre', 'Admin', 'Brigadier']); 
-  const widthArr = [100, 100, 100, 100]; // Ajuste del ancho de columnas
+  const widthArr = [100, 100, 100, 100]; 
 
   useEffect(() => {
     const getUsers = async () => {
       try {
         const users = await getAllUsers(); 
 
-        // Mapea los usuarios sin incluir la columna "Rol"
+        
         const formattedData = users.map(user => {
           const idCard = user.id_card || 'N/A'; 
           const fullName = `${user.name || ''} ${user.last_name || ''}`.trim(); 
@@ -23,12 +23,12 @@ export default function ModBrigadista() {
           const isAdmin = user.role && user.role.name === 'Administrator';
           const isBrigadier = user.role && user.role.name === 'Brigadier';
 
-          // Devuelve los datos sin la columna de rol
+          
           return [
             idCard,
             fullName,
-            isAdmin ? '🟦' : '⬜',  // Si es admin, cuadro azul, sino blanco
-            (isAdmin || isBrigadier) ? '🟦' : '⬜'  // Si es admin o brigadier, cuadro azul, sino blanco
+            isAdmin ? 'True' : 'False',  
+            (isAdmin || isBrigadier) ? 'True' : 'False'  
           ];
         });
         
