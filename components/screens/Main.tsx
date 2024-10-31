@@ -37,7 +37,7 @@ export default function Main() {
       
 
       if (token && id_user) {
-        const user = await getUserInfo(Number(id_user), token); 
+        const user = await getUserInfo( token); 
         
         if (user && user.data) {
           console.log('user data en main ', user.data);
