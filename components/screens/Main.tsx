@@ -1,53 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, StatusBar,SafeAreaView, Text } from "react-native";
+import { View } from "react-native";
 import TypeEmergencyButton from "../atoms/TypeEmergencyButton";
 import { BigEmergencyButton } from "../atoms/BigEmergencyButton";
-import RedBrigadistaButton from "../atoms/RedBrigadistaButton"
-import ModBrigadistaButton from "../atoms/ModBrigadistaButton"
 import CompleteRegister from "../organisms/CompleteRegister";
-import CustomButton from "../atoms/CustomButton";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getUserInfo } from "../../auth/get";
-import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import * as SQLite from 'expo-sqlite'
+import { getAllUsers } from "../../auth/get";
 import Spinner from "../molecules/Spinner";
+import * as SQLite from 'expo-sqlite';
 
 interface UserData {
   data: {
     name: string;
     last_name: string;
     email: string;
-    id_card: number; // O el tipo que corresponda
-    adminRoleId: number; // O el tipo que corresponda
-    // Otras propiedades que puedas necesitar
+    id_card: number;
+    adminRoleId: number;
+    rhgb?: string;
+    social_security?: string;
+    phone_number?: string;
   };
 }
 
 export default function Main() {
   const [modalVisible, setModalVisible] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const checkUserInfo = async () => {
     try {
       const token = await AsyncStorage.getItem('token'); 
       const id_user = await AsyncStorage.getItem('id'); 
 
-      console.log('id en main ', id_user);
-      console.log('token en main ', token);
-      
-
       if (token && id_user) {
-        const user = await getUserInfo( token); 
-        
-        if (user && user.data) {
-          console.log('user data en main ', user.data);
+        console.log("obteniendo a todos los usuarios");
+        const users = await getAllUsers(); 
+        const user = users.find((u: any) => u.id === Number(id_user));
+
+        if (user) {
+          console.log("Usuario actual:", user);
           setUserData(user);
-          if (!user.data.rhgb || !user.data.social_security || !user.data.phone_number) {
-            setModalVisible(true); 
-          }
+
+          // Solo abre el modal si falta algún dato
+          const isInfoIncomplete = !user.rhgb || !user.social_security || !user.phone_number;
+          setModalVisible(isInfoIncomplete);
+          console.log("Modal visibility set to:", isInfoIncomplete);
         }
       }
-
     } catch (error) {
       console.error("Error al obtener la información del usuario:", error);
     }
@@ -55,26 +53,18 @@ export default function Main() {
 
   useEffect(() => {
     checkUserInfo();
-  }, []);
+  }, []); // Este `useEffect` solo se ejecuta una vez al montar el componente
 
   const handleCloseModal = () => {
     setModalVisible(false);
   };
 
-  const [isLoading,setIsLoading] = useState(true)
-  
-  
-  
   useEffect(() => {
-      const executeDatabaseOperations = async () => {
+    const executeDatabaseOperations = async () => {
+      try {
+        const db = await SQLite.openDatabaseAsync('example.db');
 
-        try {
-          const db = await SQLite.openDatabaseAsync('example.db');
-          /* await db.execAsync(`
-            DROP TABLE IF EXISTS users;
-            DROP TABLE IF EXISTS roles;
-          `); */
-          await db.execAsync(`
+        await db.execAsync(`
           CREATE TABLE IF NOT EXISTS roles (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name VARCHAR(255) NOT NULL,
@@ -103,43 +93,28 @@ export default function Main() {
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
           );
+        `);
+
+        if (userData && userData.data) {
+          await db.execAsync(`
+            INSERT INTO users (name, last_name, email, id_card, role_id)
+            VALUES 
+            ('${userData.data.name}', '${userData.data.last_name}', '${userData.data.email}', '${userData.data.id_card}', '${userData.data.adminRoleId}');
           `);
-          if (userData && userData.data && userData.data.name && userData.data.last_name && userData.data.email && userData.data.id_card && userData.data.adminRoleId) {
-            await db.execAsync(`
-              INSERT INTO users (name, last_name, email, id_card, role_id)
-              VALUES 
-              ('${userData.data.name}', '${userData.data.last_name}', '${userData.data.email}', '${userData.data.id_card}', '${userData.data.adminRoleId}');
-            `);
-            console.log("user creado con ", userData.data);
-          } else {
-            /* console.log('Faltan datos de usuario para insertar en la base de datos:', userData.data.adminRoleId); */
-          }
-          
+          console.log("Usuario creado en la base de datos:", userData.data);
+        }
 
-            await db.withTransactionAsync(async() => {
-              const roles = await db.getFirstAsync('SELECT * FROM roles');
-              console.log('ROLES', roles);
-            });
-
-            await db.withTransactionAsync(async() => {
-              const users = await db.getFirstAsync('SELECT * FROM users');
-              console.log('USERS', users);
-            });
-            
-          } catch (error) {
-            console.error("Error ejecutando operaciones de base de datos: ", error);
-          }
-          setIsLoading(false);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error ejecutando operaciones de base de datos:", error);
+      }
     };
 
     executeDatabaseOperations();
+  }, [userData]); 
 
-  }, []);  
-
-  if (isLoading ){
-    return (
-      <Spinner />
-    )
+  if (isLoading) {
+    return <Spinner />;
   }
 
   return (
