@@ -83,7 +83,7 @@ export async function updateUserInfoWithoutEmail(id_user: number, token: string,
 }
 
 export async function updateUserInfoComplete(id_user: number, token: string, userData: any) {
-    const uri = `http://${SERVER_IP}:8000/api/users/${id_user}`;
+    const uri = `https://${SERVER_IP}/api/users/${id_user}`;
     console.log("Log de userData: ", userData);
 
     const formData = new FormData();

@@ -27,7 +27,7 @@ export async function getUserInfo(token: string) {
 }
 
 export async function getAllUsers() {
-    const uri = `http://${SERVER_IP}:8000/api/institutions/1/users`;
+    const uri = `https://${SERVER_IP}/api/institutions/1/users`;
 
     try {
         console.log("obteniendo a todos los usuarios");
