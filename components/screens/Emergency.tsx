@@ -15,7 +15,7 @@ export default function Emergency() {
         const token = await AsyncStorage.getItem('token');
 
         if (userId) {
-            const userData = await getUserInfo(Number(userId), String(token)); 
+            const userData = await getUserInfo(String(token), Number(userId)); 
             if (userData) {
               console.log('userData ', userData);
               
