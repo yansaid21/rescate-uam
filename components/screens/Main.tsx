@@ -4,7 +4,7 @@ import TypeEmergencyButton from "../atoms/TypeEmergencyButton";
 import { BigEmergencyButton } from "../atoms/BigEmergencyButton";
 import CompleteRegister from "../organisms/CompleteRegister";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getAllUsers } from "../../auth/get";
+import { getUserInfo } from "../../auth/get";
 import Spinner from "../molecules/Spinner";
 import * as SQLite from 'expo-sqlite';
 
