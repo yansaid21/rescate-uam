@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SERVER_IP } from '../utils/constants';
 
 export async function loginUser(email: string, password: string, device_name: string) {
-  const uri =`https://${SERVER_IP}/api/auth/login`;
+  const uri =`https://rescueapi.xyz/api/auth/login`;
 
   try {
     const response = await fetch(uri, {

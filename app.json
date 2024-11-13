@@ -24,20 +24,32 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.juanc.quinteroh.rescateuam"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-  "expo-router",
-  "expo-font",
-  [
-    "expo-image-picker",
-    {
-      "photosPermission": "Share images with your friends."
+      "expo-router",
+      "expo-font",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Share images with your friends."
+        }
+      ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "fbb5ae07-9ec5-4c77-9533-dcbeebd01a41"
+      }
     }
-  ]
-]
   }
 }

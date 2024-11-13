@@ -1,7 +1,7 @@
 import { SERVER_IP } from '../utils/constants';
 
 export async function getZones(id_institution: number, token: string) {
-    const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/zones`;
+    const uri = `https://rescueapi.xyz/api/institutions/${id_institution}/zones`;
 
     try {
         const response = await fetch(uri, {

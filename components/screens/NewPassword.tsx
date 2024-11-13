@@ -7,7 +7,6 @@ import CustomButton from '../atoms/CustomButton';
 import InputPassword from '../atoms/InputPassword';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUserInfo } from '../../auth/get';
-import { SERVER_IP } from '../../utils/constants';
 
 const NewPassword = () => {
     const [email, setEmail] = useState('');
@@ -39,7 +38,7 @@ const NewPassword = () => {
         <View className='flex-1 flex-col justify-evenly items-center m-5'>
             {photo ? (
                 <Image 
-                    source={{ uri: `http://${SERVER_IP}:8000${photo}` }} 
+                    source={{ uri: `https://rescueapi.xyz/${photo}` }} 
                     style={{ width: 150, height: 150, borderRadius: 100 }} 
                 />
             ) : (
