@@ -1,8 +1,8 @@
 // api/userService.ts
 import { SERVER_IP } from '../utils/constants';
 
-export async function getUserInfo(token: string) {
-    const uri = `http://${SERVER_IP}:8000/api/institutions/1/users`;
+export async function getUserInfo(token: string, user_id: number) {
+    const uri = `http://${SERVER_IP}:8000/api/institutions/1/users/${user_id}`;
 
     try {
         const response = await fetch(uri, {
