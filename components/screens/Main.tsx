@@ -32,12 +32,10 @@ export default function Main() {
       const id_user = await AsyncStorage.getItem('id'); 
 
       if (token && id_user) {
-        console.log("obteniendo a todos los usuarios");
-        const users = await getAllUsers(); 
-        const user = users.find((u: any) => u.id === Number(id_user));
-
-        if (user) {
-          console.log("Usuario actual:", user);
+        const user = await getUserInfo(token, Number(id_user)); 
+        
+        if (user && user.data) {
+          console.log('user data en main ', user.data);
           setUserData(user);
 
           // Solo abre el modal si falta algún dato
