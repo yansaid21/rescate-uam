@@ -2,7 +2,7 @@
 import { SERVER_IP } from '../utils/constants';
 
 export async function getUserInfo(token: string, user_id: number) {
-    const uri = `http://${SERVER_IP}:8000/api/institutions/1/users/${user_id}`;
+    const uri = `https://${SERVER_IP}/api/institutions/1/users/${user_id}`;
 
     try {
         const response = await fetch(uri, {
@@ -27,7 +27,7 @@ export async function getUserInfo(token: string, user_id: number) {
 }
 
 export async function getAllUsers() {
-    const uri = `http://${SERVER_IP}:8000/api/institutions/1/users`;
+    const uri = `https://${SERVER_IP}/api/institutions/1/users`;
 
     try {
         console.log("obteniendo a todos los usuarios");

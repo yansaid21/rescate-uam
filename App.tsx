@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Main from './components/screens/Main';
 import Login from './components/screens/Login';
 import * as SplashScreen from 'expo-splash-screen'
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import Register from './components/screens/Register';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Spinner from './components/molecules/Spinner';

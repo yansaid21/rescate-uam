@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
           {/* Condicional para mostrar el botón de crudBrigadist */}
           {(role === 'administrator' || role === 'brigadier') && (
             <TouchableOpacity>
-              <Link href="/loggedIn/crudBrigadist">
+              <Link href="/loggedIn/usersStatus">
                 <Icon name="insert-chart-outlined" type="material" size={30} className="m-3" color="#fff" />
               </Link>
             </TouchableOpacity>
