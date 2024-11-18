@@ -10,6 +10,7 @@ import * as SQLite from 'expo-sqlite';
 
 interface UserData {
   data: {
+    id?: number;
     name: string;
     last_name: string;
     email: string;
@@ -94,12 +95,33 @@ export default function Main() {
         `);
 
         if (userData && userData.data) {
-          await db.execAsync(`
-            INSERT INTO users (name, last_name, email, id_card, role_id)
-            VALUES 
-            ('${userData.data.name}', '${userData.data.last_name}', '${userData.data.email}', '${userData.data.id_card}', '${userData.data.adminRoleId}');
+          const userExists = await db.getFirstAsync(`
+            SELECT * FROM users WHERE id = '${userData.data.id}';
           `);
-          console.log("Usuario creado en la base de datos:", userData.data);
+          console.log("Usuario encontrado en la base de datos:", userExists);
+          
+          if (userExists) {
+            // Actualizar el usuario existente
+            const existingUserId =userData.data.id;
+            await db.runAsync(`
+              UPDATE users 
+              SET name = '${userData.data.name}', 
+                  last_name = '${userData.data.last_name}', 
+                  id_card = '${userData.data.id_card}', 
+                  role_id = '${userData.data.adminRoleId}' 
+              WHERE id = ${existingUserId};
+            `);
+            console.log("Usuario actualizado en la base de datos:", userData.data);
+          } else {
+            // Insertar un nuevo usuario
+            await db.runAsync(`
+              INSERT INTO users (name, last_name, email, id_card, role_id)
+              VALUES 
+              ('${userData.data.name}', '${userData.data.last_name}', '${userData.data.email}', '${userData.data.id_card}', '${userData.data.adminRoleId}');
+            `);
+            console.log("Usuario creado en la base de datos:", userData.data);
+          }
+          
         }
 
         setIsLoading(false);
@@ -142,3 +164,5 @@ export default function Main() {
     </View>
   );
 }
+
+
