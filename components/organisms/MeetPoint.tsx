@@ -33,6 +33,8 @@ const MeetPoint: React.FC<MeetPointsModalProps> = ({ visible, onClose }) => {
     const [zones, setZones] = useState([]);
     const fetchZones = async () => {
         setLoading(true); 
+        console.log("estoy en fetchZones");
+        
         try {
             const token = await AsyncStorage.getItem('token');
             console.log('token ', token);
@@ -42,6 +44,8 @@ const MeetPoint: React.FC<MeetPointsModalProps> = ({ visible, onClose }) => {
                 console.log('zones meetpoints ', zonesData.data);
                 setZones(zonesData.data); 
             }
+            console.log('zones ', zones);
+            
         } catch (error) {
             console.log('Error al obtener zonas:', error);
         } finally {
@@ -50,9 +54,8 @@ const MeetPoint: React.FC<MeetPointsModalProps> = ({ visible, onClose }) => {
     };
     
     useEffect(()=>{
-        if(visible){
-            fetchZones();
-        }
+
+            fetchZones();   
     }, [])
 
     const onSubmit = async (data: FormData) => {
@@ -91,7 +94,7 @@ const MeetPoint: React.FC<MeetPointsModalProps> = ({ visible, onClose }) => {
                     <View className='w-[350px] p-5 bg-white rounded-lg items-center'>
                         <Text className='mb-5 text-4xl text-center text-[#0090D0]'>¡Añadir punto de encuentro!</Text>
                         {loading ? ( // Mostrar indicador de carga
-                            <Text>Cargando zonas...</Text>
+                            <Spinner/>
                         ) : (
                             <>
                         <View className="mb-5">
@@ -133,7 +136,7 @@ const MeetPoint: React.FC<MeetPointsModalProps> = ({ visible, onClose }) => {
                                         }}
                                         dropdownIconColor="#000"
                                     >
-                                        {zones.length > 0 ? (
+                                        {zones.length >0 ? (
                                             zones.map((zone: any) => (
                                                 <Picker.Item key={zone.id} label={zone.name} value={zone.id.toString()} />
                                             ))
