@@ -26,8 +26,8 @@ export const BigEmergencyButton: React.FC<BigEmergencyButtonProps> = ({
     };
 
     const logoSource = isYellow
-        ? require('../../assets/UAM/Logos_UAM-08.png')
-        : require('../../assets/UAM/Logos_UAM-10.png');
+        ? require('../../assets/UAM/Logos_UAM-10.png')
+        : require('../../assets/UAM/Logos_UAM-08.png');
 
     return (
         <Pressable onPress={handlePress} style={styles.buttonContainer}>
@@ -38,7 +38,7 @@ export const BigEmergencyButton: React.FC<BigEmergencyButtonProps> = ({
                         width: buttonWidth,
                         height: buttonHeight,
                         borderRadius: buttonBorderRadius,
-                        backgroundColor: isYellow ? '#F4D73B' : '#0090D0',
+                        backgroundColor: isYellow ? '#0090D0' : '#F4D73B',
                     },
                 ]}
             >
