@@ -1,7 +1,7 @@
-import React from 'react';
+
 import { StyleSheet, View, Text } from 'react-native';
 import { Slot, Stack } from 'expo-router';
-
+import "../global.css";
 
 const Layout = () => {
   return (
