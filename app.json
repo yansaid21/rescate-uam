@@ -1,5 +1,6 @@
 {
   "expo": {
+    "newArchEnabled": true,
     "name": "rescate-uam",
     "slug": "rescate-uam",
     "version": "1.0.0",
