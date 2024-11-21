@@ -37,7 +37,7 @@ export async function createMeetPoint(id_institution: number, name: string, id_z
 }
 
 export async function getMeetPoints(id_institution: number, token: string) {
-    const uri = `http://${SERVER_IP}:8000/api/institutions/${id_institution}/meet_points`;
+    const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/meet_points`;
 
     try {
         const response = await fetch(uri, {
