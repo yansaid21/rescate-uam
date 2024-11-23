@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import TypeEmergencyButton from "../atoms/TypeEmergencyButton";
 import { BigEmergencyButton } from "../atoms/BigEmergencyButton";
 import CompleteRegister from "../organisms/CompleteRegister";
@@ -8,6 +8,7 @@ import { getUserInfo } from "../../auth/get";
 import Spinner from "../molecules/Spinner";
 import * as SQLite from 'expo-sqlite';
 import { getRiskSituation } from "../../auth/risks";
+import { createIncident } from "../../auth/incident";
 
 interface UserData {
   data: {
@@ -28,7 +29,9 @@ export default function Main() {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [risks, setRisks] = useState([]);
-
+  //gestionar incidente
+  const [isIncidentActive, setIsIncidentActive] = useState(false);
+  const [selectedRiskId, setSelectedRiskId] = useState<number | null>(null);
 
   const getRisks = async () => {
     try {
@@ -155,6 +158,31 @@ export default function Main() {
     return <Spinner />;
   }
 
+  //crear el incidente
+  const toggleIncident = async () => {
+    if (!isIncidentActive) {
+      if (selectedRiskId === null) {
+          Alert.alert('Error', 'Por favor selecciona un tipo de emergencia.');
+          return;
+      }
+      try {
+        const token = await AsyncStorage.getItem("token");
+        const institutionId = 1; 
+
+        if (token) {
+          await createIncident(institutionId, selectedRiskId, token);
+          console.log("Incidente creado.");
+          setIsIncidentActive(true);
+        }
+      } catch (error) {
+        console.error("Error al crear el incidente:", error);
+      }
+    } else {
+      console.log("Incidente finalizado.");
+      setIsIncidentActive(false);
+    }
+  };
+
   return (
     <View className="h-full">
       <View className="justify-center items-center pt-12">
@@ -166,11 +194,17 @@ export default function Main() {
             buttonBorderRadius={125} 
             logoWidth={100} 
             logoHeight={150} 
+            onToggleIncident={toggleIncident}
           />
         </View>
         {risks.map((risk: any) => (
           <View className="p-5" key={risk.id}>
-            <TypeEmergencyButton text={risk.name} />
+            <TypeEmergencyButton 
+              text={risk.name} 
+              riskId={risk.id}
+              isSelected={selectedRiskId === risk.id} 
+              onSelectRisk={setSelectedRiskId}
+            />
           </View>
         ))}
       </View>

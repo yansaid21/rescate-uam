@@ -9,6 +9,7 @@ interface BigEmergencyButtonProps {
     buttonBorderRadius: number;
     logoWidth: number;
     logoHeight: number;
+    onToggleIncident: () => void;
 }
 
 export const BigEmergencyButton: React.FC<BigEmergencyButtonProps> = ({
@@ -17,12 +18,14 @@ export const BigEmergencyButton: React.FC<BigEmergencyButtonProps> = ({
     buttonHeight,
     buttonBorderRadius,
     logoWidth,
-    logoHeight
+    logoHeight,
+    onToggleIncident,
 }) => {
     const [isYellow, setIsYellow] = useState(initialIsYellow);
 
     const handlePress = () => {
         setIsYellow(!isYellow);
+        onToggleIncident();
     };
 
     const logoSource = isYellow
