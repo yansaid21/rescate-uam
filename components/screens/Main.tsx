@@ -35,6 +35,33 @@ export default function Main() {
   const [isIncidentActive, setIsIncidentActive] = useState(false);
   const [selectedRiskId, setSelectedRiskId] = useState<number | null>(null);
 
+  //notificaciones
+  const { expoPushToken, notification } = usePushNotifications();
+  console.log("Expo Push Token:", expoPushToken);
+  const sendPushNotification = async (title: string, body: string) => {
+    const message = {
+      to: expoPushToken,
+      sound: 'default',
+      title: title,
+      body: body,
+      data: { someData: 'goes here' },
+    };
+
+    try {
+      await fetch('https://exp.host/--/api/v2/push/send', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(message),
+      });
+      console.log('Notificación enviada:', message);
+    } catch (error) {
+      console.error('Error al enviar la notificación:', error);
+    }
+  };
+
   const getRisks = async () => {
     try {
       const token = await AsyncStorage.getItem('token'); 
@@ -49,7 +76,6 @@ export default function Main() {
       console.error("Error al obtener la información de los riesgos:", error);
     }
   }
-  const { expoPushToken, notification } = usePushNotifications();
 
   const checkUserInfo = async () => {
     try {
@@ -175,6 +201,8 @@ export default function Main() {
 
         if (token) {
           await createIncident(institutionId, selectedRiskId, token);
+          sendPushNotification("Incidente Creado", "Se ha creado un nuevo incidente.");
+          
           console.log("Incidente creado.");
           setIsIncidentActive(true);
         }
