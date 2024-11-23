@@ -8,6 +8,8 @@ import { getUserInfo } from "../../auth/get";
 import Spinner from "../molecules/Spinner";
 import * as SQLite from 'expo-sqlite';
 
+import { usePushNotifications } from "../../usePushNotifications";
+
 interface UserData {
   data: {
     id?: number;
@@ -26,6 +28,8 @@ export default function Main() {
   const [modalVisible, setModalVisible] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { expoPushToken, notification } = usePushNotifications();
 
   const checkUserInfo = async () => {
     try {
