@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import TypeEmergencyButton from "../atoms/TypeEmergencyButton";
 import { BigEmergencyButton } from "../atoms/BigEmergencyButton";
 import CompleteRegister from "../organisms/CompleteRegister";
@@ -7,6 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUserInfo } from "../../auth/get";
 import Spinner from "../molecules/Spinner";
 import * as SQLite from 'expo-sqlite';
+import { getRiskSituation } from "../../auth/risks";
+import { createIncident } from "../../auth/incident";
 
 import { usePushNotifications } from "../../usePushNotifications";
 
@@ -28,7 +30,25 @@ export default function Main() {
   const [modalVisible, setModalVisible] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [risks, setRisks] = useState([]);
+  //gestionar incidente
+  const [isIncidentActive, setIsIncidentActive] = useState(false);
+  const [selectedRiskId, setSelectedRiskId] = useState<number | null>(null);
 
+  const getRisks = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token'); 
+
+      if (token ) {
+        const risks = await getRiskSituation(token, 1); 
+        setRisks(risks.data);
+        /* console.log("riesgos traidos", risks); */
+        
+      }
+    } catch (error) {
+      console.error("Error al obtener la información de los riesgos:", error);
+    }
+  }
   const { expoPushToken, notification } = usePushNotifications();
 
   const checkUserInfo = async () => {
@@ -40,13 +60,13 @@ export default function Main() {
         const user = await getUserInfo(token, Number(id_user)); 
         
         if (user && user.data) {
-          console.log('user data en main ', user.data);
+          /* console.log('user data en main ', user.data); */
           setUserData(user);
 
           // Solo abre el modal si falta algún dato
           const isInfoIncomplete = !user.rhgb || !user.social_security || !user.phone_number;
           setModalVisible(isInfoIncomplete);
-          console.log("Modal visibility set to:", isInfoIncomplete);
+          /* console.log("Modal visibility set to:", isInfoIncomplete); */
         }
       }
     } catch (error) {
@@ -56,6 +76,7 @@ export default function Main() {
 
   useEffect(() => {
     checkUserInfo();
+    getRisks();
   }, []); // Este `useEffect` solo se ejecuta una vez al montar el componente
 
   const handleCloseModal = () => {
@@ -102,7 +123,7 @@ export default function Main() {
           const userExists = await db.getFirstAsync(`
             SELECT * FROM users WHERE id = '${userData.data.id}';
           `);
-          console.log("Usuario encontrado en la base de datos:", userExists);
+          /* console.log("Usuario encontrado en la base de datos:", userExists); */
           
           if (userExists) {
             // Actualizar el usuario existente
@@ -115,7 +136,7 @@ export default function Main() {
                   role_id = '${userData.data.adminRoleId}' 
               WHERE id = ${existingUserId};
             `);
-            console.log("Usuario actualizado en la base de datos:", userData.data);
+            /* console.log("Usuario actualizado en la base de datos:", userData.data); */
           } else {
             // Insertar un nuevo usuario
             await db.runAsync(`
@@ -123,7 +144,7 @@ export default function Main() {
               VALUES 
               ('${userData.data.name}', '${userData.data.last_name}', '${userData.data.email}', '${userData.data.id_card}', '${userData.data.adminRoleId}');
             `);
-            console.log("Usuario creado en la base de datos:", userData.data);
+            /* console.log("Usuario creado en la base de datos:", userData.data); */
           }
           
         }
@@ -141,6 +162,31 @@ export default function Main() {
     return <Spinner />;
   }
 
+  //crear el incidente
+  const toggleIncident = async () => {
+    if (!isIncidentActive) {
+      if (selectedRiskId === null) {
+          Alert.alert('Error', 'Por favor selecciona un tipo de emergencia.');
+          return;
+      }
+      try {
+        const token = await AsyncStorage.getItem("token");
+        const institutionId = 1; 
+
+        if (token) {
+          await createIncident(institutionId, selectedRiskId, token);
+          console.log("Incidente creado.");
+          setIsIncidentActive(true);
+        }
+      } catch (error) {
+        console.error("Error al crear el incidente:", error);
+      }
+    } else {
+      console.log("Incidente finalizado.");
+      setIsIncidentActive(false);
+    }
+  };
+
   return (
     <View className="h-full">
       <View className="justify-center items-center pt-12">
@@ -152,17 +198,19 @@ export default function Main() {
             buttonBorderRadius={125} 
             logoWidth={100} 
             logoHeight={150} 
+            onToggleIncident={toggleIncident}
           />
         </View>
-        <View className="p-5">
-          <TypeEmergencyButton text="Evacuación" />
-        </View>
-        <View className="p-5">
-          <TypeEmergencyButton text="Incendio" />
-        </View>
-        <View className="p-5">
-          <TypeEmergencyButton text="Sismo" />
-        </View>
+        {risks.map((risk: any) => (
+          <View className="p-5" key={risk.id}>
+            <TypeEmergencyButton 
+              text={risk.name} 
+              riskId={risk.id}
+              isSelected={selectedRiskId === risk.id} 
+              onSelectRisk={setSelectedRiskId}
+            />
+          </View>
+        ))}
       </View>
       <CompleteRegister visible={modalVisible} onClose={handleCloseModal} />
     </View>

@@ -1,0 +1,789 @@
+[33mcommit 40a3713d460ffeba00c28b84330d61684f8a2436[m[33m ([m[1;36mHEAD[m[33m)[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Mon Nov 18 16:47:35 2024 -0500
+
+    database errors un main solved. solved the sqlite errors with the user save for the methods used like db.execute, change to runAsync, and the users just update the info if exists, in other way, create the user in the localDb. [Main.jsx]
+
+[33mcommit fe77864770aeaabb2e585bd9ce9539e63936fd7d[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Wed Nov 13 15:08:18 2024 -0500
+
+    changing the basepath and looking the localdatabaseError [auth/]
+
+[33mcommit 48c9058d1cf2727b93fd6da8c4ee5b0e786315de[m[33m ([m[1;32mstadistics[m[33m)[m
+Merge: bd95ad0 0ca7eae
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Wed Nov 13 14:59:43 2024 -0500
+
+    Merge branch 'main' into stadistics
+
+[33mcommit bd95ad097f2bb950dcc2e0676a3f9a8dbeb26e41[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Wed Nov 13 14:55:20 2024 -0500
+
+    changing to dns server
+
+[33mcommit 0ca7eaee2b6417239e5d9bf3d416d41902f7ec25[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: e14753a 8e1c2d4
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Wed Nov 13 04:05:03 2024 +0100
+
+    Merge pull request #35 from yansaid21/LoginRegisterFixTailwind
+    
+    Fix modal Complete Register.
+
+[33mcommit 8e1c2d47d6913f80177f406985122c6ae45c2c87[m[33m ([m[1;31morigin/LoginRegisterFixTailwind[m[33m)[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Nov 12 21:46:46 2024 -0500
+
+    Fix modal Complete Register.
+    Modal only opens when the user has null fields.
+    Changes in get method 'getUserInfo'auth/[get],
+    Changes in [Emergency] [Main],
+    Warm!! Console error when user is in [EditProfile], not fix yet
+
+[33mcommit eaeaa67a4a782b7d4fe3589686dfcd446357f6b7[m[33m ([m[1;31morigin/stadistics[m[33m)[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Thu Nov 7 17:42:29 2024 -0500
+
+    some fixes the compilation problem is solved (possibly)
+
+[33mcommit e14753a20631d608f245057d52e16f3633bd7041[m
+Merge: d41749d 6306509
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Thu Oct 31 15:47:50 2024 +0100
+
+    Merge pull request #33 from yansaid21/navbarDependsUser
+    
+    Navbar, principal screens depend of the role of the user, change the …
+
+[33mcommit 6306509c5e2fff357c8f2854a13d4a5366d6b3cd[m[33m ([m[1;31morigin/navbarDependsUser[m[33m)[m
+Author: JuanC2004 <juanc.quinteroh@autonoma.edu.co>
+Date:   Thu Oct 31 09:45:35 2024 -0500
+
+    Navbar, principal screens depend of the role of the user, change the get method because of changes in backend [get.ts, Login.tsx, Nav.tsx]
+
+[33mcommit d41749d36409ecd9781db4edf8b756eaee7af621[m
+Merge: 4d0c1b2 e74c3c0
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Wed Oct 30 23:33:44 2024 +0100
+
+    Merge pull request #32 from yansaid21/meetPoints
+    
+    Meet points
+
+[33mcommit e74c3c03ebd39dcde7a42448e118ba1fbc65c655[m[33m ([m[1;31morigin/meetPoints[m[33m)[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Oct 29 23:21:28 2024 -0500
+
+    Create meet points screen.
+    Add meet points screen, create with post and list with get.
+    Changes in:
+    Add route meetPoints app/loggedIn/[meetPoint],
+    Methods post and get meet points auth/[meetPoint],
+    Method get zones auth/[zones],
+    Create modal with form, add validations and scrollview screen/[MeetPoint],
+    Create list of meet points screen/[MeetPointList],
+    Route in menu section in 'Puntos de encuentro' screens/[Menu],
+    Create styles to textArea [tokens],
+    Create meet point scheme for validation with forms schemes/[meetPointScheme]
+
+[33mcommit 7266d0b8a2713f95ae50fce5ddb16a2b08e85b6c[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Oct 28 22:29:23 2024 -0500
+
+    first changes with newPassword
+
+[33mcommit 4d0c1b2106f447c12bcdf88578c9f7c7fe26dedc[m
+Merge: 077dccc 5d58929
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Sun Oct 27 20:44:10 2024 +0100
+
+    Merge pull request #31 from yansaid21/LoginRegisterFixTailwind
+    
+    Validations and ScrollView
+
+[33mcommit 5d589298ed8b8da9f88b2d0e0490d3d10493bf36[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Sun Oct 27 00:08:46 2024 -0500
+
+    Validations and organize ScrollView.
+    Validations with zod schema in data entry forms. Adding ScrollView and KeyboardAvoidingView in forms.
+    Changes in:
+    keyboardType [Input] in atoms,
+    validations with zod, add ScrollView and add dropdown of rhgb field [CompleteRegister] in organisms,
+    add ScrollView and KeyboardAvoidingView, modification in the structure of the components [EditProfile] in screens,
+    recognize for role and add complete register if it have nullables [Emergency] in screens,
+    keyboardType in id field [Register] in screens,
+    change rengex in validations schemes [loginScheme] [registerScheme] in schemes,
+    create new file with validations scheme [completeRegisterScheme] in schemes.
+
+[33mcommit 0f79db323753a1d2834518a12c3cb6b5ffc85691[m
+Merge: 77c005b 077dccc
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Sat Oct 26 20:58:18 2024 -0500
+
+    Merge branch 'main' of https://github.com/yansaid21/rescate-uam into LoginRegisterFixTailwind
+
+[33mcommit 077dccc2198ac949301d3e97ba82fcb616d01470[m
+Merge: 6596e16 8987f1b
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Thu Oct 24 17:55:41 2024 +0200
+
+    Merge pull request #30 from yansaid21/Tableoffline
+
+[33mcommit 8987f1b68c9d002a8ea65052c0a16604e178d5a3[m
+Author: JuanC2004 <juanc.quinteroh@autonoma.edu.co>
+Date:   Thu Oct 24 10:44:04 2024 -0500
+
+    Table data dynamic, maping users, using id_card, name, last_name and role, adding two new columns Admin and brgadier, that tells to the admin the role of the users in the system; deleted the column programa. [ModBrigadista.tsx]
+
+[33mcommit be736b9593a5671b43feb0ffdec8c7b79f60a97f[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Wed Oct 23 22:51:10 2024 -0500
+
+    getting all users getting all users using the api, and now, in the screen ModBrigadist the data is ready to use in a constant using usestate [ModBrigadist.tsx]
+
+[33mcommit 6596e16e887fa6ec3dc8b21980961a5509b3e006[m
+Merge: 8964e68 b9bad84
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Thu Oct 24 02:53:21 2024 +0200
+
+    Merge pull request #29 from yansaid21/Spinner
+    
+    Spinner
+
+[33mcommit b9bad8442bb772dab2112761cf0681db9c5565f9[m[33m ([m[1;31morigin/Spinner[m[33m, [m[1;32mSpinner[m[33m)[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Wed Oct 23 19:49:33 2024 -0500
+
+    spinner spinner added in the login screen to main screen and account to edit profile [Main.tsx, Login.tsx, EditProfile.tsx, Spinner.tsx]
+
+[33mcommit bd338e6db1a14a6c1a132709ffda9bcc6a32df03[m[33m ([m[1;31morigin/netInfo[m[33m, [m[1;32mnetInfo[m[33m)[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Oct 22 17:20:09 2024 -0500
+
+    fixed the sqlite user null problem [Main.tsx]
+
+[33mcommit 40321255d9fa9a576fcb78bfe246b5f301f3bec3[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Oct 22 07:12:04 2024 -0500
+
+    SQLite implementation.
+    Fix syntax errors, shows inserts of users and roles tables [Main]
+
+[33mcommit 5fc9e5b71f25bef8808f696275c7369a1cf7ab1e[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Mon Oct 21 20:04:34 2024 -0500
+
+    using sqlite as a local db. Using sqlite as a local db for a network fail using expo-sqlite (dont forget to use npm i to install the dependencies), is not complete yet [Main.tsx]
+
+[33mcommit 8964e68e3bc73955c63d8f3fa7eaa97acca57e01[m
+Merge: 75a224c 5d973e0
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Oct 15 11:36:21 2024 -0500
+
+    Merge pull request #28 from yansaid21/image
+    
+    fixing images fixing the images problem with the back una the differe…
+
+[33mcommit 5d973e02e351115c94713b9fd94b7973bfdc4b08[m[33m ([m[1;31morigin/image[m[33m, [m[1;32mimage[m[33m)[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Oct 15 11:35:56 2024 -0500
+
+    fixing images fixing the images problem with the back una the different names used for photo_path [auth/put.ts. aut/auth.ts and some packages installed to manages images in react]
+
+[33mcommit 77c005b588b5766a5a0babb0c20746a15f49f87d[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Oct 15 11:24:48 2024 -0500
+
+    Validation with zod.
+    Create schemes login and register [schemes/loginScheme] & [schemes/registerScheme].
+    Change form validation [login] [register]
+
+[33mcommit 75a224c2109c2305fd4db75fff7304a645bbb6c3[m
+Merge: dbf06f2 c3a0586
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Oct 8 16:34:16 2024 -0500
+
+    Merge pull request #27 from yansaid21/register
+    
+    Register
+
+[33mcommit c3a05865c72697422255ae37c4866603fdb152e6[m[33m ([m[1;31morigin/register[m[33m, [m[1;32mregister[m[33m)[m
+Merge: acb4a91 dbf06f2
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Oct 8 16:34:04 2024 -0500
+
+    Merge branch 'main' into register
+
+[33mcommit dbf06f28b8018929be5310c11e47ac1afeb08a80[m
+Merge: 8056efe 674fa5f
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Oct 8 16:31:44 2024 -0500
+
+    Merge pull request #26 from yansaid21/emergencyButtons
+    
+    After login, the app recognize the role of the user and shows the res…
+
+[33mcommit 674fa5f92e29959bd2b81d69c4847d7d22db62ff[m[33m ([m[1;31morigin/emergencyButtons[m[33m, [m[1;32memergencyButtons[m[33m)[m
+Merge: 987f712 8056efe
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Oct 8 16:31:16 2024 -0500
+
+    Merge branch 'main' into emergencyButtons
+
+[33mcommit acb4a9135d1eea00a988c485c1a19ebb46c34329[m
+Merge: de8f13c 8056efe
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Oct 8 16:28:07 2024 -0500
+
+    Complete register without photo.
+    Changes in [CompleteRegister], method put in [put] on auth. No charge photo
+
+[33mcommit 987f71295b4fd4890af790c2f0eb0df2375cdb5c[m
+Author: JuanC2004 <juanc.quinteroh@autonoma.edu.co>
+Date:   Tue Oct 8 14:31:58 2024 -0500
+
+    After login, the app recognize the role of the user and shows the respect page [Login.tsx]
+
+[33mcommit 8056efe3c4da6f4f0430b3b1c908febdc543a016[m
+Merge: 96c74b5 030d8c1
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Oct 8 13:21:21 2024 -0500
+
+    Merge pull request #25 from yansaid21/shortDomain
+    
+    loggout fix loginScreen domainShortcut creatin a shortcut to loggin i…
+
+[33mcommit 030d8c1de7e558a39e4faa82e20ce22cd1bb5897[m[33m ([m[1;31morigin/shortDomain[m[33m, [m[1;32mshortDomain[m[33m)[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Oct 8 13:20:40 2024 -0500
+
+    loggout fix loginScreen domainShortcut creatin a shortcut to loggin into the app without writing the domain, or writing it and only is allowed the autonomas domain, fixxed the problem in the loggin page where the email input is in the center right now, and in the loggout button the token is deleted from the localstorage [Login.tsx, Profile.tsx]
+
+[33mcommit 96c74b5441401b3e5368191c1635afc306347741[m
+Merge: 7f44bdc e589114
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Oct 8 12:04:35 2024 -0500
+
+    Merge pull request #24 from yansaid21/menuScreen
+    
+    Menu screen
+
+[33mcommit e58911413af21d89edb06b133687fde1f5bdab8c[m[33m ([m[1;31morigin/menuScreen[m[33m, [m[1;32mmenuScreen[m[33m)[m
+Merge: 5fd6e3d 9e65564
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Oct 8 12:04:10 2024 -0500
+
+    Merge branch 'main' into menuScreen
+
+[33mcommit 9e65564bb6e472587c8ff579e53b4e95ff378e5f[m
+Merge: 46839cb 7f44bdc
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Oct 8 12:02:38 2024 -0500
+
+    Merge branch 'main' of https://github.com/yansaid21/rescate-uam
+
+[33mcommit 5fd6e3d8a1cb8353db4facef2bcd0250fb32de5d[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Oct 8 12:00:46 2024 -0500
+
+    making menu screen Creating the menu screen [Menu.tsx, menu.tsx, SectionMenu.tsx]
+
+[33mcommit 7f44bdc41d3f59192f9c68166b412d6272770280[m
+Merge: 6d94e5a e579a7c
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Oct 8 11:58:17 2024 -0500
+
+    Merge pull request #23 from yansaid21/PutMethodUsers
+    
+    Fixing the put method [put.ts and EditProfile.tsx]
+
+[33mcommit e579a7c2e8731740fba610c44a16a33cfa1213c8[m[33m ([m[1;31morigin/PutMethodUsers[m[33m)[m
+Author: JuanC2004 <juanc.quinteroh@autonoma.edu.co>
+Date:   Tue Oct 8 11:54:40 2024 -0500
+
+    Fixing the put method [put.ts and EditProfile.tsx]
+
+[33mcommit 6d94e5a5a0f9dcef0e822f15beb24c6aafbbfc8d[m
+Merge: 878a8b6 e5ba4fa
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Oct 8 10:46:40 2024 -0500
+
+    Merge pull request #22 from yansaid21/account
+    
+    Add logg out.
+
+[33mcommit 878a8b6488c6778117b0a7608c11926a91982eb5[m
+Merge: a3713b2 269381c
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Oct 8 10:46:32 2024 -0500
+
+    Merge pull request #21 from yansaid21/PutMethodUsers
+    
+    Put method conected with backend (ONLY MAKE CHANGES IN THE DATABASE W…
+
+[33mcommit a3713b28071888d58950be06fc924bc182b4e9b7[m
+Merge: 02dddc0 4e0fa7a
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Oct 8 10:46:19 2024 -0500
+
+    Merge pull request #20 from yansaid21/emergencyButtons
+    
+    Creation of emergency page with buttons 'Estoy a salvo' and 'Estoy en…
+
+[33mcommit e5ba4fabf96711c581cba2c11fd69d3c2c9ed327[m[33m ([m[1;31morigin/account[m[33m)[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Oct 8 10:38:29 2024 -0500
+
+    Add logg out.
+    icon [Icons], add view in [Profile]
+
+[33mcommit de8f13cab1fd13e7bc74be0995230ddbf9e56624[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Oct 8 10:35:13 2024 -0500
+
+    Fix designs.
+    Tokens [tokens], add tokens in [login] [register] [Input] [CustomButton]
+
+[33mcommit 269381c2719288205668e8f0425b4c97e2078bdf[m
+Author: JuanC2004 <juanc.quinteroh@autonoma.edu.co>
+Date:   Tue Oct 8 02:20:29 2024 -0500
+
+    Put method conected with backend (ONLY MAKE CHANGES IN THE DATABASE WHEN ALL THE INPUTS ARE DIFERENT) [put.ts and EditProfile.tsx]
+
+[33mcommit 4e0fa7adce45ac4cf55705905c8fb9d89fe30d0d[m
+Author: JuanC2004 <juanc.quinteroh@autonoma.edu.co>
+Date:   Tue Oct 8 02:02:26 2024 -0500
+
+    Creation of emergency page with buttons 'Estoy a salvo' and 'Estoy en peligro' changing functions in the button component and repairing the screen Main with the changes in the button [app/loggedin/emergency.tsx, app/components/atoms/BigEmergencyButton.tsx, app/components/screens/Emergency.tsx and app/components/screens/Main.tsx]
+
+[33mcommit 83f301e21a3a04fad378ef98b39b74aac489b6e8[m
+Merge: a0a7f1a 0b223d5
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Oct 7 20:46:03 2024 -0500
+
+    Modal to complete registration fields.
+    Changes in [Main] show the modal for those who have an empty field, add [CompleteRegister] in organisms and [ImageUploadComponent] in atoms.
+
+[33mcommit 02dddc022652834b306594e5da1ded8b0768ea19[m
+Merge: f39f6e0 0b223d5
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Mon Oct 7 18:46:46 2024 -0500
+
+    Merge pull request #19 from yansaid21/LoginRegisterFixTailwind
+    
+    Login register fix
+
+[33mcommit 0b223d5e79e1acc67eb051c750fe1216809efbe6[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Oct 7 18:31:21 2024 -0500
+
+    Validations, error handling and button removal.
+    Validations for login and register forms using react hook form, creation of modal for error handling in forms when there is a user already created or password error, creation of getAllUsers method for error handling. Finally, the Google login button is removed and a link is added in the register form to login.
+    Validations, add ErrorModal [Login] & [Register], creation [ErrorModal], getAllUsers [get] in auth, delete [GoogleButon], change in props [Input] & [InputPassword], Link Login [Register]
+
+[33mcommit c5f1731141da304d87876295a387cd3fd6510e2c[m
+Merge: 425c4f7 f39f6e0
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Oct 7 16:23:37 2024 -0500
+
+    Merge branch 'main' of https://github.com/yansaid21/rescate-uam into LoginRegisterFixTailwind
+
+[33mcommit 425c4f78aa0c2c24ce897a3e2a710dfb62749b06[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Oct 7 16:23:30 2024 -0500
+
+    Validations with react hook form.
+    Validation in [Login] [Register], changes in props of inputs [Input] [InputPassword]
+
+[33mcommit 46839cb888f43841ac8991a0fe8ad0abd99c55cc[m
+Merge: 7778f89 f39f6e0
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Mon Oct 7 15:29:19 2024 -0500
+
+    Merge branch 'main' of https://github.com/yansaid21/rescate-uam
+
+[33mcommit f39f6e0643a197a99553dee60ff72898bacae5b6[m
+Merge: adfce42 ea9de22
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Mon Oct 7 15:28:07 2024 -0500
+
+    Merge pull request #18 from yansaid21/account
+    
+    Accept person logged by role.
+
+[33mcommit b510f4c06b62d61b30aa02e844b606d7d00bd5d7[m
+Merge: adfce42 ea9de22
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Oct 7 15:15:24 2024 -0500
+
+    Merge branch 'account' of https://github.com/yansaid21/rescate-uam into LoginRegisterFixTailwind
+
+[33mcommit ea9de22c00f50599475c7759ab38caa1826759eb[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Oct 7 15:01:19 2024 -0500
+
+    Accept person logged by role.
+    Changes in [register] [login] [profile] relation with account.
+
+[33mcommit 7778f89e2d97244e4956cae25c12cb1e93f6d7f3[m
+Merge: 274eb22 adfce42
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Mon Oct 7 14:57:27 2024 -0500
+
+    Merge branch 'main' of https://github.com/yansaid21/rescate-uam
+
+[33mcommit 274eb22b08437c2cc38cc03f4174191d96ddaeb1[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Fri Oct 4 02:10:19 2024 -0500
+
+    creatin the nav, main screen and adding font (fira-sans) the navBar is ready to use, the Main screen has the necessary buttons and im loking for the images to complete the BigEmergencyButton (cause autonoma´s university made a bad image for the pressed button) [Main.jsx, Main.css, Navbar.jsx, NavBar.jsx, Login.jsx,Login.css, Register.jsx, assets/UAM, BigEmergencyButton.jsx, BigEmergencyButton.css, TypeEmergencyButton.jsx, TypeEmergencyButton.css, App.jsx, App.css, rutes.jsx]
+
+[33mcommit adfce42e1c9fb2843a59e9878f8c5dbed55d48ef[m
+Merge: e2b62eb f43986e
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Thu Oct 3 08:22:25 2024 -0500
+
+    Merge pull request #17 from yansaid21/account
+    
+    Account
+
+[33mcommit f43986e4033049343569ef21397a234416df273a[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Wed Oct 2 23:39:18 2024 -0500
+
+    Get user information.
+    Display user information in profile edit section, change input to show lowercase letters when tapping.
+    Changes in [auth/get] getUserInfo, [auth] asyncStorage, [Input & InputPassword] new field, [Profile & EditProfile] call function of Get and use of useEffect to hold data.
+
+[33mcommit a515a344d7633611ec6a734470d287407c626150[m
+Merge: 6173f57 e2b62eb
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Wed Oct 2 21:25:18 2024 -0500
+
+    Merge branch 'main' of https://github.com/yansaid21/rescate-uam into account
+
+[33mcommit e2b62eb4021f8df96bb9d55b461bf1fc0aeb93c1[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Wed Oct 2 18:24:42 2024 -0500
+
+    checking the login.tsx because it was broken
+
+[33mcommit c6aa1bd44d90ef09700f90b90b302051068f5b69[m
+Merge: bdc2e9b 94292f5
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Wed Oct 2 18:03:23 2024 -0500
+
+    Merge pull request #16 from yansaid21/FixNav
+    
+    fixing login path and nav icons. fixing nav and the path to login wit…
+
+[33mcommit 94292f540468bf16fbb4ffabadbd4be885e36f0e[m[33m ([m[1;31morigin/FixNav[m[33m, [m[1;32mFixNav[m[33m)[m
+Merge: ef2d547 bdc2e9b
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Wed Oct 2 18:02:46 2024 -0500
+
+    Merge branch 'main' into fixNav
+
+[33mcommit ef2d54719d6ef0606c1ac3abc0e5e518398bf4d3[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Wed Oct 2 13:16:13 2024 -0500
+
+    fixing login path and nav icons. fixing nav and the path to login with an user because before it runs into main even if the login were incorrec [auth.ts, login.ts, Login.tsx, Nav.tsx, Main.tsx, /loggedIn/_layout.tsx, /LoggedOut/_layout.tsx, /app/_layout.tsx]
+
+[33mcommit bdc2e9b27cbd4a17315f8124f3c737f8514c10db[m
+Merge: 09d8750 864e660
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Wed Oct 2 09:10:06 2024 -0500
+
+    Merge pull request #15 from yansaid21/solution-by-teacher
+    
+    No les vuelvo a solucionar sus problemas
+
+[33mcommit 864e66095f41214288d2a4d2d6a096b6fdc341b0[m[33m ([m[1;31morigin/solution-by-teacher[m[33m)[m
+Author: Cristian Gutierrez <cdgutierrez456@gmail.com>
+Date:   Wed Oct 2 00:13:36 2024 -0500
+
+    No les vuelvo a solucionar sus problemas
+
+[33mcommit 6173f576a7a516fdb122739a649fa4b4f5b84db0[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Sep 30 23:07:25 2024 -0500
+
+    scrollview in process
+
+[33mcommit 09d8750fe25cb225eafa8ceca07ae40ef3701de6[m
+Merge: 0145014 d1fc1a3
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Mon Sep 30 17:16:02 2024 -0500
+
+    Merge pull request #14 from yansaid21/FixAuth
+    
+    register works fixing the 402 error for the register screen [Register…
+
+[33mcommit d1fc1a3e07466b5fc0b38db895bc5d19839c3c6d[m[33m ([m[1;31morigin/FixAuth[m[33m, [m[1;32mFixAuth[m[33m)[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Mon Sep 30 17:15:19 2024 -0500
+
+    register works fixing the 402 error for the register screen [Register.tsx, register.ts]
+
+[33mcommit 01450148527c3c8edd32e4172e29f3048190f374[m
+Merge: 06a71b2 daf1840
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Mon Sep 30 17:07:59 2024 -0500
+
+    Merge pull request #13 from yansaid21/account
+    
+    Account module.
+
+[33mcommit daf1840449f959ef7a8cbe11f1cfa4a72a82b8ab[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Sun Sep 29 16:17:17 2024 -0500
+
+    Account module.
+    Creation of profile section views, account menu, personal data editing and password editing.
+    Changes in [Profile] [EditProfile] [NewPassword] [Icons]
+
+[33mcommit 06a71b29a06c97116ac7c2823b30d836a36acf9f[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Thu Sep 26 18:14:45 2024 -0500
+
+    register and login using the backed created specially to this app, modifing layouts to use it in different screens [/app, auth/auth.ts, auth/register.ts, Register.tsx, Login.tsx]
+
+[33mcommit 1a1635565f0e5bef34eb719ed308e2a13bcd55ea[m[33m ([m[1;32mFullLayout[m[33m)[m
+Merge: 669fbc6 3d3db82
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Sep 24 17:01:14 2024 -0500
+
+    Merge pull request #12 from yansaid21/LoginRegisterFixTailwind
+    
+    Complete validations [input] [inputPassword] [Login] [Register]
+
+[33mcommit 3d3db8238ae7eaff0989fc207e17fbb7cabb88a8[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Sep 24 16:57:17 2024 -0500
+
+    Complete validations [input] [inputPassword] [Login] [Register]
+
+[33mcommit 669fbc638eb4a984fd43f243cd02b748d4619411[m
+Merge: 9d949d9 3d39f8d
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Sep 24 10:30:24 2024 -0500
+
+    Merge pull request #11 from yansaid21/LoginRegisterFixTailwind
+    
+    form validation
+
+[33mcommit 3d39f8d39dafbb7bb611ae18df5361834f86b625[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Sep 23 22:37:46 2024 -0500
+
+    form validation
+    Validation of fields such as e-mail, password, identity, names, surnames and programs and acceptance of terms and conditions within the login and register forms.
+    Change of the structure of inputs and buttons.
+    [CustomButton] [Input] [InputPassword] props, [Login] [Register] validations
+
+[33mcommit 9d949d9b9566e3945fcd559121aee241fe532f0f[m
+Merge: ab5a0d0 912449d
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Sep 17 22:42:07 2024 +0200
+
+    Merge pull request #7 from yansaid21/LoginRegisterFixTailwind
+    
+    Login register fix tailwind
+
+[33mcommit 912449dd84cc6aa671faf461ff0ec0251d9434a6[m[33m ([m[1;32mLoginRegisterFixTailwind[m[33m)[m
+Merge: 08d7296 ab5a0d0
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Sep 17 15:40:52 2024 -0500
+
+    merging merge created to fix some tailwind features in the actually screens as login register main and modbrigadist [Main Loign Register ModBrigadist]
+
+[33mcommit ab5a0d0b1939f2bb3402132982620b714d7de23b[m
+Merge: 4a35feb c88eb2c
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Sep 17 22:33:26 2024 +0200
+
+    Merge pull request #9 from yansaid21/conditionsPage
+    
+    Conditions page
+
+[33mcommit 4a35febf28d8d5c9b71c6639aaf5ee595a13f3a3[m
+Merge: f2810e9 e03b7ca
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Sep 17 22:28:59 2024 +0200
+
+    Merge pull request #10 from yansaid21/MainFixTailwind
+    
+    Making changes on to tailwind changing the main screen to tailwind an…
+
+[33mcommit e03b7ca2d580a8e6d8c3982f1a4d4910f26b88c1[m[33m ([m[1;31morigin/MainFixTailwind[m[33m, [m[1;32mMainFixTailwind[m[33m)[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Sep 17 15:27:41 2024 -0500
+
+    Making changes on to tailwind changing the main screen to tailwind and adding the modbrigadist direction to the navbar, at the same time creating a new layout to use full screen and looking for a new method to call the navbar only in the layout and not in every screens [Nav.tsx Login.tsx Main.tsx tokens.ts /loggedIn/_layout.tsx /loggedOut/_laout.tsx register.tsx crudBrigadist.tsx
+
+[33mcommit c88eb2cc61b85ff2d52c04af7a2918865e8af21b[m[33m ([m[1;31morigin/conditionsPage[m[33m)[m
+Author: JuanC2004 <juanc.quinteroh@autonoma.edu.co>
+Date:   Mon Sep 16 23:57:19 2024 -0500
+
+    Creation of screen conditions, with terms and condition from Universidad Autónoma de Manizales with routes in app folder
+
+[33mcommit b969577baa3b066f7f8c92e8663f35f1e61d4f44[m[33m ([m[1;31morigin/fixTableTailwind[m[33m)[m
+Author: JuanC2004 <juanc.quinteroh@autonoma.edu.co>
+Date:   Mon Sep 16 23:35:27 2024 -0500
+
+    Changing teh styles with tailwind in screen ModBrigadsita
+
+[33mcommit 08d7296218d1767c37825bc9c4a056cb589d246b[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Sep 16 22:02:21 2024 -0500
+
+    Form add-ons
+    Creation of checkbox and link to access the terms and conditions of the app.
+    Configuration of the eye icon that allows the visibility of the fields where a password must be managed.
+    [Register] changes on screens, [InputPassword] changes on atoms.
+
+[33mcommit 19344b1a56e373c00f2594a7d1937ceb07da789d[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Sun Sep 15 19:07:12 2024 -0500
+
+    Stylize components and views
+    Switch from CSS to Tailwind in input, button, text and container stylesheets.
+    [Login & Register]changes in screens, [CustomButton, GoogleButton, Input, InputPassword]changes in  atoms.
+
+[33mcommit f2810e9182aa407db7d144bc9ca3b90756c7a4cc[m
+Merge: 8ab33b3 3b6f9a3
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Thu Sep 12 16:59:30 2024 -0500
+
+    arreglo y dependencias de tailwind arreglo de los campos de contraseña y ubicación del navbar en la aplicación [Login.tsx Register.tsx Main.tsx
+    ]
+
+[33mcommit a0a7f1abf5e8fd41d161dba75252270db9d35c74[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Sep 10 16:14:04 2024 -0500
+
+    change in custom button [Atoms]
+
+[33mcommit 8ab33b3590cc07fb217521553bbb8b6d51ae5fc0[m
+Merge: 354da8e 741008f
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Sep 10 14:35:21 2024 -0500
+
+    Merge branch 'BigEmergencyButton and Nav'
+
+[33mcommit 741008fa0bcb3fd2c865a22723d7339e6b985dfd[m[33m ([m[1;31morigin/loginButton[m[33m, [m[1;32mloginButton[m[33m)[m
+Author: yansaid21 <yansaid21@gmail.com>
+Date:   Tue Sep 10 14:30:35 2024 -0500
+
+    Develop creating the navbar and the BigEmergencyButton [Main.tsx]
+
+[33mcommit 354da8ed73155bf98ee3fa9457106063d1058827[m
+Merge: 0782449 1d4c121
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Sep 10 21:29:26 2024 +0200
+
+    Merge pull request #4 from yansaid21/register
+    
+    Merge Merging branch with the register and login screens
+
+[33mcommit 1d4c121afe9fabbbdcfb0e09bb75e4f3383df21f[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Sep 10 13:55:43 2024 -0500
+
+    routes login to register
+
+[33mcommit 3b6f9a3faa588bbe9af739255ac8d5714b696b5a[m[33m ([m[1;31morigin/atoms[m[33m, [m[1;32matoms[m[33m)[m
+Author: JuanC2004 <juanc.quinteroh@autonoma.edu.co>
+Date:   Tue Sep 10 11:59:48 2024 -0500
+
+    Creation table comunidad UAM and Person for api
+
+[33mcommit 3ee49703dc13b3204139dfbb3a968e6c5740497b[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Sep 10 00:23:10 2024 -0500
+
+    Creation of register screen.
+    Implementation of inputs for user data entry.
+    Implementation of the register button to access the application.
+    TODO: align content.
+
+[33mcommit c7eb79ba572c1b967eae4ff66eb61d6903794e45[m[33m ([m[1;31morigin/login[m[33m)[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Tue Sep 10 00:10:42 2024 -0500
+
+    Create a screen of login.
+    Creation of atomic components of inputs and buttons.
+    TODO: logo for password input and paths for 'accept' button and 'register' text.
+
+[33mcommit 07824490e5a523d8bcead18ce4f5daf7f315844c[m
+Merge: 308169e 81fb290
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Sep 3 16:22:54 2024 -0500
+
+    Merge pull request #3 from yansaid21/loginButton
+    
+    creation login google button GoogleButton.tsx Login.tsx
+
+[33mcommit 81fb290fc68cc79834117188528108252ad7de3e[m
+Author: jeanSaid <yansaid21@gmail.com>
+Date:   Tue Sep 3 16:10:55 2024 -0500
+
+    creation login google button GoogleButton.tsx Login.tsx
+
+[33mcommit 308169e49607f26885c110ae453103f9909acda9[m
+Merge: b1e5fd2 85effdd
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Sep 3 13:55:10 2024 -0500
+
+    Merge pull request #2 from yansaid21/atoms
+    
+    Create Buttoms for brigadista CRUD ModBrigadistaButton, RedBrigadista…
+
+[33mcommit 85effdd4a81c30b142caf0a0f77ac6ac4da93c00[m
+Author: JuanC2004 <juanc.quinteroh@autonoma.edu.co>
+Date:   Tue Sep 3 13:53:21 2024 -0500
+
+    Create Buttoms for brigadista CRUD ModBrigadistaButton, RedBrigadistaButton, AddBrigadistaButton, AddBrigadista, Brigadista and ModBrigadista
+
+[33mcommit b1e5fd270e354d722f8dd1e5b9cef72ef7d371a8[m
+Merge: 834b88b 40de35b
+Author: yansaid21 <83183760+yansaid21@users.noreply.github.com>
+Date:   Tue Sep 3 11:13:19 2024 -0500
+
+    Merge pull request #1 from yansaid21/atoms
+    
+    Atoms
+
+[33mcommit 40de35b8289bcb53e5d13387ab59940f2f4695d6[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Sep 2 22:21:21 2024 -0500
+
+    creation of emergency type button [atoms]
+
+[33mcommit c716de4a408eed0ef5c849efcb7677af149635e0[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Mon Sep 2 22:02:03 2024 -0500
+
+    creation of emergency button [atoms]
+
+[33mcommit 834b88bc25ae0c1ff0e73d85f98656eb7e9f9b25[m
+Author: GeraldineRomer <geraldine.rome0104@gmail.com>
+Date:   Thu Aug 29 20:58:10 2024 -0500
+
+    new structure and components [main, buttons, login, app]
+
+[33mcommit 6db861419f0c542279d10447670976472b09b914[m
+Author: jeanSaid <yansaid21@gmail.com>
+Date:   Tue Aug 27 17:13:30 2024 -0500
+
+    creation creation of the repository [main]
+
+[33mcommit 42d723ad82c6febf4713c70f9f29d8c036fa24c7[m
+Author: jeanSaid <yansaid21@gmail.com>
+Date:   Tue Aug 27 17:09:51 2024 -0500
+
+    first commit
