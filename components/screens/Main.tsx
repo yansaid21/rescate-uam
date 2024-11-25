@@ -9,6 +9,8 @@ import Spinner from "../molecules/Spinner";
 import * as SQLite from 'expo-sqlite';
 import { getRiskSituation } from "../../auth/risks";
 import { createIncident } from "../../auth/incident";
+import Incidents from "../organisms/Incidents";
+import { getInstitutionInfo } from "../../auth/institution";
 
 interface UserData {
   data: {
@@ -32,6 +34,7 @@ export default function Main() {
   //gestionar incidente
   const [isIncidentActive, setIsIncidentActive] = useState(false);
   const [selectedRiskId, setSelectedRiskId] = useState<number | null>(null);
+  const [showReport, setShowReport] = useState(false);
 
   const getRisks = async () => {
     try {
@@ -77,6 +80,7 @@ export default function Main() {
 
   const handleCloseModal = () => {
     setModalVisible(false);
+    setShowReport(false);
   };
 
   useEffect(() => {
@@ -170,7 +174,10 @@ export default function Main() {
         const institutionId = 1; 
 
         if (token) {
-          await createIncident(institutionId, selectedRiskId, token);
+          const incident = await createIncident(institutionId, selectedRiskId, token); 
+          console.log('incident ', incident.data.id);
+          
+          await AsyncStorage.setItem("id_incident", String(incident.data.id));
           console.log("Incidente creado.");
           setIsIncidentActive(true);
         }
@@ -180,6 +187,7 @@ export default function Main() {
     } else {
       console.log("Incidente finalizado.");
       setIsIncidentActive(false);
+      setShowReport(true);
     }
   };
 
@@ -209,6 +217,7 @@ export default function Main() {
         ))}
       </View>
       <CompleteRegister visible={modalVisible} onClose={handleCloseModal} />
+      <Incidents visible={showReport} onClose={handleCloseModal} risk={selectedRiskId} />
     </View>
   );
 }

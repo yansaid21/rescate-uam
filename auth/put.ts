@@ -3,7 +3,7 @@ import { SERVER_IP } from '../utils/constants';
 import * as mime from 'react-native-mime-types'; 
 
 export async function updateUserInfo(id_user: number, token: string, userData: any) {
-    const uri = `https://${SERVER_IP}/api/users/${id_user}`;
+    const uri = `http://${SERVER_IP}/api/users/${id_user}`;
     console.log("Log de userData: ",userData);
     
     const formData = new FormData();
@@ -43,7 +43,7 @@ export async function updateUserInfo(id_user: number, token: string, userData: a
 }
 
 export async function updateUserInfoWithoutEmail(id_user: number, token: string, userData: any) {
-    const uri = `https://${SERVER_IP}/api/users/${id_user}`;
+    const uri = `http://${SERVER_IP}/api/users/${id_user}`;
 
     console.log("Log de userData: ",userData);
     
@@ -83,7 +83,7 @@ export async function updateUserInfoWithoutEmail(id_user: number, token: string,
 }
 
 export async function updateUserInfoComplete(id_user: number, token: string, userData: any) {
-    const uri = `https://${SERVER_IP}/api/users/${id_user}`;
+    const uri = `http://${SERVER_IP}/api/users/${id_user}`;
     console.log("Log de userData: ", userData);
 
     const formData = new FormData();
