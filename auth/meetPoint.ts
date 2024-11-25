@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SERVER_IP } from '../utils/constants';
 
 export async function createMeetPoint(id_institution: number, name: string, id_zone: number, description: string, token: string) {
-    const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/meet_points`;
+    const uri = `http://${SERVER_IP}/api/institutions/${id_institution}/meet_points`;
     console.log('body en create ', id_zone);
     
     const requestBody = {
@@ -37,7 +37,7 @@ export async function createMeetPoint(id_institution: number, name: string, id_z
 }
 
 export async function getMeetPoints(id_institution: number, token: string) {
-    const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/meet_points`;
+    const uri = `http://${SERVER_IP}/api/institutions/${id_institution}/meet_points`;
 
     try {
         const response = await fetch(uri, {

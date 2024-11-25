@@ -8,6 +8,7 @@ import { getUserInfo } from "../../auth/get";
 import Spinner from "../molecules/Spinner";
 import * as SQLite from 'expo-sqlite';
 import { getRiskSituation } from "../../auth/risks";
+import { usePushNotifications } from "../../usePushNotifications";
 
 interface UserData {
   data: {
@@ -29,6 +30,10 @@ export default function Main() {
   const [isLoading, setIsLoading] = useState(true);
   const [risks, setRisks] = useState([]);
 
+  const {expoPushToken, notification} = usePushNotifications();
+
+  
+
 
   const getRisks = async () => {
     try {
@@ -37,7 +42,7 @@ export default function Main() {
       if (token ) {
         const risks = await getRiskSituation(token, 1); 
         setRisks(risks.data);
-        /* console.log("riesgos traidos", risks); */
+        console.log("riesgos traidos", risks); 
         
       }
     } catch (error) {
