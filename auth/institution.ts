@@ -1,7 +1,7 @@
 import { SERVER_IP } from '../utils/constants';
 
 export async function getInstitutionInfo(token: string) {
-    const uri = `http://${SERVER_IP}/api/institutions/1`;
+    const uri = `https://${SERVER_IP}/api/institutions/1`;
 
     try {
         const response = await fetch(uri, {

@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SERVER_IP } from '../utils/constants';
 
 export async function createIncident(id_institution: number, id_risk: number, token: string) {
-    const uri = `http://${SERVER_IP}/api/institutions/${id_institution}/risk_situations/${id_risk}/incidents`;
+    const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/risk_situations/${id_risk}/incidents`;
     
     const requestBody = {};
 
@@ -33,7 +33,7 @@ export async function createIncident(id_institution: number, id_risk: number, to
 }
 
 export async function updateIncident(id_institution: number, id_risk: number, description: string, token: string, id_incident: number) {
-    const uri = `http://${SERVER_IP}/api/institutions/${id_institution}/risk_situations/${id_risk}/incidents/${id_incident}`;
+    const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/risk_situations/${id_risk}/incidents/${id_incident}`;
     
     const requestBody = {
         description,
@@ -66,7 +66,7 @@ export async function updateIncident(id_institution: number, id_risk: number, de
 }
 
 export async function getIncidents(token: string) {
-    const uri = `http://${SERVER_IP}/api/institutions/1/incidents`;
+    const uri = `https://${SERVER_IP}/api/institutions/1/incidents`;
 
     try {
         const response = await fetch(uri, {

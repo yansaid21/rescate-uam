@@ -13,7 +13,7 @@ export async function registerUser(
   institution_id: number,
   code: string
 ) {
-  const uri = `http://${SERVER_IP}/api/users`;
+  const uri = `https://${SERVER_IP}/api/users`;
 
 
   const requestBody = {
