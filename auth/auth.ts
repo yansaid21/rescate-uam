@@ -15,7 +15,8 @@ export async function loginUser(email: string, password: string, device_name: st
       body: JSON.stringify({
         email,
         password,
-        device_name
+        device_name,
+        institution:1,
       }),
     });
 

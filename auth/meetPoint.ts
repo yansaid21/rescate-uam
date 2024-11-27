@@ -37,6 +37,7 @@ export async function createMeetPoint(id_institution: number, name: string, id_z
 }
 
 export async function getMeetPoints(id_institution: number, token: string) {
+
     const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/meet_points`;
 
     try {
