@@ -1,5 +1,4 @@
 import { User } from "../types/user";
-import { SERVER_IP } from '../utils/constants';
 
 export async function registerUser(
   name: string,
@@ -13,7 +12,7 @@ export async function registerUser(
   institution_id: number,
   code: string
 ) {
-  const uri = `http://${SERVER_IP}/api/users`;
+  const uri = `http://192.168.43.164:8000/api/users`;
 
 
   const requestBody = {

@@ -5,7 +5,6 @@ import CustomButton from '../atoms/CustomButton';
 import { getAllUsers } from '../../auth/get';
 import { updateUserInfo, updateUserInfoWithoutEmail } from '../../auth/put'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SERVER_IP } from '../../utils/constants';
 import { ProfileIcon } from '../atoms/Icons';
 import Spinner from '../molecules/Spinner';
 
@@ -112,7 +111,7 @@ const EditProfile = () => {
                 <View className='flex-col justify-evenly items-center m-5'>
                     {photo ? (
                         <Image 
-                            source={{ uri: `http://${SERVER_IP}:8000${photo}` }} 
+                            source={{ uri: `http://192.168.43.164:8000${photo}` }} 
                             style={{ width: 150, height: 150, borderRadius: 100 }} 
                         />
                     ) : (

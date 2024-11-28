@@ -1,7 +1,6 @@
-import { SERVER_IP } from '../utils/constants';
 
 export async function getRiskSituation( token: string, id_institution: number) {
-  const uri = `http://${SERVER_IP}/api/institutions/${id_institution}/risk_situations`;
+  const uri = `http://192.168.43.164:8000/api/institutions/${id_institution}/risk_situations`;
 
   try {
       const response = await fetch(uri, {

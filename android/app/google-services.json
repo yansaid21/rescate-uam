@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "51859548723",
+    "project_id": "rescueuam-94fba",
+    "storage_bucket": "rescueuam-94fba.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51859548723:android:03f84a6375d1e35ca25146",
+        "android_client_info": {
+          "package_name": "com.juanc.quinteroh.rescateuam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6N5Lf6FlzrXzOM84f5G0oubNkpR3HPwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
