@@ -1,7 +1,7 @@
 // api/userService.ts
 import { SERVER_IP } from '../utils/constants';
 
-export async function getUserInfo(token: string, user_id: number) {
+export async function getUserInfo(user_id: number, token: string) {
     const uri = `https://${SERVER_IP}/api/institutions/1/users/${user_id}`;
 
     try {
