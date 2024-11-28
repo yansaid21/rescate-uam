@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Alert, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import Input from '../atoms/Input';
 import CustomButton from '../atoms/CustomButton';
-import { getAllUsers } from '../../auth/get';
+import { getUserInfo } from '../../auth/get';
 import { updateUserInfo, updateUserInfoWithoutEmail } from '../../auth/put'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SERVER_IP } from '../../utils/constants';
 import { ProfileIcon } from '../atoms/Icons';
 import Spinner from '../molecules/Spinner';
+import { Picker } from '@react-native-picker/picker';
+import EditImage from '../organisms/EditImage';
 
 const EditProfile = () => {
     const [email, setEmail] = useState('');
@@ -18,20 +20,24 @@ const EditProfile = () => {
     const [loadedEmail, setLoadedEmail] = useState(false);
     const [photo, setPhoto] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [EPS, setEPS] = useState('');
+    const [rhgb, setRhgb] = useState(''); 
+    const [isEditImageModalVisible, setEditImageModalVisible] = useState(false); // Estado para la visibilidad del modal
 
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const id_user = await AsyncStorage.getItem('id');
+                const token = await AsyncStorage.getItem('token'); 
+                const id_user = await AsyncStorage.getItem('id'); 
+                console.log("Estoy entrando al fetch");
                 
-                if (id_user) {
-                    const users = await getAllUsers();
-                    const user = users.find((user: any) => user.id === Number(id_user));
+                if (token && id_user) {
+                    const user = await getUserInfo(Number(id_user), token); 
+                    console.log("user: "+user);
+                    
+                    if (user && user.data) {
+                        const fetchedEmail = user.data.email;
 
-                    if (user) {
-                        const fetchedEmail = user.email;
-
-                        // Verificar si ya cargamos el email inicial
                         if (!loadedEmail) {
                             setEmail(fetchedEmail);
                             setLoadedEmail(true);
@@ -42,19 +48,20 @@ const EditProfile = () => {
                             setDif(false);
                         }
 
-                        setName(user.name);
-                        setLastname(user.last_name);
-                        setId(user.id_card.toString());
+                        setName(user.data.name);
+                        setLastname(user.data.last_name);
+                        setId(user.data.id_card.toString()); 
 
-                        if (user.photo_path) {
-                            const photoUri = user.photo_path.replace(/\\/g, '/');
+                        if (user.data.photo_path) {
+                            const photoUri = user.data.photo_path.replace(/\\/g, '/');
+                            console.log('photoUri ', photoUri);
                             setPhoto(photoUri);
                         }
                         setIsLoading(false);
                     }
                 }
             } catch (error) {
-                console.error("Error fetching user info editProfile :", error);
+                console.error("Error get info user: ", error);
             }
         };
 
@@ -63,8 +70,8 @@ const EditProfile = () => {
 
     const handleSave = async () => {
         try {
-            const token = await AsyncStorage.getItem('token');
-            const id_user = await AsyncStorage.getItem('id');
+            const token = await AsyncStorage.getItem('token'); 
+            const id_user = await AsyncStorage.getItem('id'); 
 
             if (token && id_user) {
                 const userData = {
@@ -72,6 +79,8 @@ const EditProfile = () => {
                     name,
                     last_name: lastname,
                     id_card: id,
+                    rhgb: rhgb,
+                    social_security: social_security,
                 };
 
                 let response;
@@ -95,21 +104,27 @@ const EditProfile = () => {
         }
     };
 
-    if (isLoading) {
+    const handleImageSelect = (imageUri: string) => {
+        setPhoto(imageUri);
+        setEditImageModalVisible(false); // Cierra el modal después de seleccionar la imagen
+    };
+
+    if(isLoading) {
         return (
             <View className='flex-1 flex-col items-center justify-center'>
-                <Spinner />
+                <Spinner/>
             </View>
-        );
+        )
     }
 
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
         >
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>  
                 <View className='flex-col justify-evenly items-center m-5'>
+                    
                     {photo ? (
                         <Image 
                             source={{ uri: `http://${SERVER_IP}:8000${photo}` }} 
@@ -119,7 +134,7 @@ const EditProfile = () => {
                         <ProfileIcon size={150} color='#000' />
                     )}
                     <Text className='font-medium text-center text-[24px] m-5'>Editar perfil</Text>
-                    
+                
                     <View className='flex-col justify-evenly items-center m-5 w-full'>
                         <View className="mb-5">
                             <Input 
@@ -150,6 +165,43 @@ const EditProfile = () => {
                             />
                         </View>
                         <View className="mb-5">
+                            <Input
+                                text="EPS"
+                                value={EPS}
+                                onChangeText={setEPS}
+                            />
+                        </View>
+                        <View className="mb-5 w-[300px] h-12 rounded-[20px] px-[2px] bg-[#D9D9D9]">
+                            <Picker
+                                selectedValue={rhgb}
+                                onValueChange={(itemValue) => setRhgb(itemValue)}
+                                prompt="Grupo sanguíneo"
+                                style={{
+                                    height: '100%',
+                                    width: '100%',
+                                    backgroundColor: 'transparent'
+                                }}
+                                dropdownIconColor="#000"
+                            >
+                                <Picker.Item label="Grupo sanguíneo" value="" />
+                                <Picker.Item label="A+" value="A+" />
+                                <Picker.Item label="A-" value="A-" />
+                                <Picker.Item label="B+" value="B+" />
+                                <Picker.Item label="B-" value="B-" />
+                                <Picker.Item label="AB+" value="AB+" />
+                                <Picker.Item label="AB-" value="AB-" />
+                                <Picker.Item label="O+" value="O+" />
+                                <Picker.Item label="O-" value="O-" />
+                            </Picker>
+                        </View>
+                        
+                        <View className="mb-5">
+                            <CustomButton
+                                text="Cambiar foto"
+                                onPress={() => setEditImageModalVisible(true)}
+                            />
+                        </View>
+                        <View className="mb-5">
                             <CustomButton 
                                 text="Guardar" 
                                 onPress={handleSave}  
@@ -158,6 +210,13 @@ const EditProfile = () => {
                     </View>
                 </View>
             </ScrollView>
+
+            {/* Modal para editar imagen */}
+            <EditImage 
+                visible={isEditImageModalVisible}
+                onClose={() => setEditImageModalVisible(false)}
+                onImageSelect={handleImageSelect}
+            />
         </KeyboardAvoidingView>
     );
 };

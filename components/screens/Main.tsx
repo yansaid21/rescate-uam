@@ -56,8 +56,8 @@ export default function Main() {
       const id_user = await AsyncStorage.getItem('id'); 
 
       if (token && id_user) {
-        const user = await getUserInfo(token, Number(id_user)); 
-        
+        const user = await getUserInfo( Number(id_user), token); 
+          
         if (user && user.data) {
           /* console.log('user data en main ', user.data); */
           setUserData(user);

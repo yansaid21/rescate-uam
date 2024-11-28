@@ -4,6 +4,8 @@
 node_modules/
 utils/
 constants.ts
+android
+/android
 
 # Expo
 .expo/
