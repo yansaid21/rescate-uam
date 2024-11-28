@@ -10,7 +10,12 @@ const Layout = () => {
             <StatusBar barStyle="light-content" backgroundColor="#0069A3" />
             <Navbar/>
             <View style={styles.container}>
-                <Stack/>
+            <Stack 
+        screenOptions={{
+          gestureEnabled: true,
+          headerShown: false,
+        }}
+        />
             </View>
 </>
 

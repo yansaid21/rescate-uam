@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, View, Alert } from 'react-native';
 import { Row, Rows, Table } from 'react-native-table-component';
 import CustomButton from '../atoms/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,16 +16,14 @@ interface Incident {
 }
 
 const IncidentsList = () => {
-    //componentes de la tabla
     const [tableData, setTableData] = useState<string[][]>([]);
     const [tableHead, setTableHead] = useState(['Incidente', 'Fecha', 'Hora Inicio - Fin']); 
     const widthArr = [100, 100, 170];
-
-    //filtro para barra de búsqueda
+    
     const [filteredData, setFilteredData] = useState<string[][]>([]);
     const [searchText, setSearchText] = useState('');
+    const [selectedIncident, setSelectedIncident] = useState<Incident | null>(null);
 
-    // Filtrar datos
     const handleSearch = (text: string) => {
         setSearchText(text);
         if (text.trim() === '') {
@@ -39,18 +37,19 @@ const IncidentsList = () => {
         }
     };
 
-    // Inicializar datos filtrados
     useEffect(() => {
         setFilteredData(tableData);
     }, [tableData]);
 
-    //ver info detallada de los incidentes
-    const handleAddPoint = () => {
-        console.log('Ver info');
-        
+    const handleRowPress = (index: number) => {
+        const incident = tableData[index];
+        if (incident) {
+            // Aquí puedes buscar el incidente completo usando el índice o algún identificador
+            Alert.alert('Detalles del Incidente', `Incidente: ${incident[0]}\nFecha: ${incident[1]}\nHora: ${incident[2]}`);
+            // Si necesitas más información del incidente puedes obtenerla desde otro lugar o almacenarla en el estado
+        }
     };
 
-    //obtener incidentes
     const getIncidentsList = async () => {
         try {
             const token = await AsyncStorage.getItem('token');
@@ -96,10 +95,19 @@ const IncidentsList = () => {
                 <View className='mb-5 mt-5'>
                     <Table borderStyle={{ borderWidth: 2, borderColor: '#000000' }}>
                         <Row data={tableHead} style={styles.head} textStyle={styles.headText} widthArr={widthArr} />
-                        <Rows data={filteredData} textStyle={styles.text} widthArr={widthArr} />
+                        {filteredData.map((rowData, index) => (
+                            <Row 
+                                key={index} 
+                                data={rowData} 
+                                textStyle={styles.text} 
+                                widthArr={widthArr} 
+                                onPress={() => handleRowPress(index)} // Agregar evento onPress
+                                style={{ cursor: 'pointer' }} // Estilo opcional para indicar que es clickeable
+                            />
+                        ))}
                     </Table>
                 </View>
-                <CustomButton text='Ver Información' onPress={handleAddPoint}/>
+                {/* <CustomButton text='Ver Información' onPress={() => handleAddPoint()}/> */}
             </View>
         </ScrollView>
     );
