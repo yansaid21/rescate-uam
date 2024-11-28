@@ -1,4 +1,5 @@
-import { View, Text, Image, ScrollView, KeyboardAvoidingView, Platform, StyleSheet, Modal, Pressable } from "react-native"
+// Login.tsx
+import { View, Text, Image, ScrollView, KeyboardAvoidingView, Platform, StyleSheet } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import CustomButton from "../atoms/CustomButton";
 import InputPassword from "../atoms/InputPassword";
@@ -7,12 +8,13 @@ import Input from "../atoms/Input";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import { loginUser } from "../../auth/auth";
-import { useForm, Controller, set } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import ErrorModal from "../molecules/ErrorModal";
 import * as Tokens from '../tokens';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginScheme } from "../../schemes/loginScheme";
 import Spinner from "../molecules/Spinner";
+import { getAllUsers } from "../../auth/get"; 
 
 interface FormData {
     email: string;
@@ -23,7 +25,7 @@ export default function Login() {
     const router = useRouter();
     const [modalVisible, setModalVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [isLoading,setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(LoginScheme)
@@ -34,31 +36,37 @@ export default function Login() {
         try {
             let email = data.email;
             const domain = '@autonoma.edu.co';
-    
-            // Si el correo no contiene el dominio, se lo añadimos
+
             if (!email.includes(domain)) {
                 email += domain;
             }
-    
-            // Realiza el login con el correo completo
+
             const result = await loginUser(email, data.password, "any");
             
             if (result) {
-                const userRole = result.user.role_id;
+                const users = await getAllUsers();
+                
+                const currentUser = users.find((user) => user.email === email);
 
-                switch (userRole) {
-                    case 1: // Administrator
-                        router.push("/loggedIn/main");
-                        break;
-                    case 2: // Brigadier
-                        router.push("/loggedIn/emergency");
-                        break;
-                    case 3: // Final User
-                        router.push("/loggedIn/emergency");
-                        break;
-                    default:
-                        router.push("/loggedIn/emergency");
-                        break;
+                if (currentUser) {
+                    const userRole = currentUser.role.id;
+
+                    switch (userRole) {
+                        case 1: 
+                            router.push("/loggedIn/main");
+                            break;
+                        case 2:
+                            router.push("/loggedIn/emergency");
+                        case 3:
+                            router.push("/loggedIn/emergency");
+                            break;
+                        default:
+                            router.push("/loggedIn/emergency");
+                            break;
+                    }
+                } else {
+                    setErrorMessage("Usuario no encontrado.");
+                    setModalVisible(true);
                 }
                 setIsLoading(false);
             }
@@ -68,21 +76,22 @@ export default function Login() {
             setModalVisible(true);
         }
     };
-    
+
     if (isLoading) {
         return <Spinner />;
     }
+
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
             <Image
                 className="w-52 h-24 mx-auto"
                 source={require('../../assets/UAM/Logos_UAM-07.png')}
             />
             <ScrollView 
-                contentContainerStyle={styles.container} 
+                contentContainerStyle={styles.container}
             >
                 <View className="flex-1 flex-col justify-evenly items-center m-20">
                     <View className="mb-5">
@@ -93,7 +102,7 @@ export default function Login() {
                             render={({ field: { onChange } }) => (
                                 <Input
                                     text="Correo"
-                                    onChangeText={onChange} 
+                                    onChangeText={onChange}
                                     autoCapitalize="none"
                                 />
                             )}
@@ -105,12 +114,10 @@ export default function Login() {
                             control={control}
                             name="password"
                             render={({ field: { onChange } }) => (
-                                <>
-                                    <InputPassword
-                                        text="Contraseña"
-                                        onChangeText={onChange}
-                                    />
-                                </>
+                                <InputPassword
+                                    text="Contraseña"
+                                    onChangeText={onChange}
+                                />
                             )}
                         />
                         {errors.password && <Text className="text-red-500">{errors.password.message}</Text>}
@@ -128,7 +135,7 @@ export default function Login() {
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

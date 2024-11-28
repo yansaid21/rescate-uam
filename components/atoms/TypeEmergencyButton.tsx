@@ -3,13 +3,18 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 type CustomButtonProps = {
     text: string,
+    riskId: number;
+    isSelected: boolean; 
+    onSelectRisk: (riskId: number) => void;
 }
 
-const TypeEmergencyButton = ({ text } : CustomButtonProps) => {
+const TypeEmergencyButton = ({ text, riskId, isSelected, onSelectRisk } : CustomButtonProps) => {
     const [isYellow, setIsYellow] = useState(true);
     const handlePress = () => {
+        onSelectRisk(riskId);
         setIsYellow(!isYellow); 
     };
+
     return (
         <Pressable 
             onPress={handlePress}

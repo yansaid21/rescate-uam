@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { KeyboardAvoidingView, Modal, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Input from '../atoms/Input';
 import CustomButton from '../atoms/CustomButton';
 import { useForm, Controller } from "react-hook-form";
@@ -10,7 +10,6 @@ import { updateUserInfoComplete } from '../../auth/put';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CompleteRegisterScheme } from '../../schemes/completeRegisterScheme';
 import { Picker } from '@react-native-picker/picker';
-import * as Tokens from '../tokens';
 
 interface CompleteRegisterModalProps {
     visible: boolean;
@@ -20,16 +19,18 @@ interface CompleteRegisterModalProps {
 interface FormData {
     rhgb: string,
     social_security: string,
-    phone_number: Number,
+    phone_number: number,
     code: string,
     photo_path: string | null;
 }
 
 const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClose }) => {
-
-    const { control, handleSubmit, formState: { errors }, setValue  } = useForm<FormData>({
+    console.log('visible en complete register ', visible);
+    
+    const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormData>({
         resolver: zodResolver(CompleteRegisterScheme), 
     });
+
     const onSubmit = async (data: FormData) => {
         console.log('data en complete register ', data);
         try {
@@ -40,6 +41,7 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
                 console.log('result in complete register ', result);
                 
                 if (result) {
+                    onClose(); // Cierra el modal tras registro exitoso
                     router.push("/loggedIn/main");
                 }
             }
@@ -57,105 +59,99 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
             style={{ flex: 1 }}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
         >
-        <ScrollView 
-        contentContainerStyle={styles.container} 
-        >
-            <Modal
-                transparent={true}
-                visible={visible}
-                animationType="slide"
-                onRequestClose={onClose}
-            >
-                <View className='flex-1 justify-center items-center bg-black/50'>
-                    <View className='w-[350px] p-5 bg-white rounded-lg items-center'>
-                        <Text className='mb-5 text-4xl text-center text-[#0090D0]'>¡Completa tu registro!</Text>
-                        <View className="mb-5 w-[300px] h-12 rounded-[20px] px-[2px] bg-[#D9D9D9]">
-                            <Controller
-                                control={control}
-                                name="rhgb"
-                                render={({ field: { onChange, value } }) => (
-                                    <Picker
-                                        selectedValue={value}
-                                        onValueChange={onChange}
-                                        prompt="Grupo sanguíneo"
-                                        style={{
-                                            height: '100%',
-                                            width: '100%',
-                                            backgroundColor: 'transparent'
-                                        }}
-                                        dropdownIconColor="#000"
-                                    >
-                                        <Picker.Item label="Grupo sanguíneo" value=""  />
-                                        <Picker.Item label="A+" value="A+" />
-                                        <Picker.Item label="A-" value="A-" />
-                                        <Picker.Item label="B+" value="B+" />
-                                        <Picker.Item label="B-" value="B-" />
-                                        <Picker.Item label="AB+" value="AB+" />
-                                        <Picker.Item label="AB-" value="AB-" />
-                                        <Picker.Item label="O+" value="O+" />
-                                        <Picker.Item label="O-" value="O-" />
-                                    </Picker>
-                                )}
-                            />
-                        </View>
-                        {errors.rhgb && <Text className="text-red-500 text-left">{errors.rhgb.message}</Text>}
-                        <View className="mb-5">
-                            <Controller
-                                control={control}
-                                name="phone_number"
-                                render={({ field: { onChange } }) => (
-                                    <>
-                                    <Input
-                                        text="Celular"
-                                        onChangeText={onChange} 
-                                        keyboardType="numeric"
+            <ScrollView contentContainerStyle={styles.container}>
+                <Modal
+                    transparent={true}
+                    visible={false}
+                    animationType="slide"
+                    onRequestClose={onClose}
+                >
+                    <View style={styles.modalOverlay}>
+                        <View style={styles.modalContent}>
+                            <Text style={styles.title}>¡Completa tu registro!</Text>
+                            
+                            <View style={styles.pickerContainer}>
+                                <Controller
+                                    control={control}
+                                    name="rhgb"
+                                    render={({ field: { onChange, value } }) => (
+                                        <Picker
+                                            selectedValue={value}
+                                            onValueChange={onChange}
+                                            prompt="Grupo sanguíneo"
+                                            style={styles.picker}
+                                            dropdownIconColor="#000"
+                                        >
+                                            <Picker.Item label="Grupo sanguíneo" value=""  />
+                                            <Picker.Item label="A+" value="A+" />
+                                            <Picker.Item label="A-" value="A-" />
+                                            <Picker.Item label="B+" value="B+" />
+                                            <Picker.Item label="B-" value="B-" />
+                                            <Picker.Item label="AB+" value="AB+" />
+                                            <Picker.Item label="AB-" value="AB-" />
+                                            <Picker.Item label="O+" value="O+" />
+                                            <Picker.Item label="O-" value="O-" />
+                                        </Picker>
+                                    )}
+                                />
+                                {errors.rhgb && <Text style={styles.errorText}>{errors.rhgb.message}</Text>}
+                            </View>
+
+                            <View style={styles.inputContainer}>
+                                <Controller
+                                    control={control}
+                                    name="phone_number"
+                                    render={({ field: { onChange } }) => (
+                                        <Input
+                                            text="Celular"
+                                            onChangeText={onChange} 
+                                            keyboardType="numeric"
                                         />
-                                    </>
-                                )}
-                            />
-                            {errors.phone_number && <Text className="text-red-500">{errors.phone_number.message}</Text>}
-                        </View>
-                        <View className="mb-5">
-                            <Controller
-                                control={control}
-                                name="social_security"
-                                render={({ field: { onChange } }) => (
-                                    <>
-                                    <Input
-                                        text="EPS"
-                                        onChangeText={onChange} 
-                                        autoCapitalize="sentences"
-                                    />
-                                    </>
-                                )}
-                            />
-                            {errors.social_security && <Text className="text-red-500">{errors.social_security.message}</Text>}
-                        </View>
-                        <View className="mb-5">
-                            <Controller
-                                control={control}
-                                name="code"
-                                render={({ field: { onChange } }) => (
-                                    <>
+                                    )}
+                                />
+                                {errors.phone_number && <Text style={styles.errorText}>{errors.phone_number.message}</Text>}
+                            </View>
+
+                            <View style={styles.inputContainer}>
+                                <Controller
+                                    control={control}
+                                    name="social_security"
+                                    render={({ field: { onChange } }) => (
+                                        <Input
+                                            text="EPS"
+                                            onChangeText={onChange} 
+                                            autoCapitalize="sentences"
+                                        />
+                                    )}
+                                />
+                                {errors.social_security && <Text style={styles.errorText}>{errors.social_security.message}</Text>}
+                            </View>
+
+                            <View style={styles.inputContainer}>
+                                <Controller
+                                    control={control}
+                                    name="code"
+                                    render={({ field: { onChange } }) => (
                                         <Input
                                             text="Código UAM"
                                             onChangeText={onChange} 
                                         />
-                                    </>
-                                )}
+                                    )}
+                                />
+                                {errors.code && <Text style={styles.errorText}>{errors.code.message}</Text>}
+                            </View>
+
+                            <ImageUploadComponent onImageSelect={handleImageSelect} />
+                            {errors.photo_path && <Text style={styles.errorText}>{errors.photo_path.message}</Text>}
+
+                            <CustomButton 
+                                text="Aceptar" 
+                                onPress={handleSubmit(onSubmit)}
                             />
-                            {errors.social_security && <Text className="text-red-500">{errors.social_security.message}</Text>}
                         </View>
-                        <ImageUploadComponent onImageSelect={handleImageSelect}/>
-                        {errors.photo_path && <Text className="text-red-500 mb-5">{errors.photo_path.message}</Text>}
-                        <CustomButton 
-                            text="Aceptar" 
-                            onPress={handleSubmit(onSubmit)}
-                        />
                     </View>
-                </View>
-            </Modal>
-        </ScrollView>
+                </Modal>
+            </ScrollView>
         </KeyboardAvoidingView>
     );
 }
@@ -165,6 +161,47 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        width: 350,
+        padding: 20,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    title: {
+        marginBottom: 20,
+        fontSize: 24,
+        textAlign: 'center',
+        color: '#0090D0',
+    },
+    pickerContainer: {
+        width: 300,
+        height: 50,
+        marginBottom: 20,
+        borderRadius: 10,
+        backgroundColor: '#D9D9D9',
+        paddingHorizontal: 5,
+    },
+    picker: {
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'transparent',
+    },
+    inputContainer: {
+        marginBottom: 20,
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        textAlign: 'left',
+        marginTop: 5,
     },
 });
 
