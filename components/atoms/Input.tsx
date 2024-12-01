@@ -5,7 +5,7 @@ import * as Tokens from '../tokens';
 type CustomButtonProps = {
     text: string,
     value?: string
-    onChangeText: (text: string) => void;
+    onChangeText?: (text: string) => void;
     autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters',
     keyboardType?: 'default' | 'email-address' | 'numeric'
 }
