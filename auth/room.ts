@@ -1,7 +1,7 @@
 import { SERVER_IP } from '../utils/constants';
 
-export async function getRiskSituation( token: string, id_institution: number) {
-    const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/risk_situations`;
+export async function getRoomsInfo(id_institution: number, token: string, id_zone: number) {
+    const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/zones/${id_zone}/rooms`;
 
     try {
         const response = await fetch(uri, {
@@ -18,18 +18,21 @@ export async function getRiskSituation( token: string, id_institution: number) {
         }
     
         const json = await response.json();
-        return json; // Devolver la información del riesgo
+        return json; // Devolver la información del usuario
     
         } catch (error) {
-        console.error("Error fetching user info:", error);
+        console.error("Error fetching room info:", error);
     }
 }
 
-export async function createRisk(id_institution: number, name: string, description: string, token: string) {
-    const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/risk_situations`;
+export async function createRoom(id_institution: number, id_zone: number, level_id: number, name: string, code: string, description: string,token: string) {
+    const uri = `https://${SERVER_IP}/api/institutions/${id_institution}/zones/${id_zone}/rooms`;
     
     const requestBody = {
         name,
+        code,
+        zones: [id_zone],
+        level_id: level_id,
         description,
     };
 
@@ -54,7 +57,7 @@ export async function createRisk(id_institution: number, name: string, descripti
         return json;
     
         } catch (error) {
-        console.error("Error post risk situation:", error);
+        console.error("Error post room:", error);
         throw error;
     }
 }
