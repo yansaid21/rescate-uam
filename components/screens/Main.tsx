@@ -213,7 +213,7 @@ export default function Main() {
               text={risk.name} 
               riskId={risk.id}
               isSelected={selectedRiskId === risk.id} 
-              onSelectRisk={setSelectedRiskId}
+              onSelectRisk={() => setSelectedRiskId(risk.id)}
             />
           </View>
         ))}

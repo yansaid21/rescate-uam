@@ -1,64 +1,61 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 type CustomButtonProps = {
-    text: string,
+    text: string;
     riskId: number;
-    isSelected: boolean; 
+    isSelected: boolean;
     onSelectRisk: (riskId: number) => void;
-}
+};
 
-const TypeEmergencyButton = ({ text, riskId, isSelected, onSelectRisk } : CustomButtonProps) => {
-    const [isYellow, setIsYellow] = useState(true);
+const TypeEmergencyButton = ({ text, riskId, isSelected, onSelectRisk }: CustomButtonProps) => {
     const handlePress = () => {
         onSelectRisk(riskId);
-        setIsYellow(!isYellow); 
     };
 
     return (
-        <Pressable 
-            onPress={handlePress}
-            style={[styles.buttonContainer, ]}
-        >
-            <View style={[styles.button, isYellow ? styles.button : styles.buttonPressed]}>
-                <Text style={[styles.buttonText, isYellow ? styles.buttonText: styles.buttonPressedText]}>{text}</Text>
+        <Pressable onPress={handlePress} style={styles.buttonContainer}>
+            <View style={[styles.button, isSelected ? styles.buttonPressed : null]}>
+                <Text style={[styles.buttonText, isSelected ? styles.buttonPressedText : null]}>
+                    {text}
+                </Text>
             </View>
         </Pressable>
     );
-}
+};
 
 const styles = StyleSheet.create({
     buttonContainer: {
-        borderRadius: 19, // Para asegurar que el TouchableOpacity también sea redondo
-        shadowColor: '#000',   // Color de la sombra
-        shadowOffset: { width: 0, height: 4 }, // Desplazamiento de la sombra
-        shadowOpacity: 0.25,   // Opacidad de la sombra
-        shadowRadius: 4,       // Radio de la sombra
-        elevation: 4,          // Elevación para Android
+        borderRadius: 19,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 4,
     },
     button: {
         backgroundColor: '#8CB7D0',
-        width: 212,  
-        height: 49, 
-        borderRadius: 19,  
+        width: 212,
+        height: 49,
+        borderRadius: 19,
         justifyContent: 'center',
         alignItems: 'center',
     },
     buttonText: {
         color: '#FFFFFF',
         fontSize: 20,
-        textAlign: 'center',  
+        textAlign: 'center',
         fontWeight: 'bold',
-        textShadowColor: 'rgba(0, 0, 0, 0.25)', // Color de la sombra
-        textShadowOffset: { width: 0, height: 3 }, // Desplazamiento de la sombra
-        textShadowRadius: 3, // Difuminado de la sombra
+        textShadowColor: 'rgba(0, 0, 0, 0.25)',
+        textShadowOffset: { width: 0, height: 3 },
+        textShadowRadius: 3,
     },
     buttonPressed: {
-        backgroundColor: '#F4D73B', 
+        backgroundColor: '#F4D73B',
     },
     buttonPressedText: {
-        color: '#000000', 
+        color: '#000000',
     },
-})
+});
 
 export default TypeEmergencyButton;

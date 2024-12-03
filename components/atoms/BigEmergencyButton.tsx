@@ -10,6 +10,7 @@ interface BigEmergencyButtonProps {
     logoWidth: number;
     logoHeight: number;
     onToggleIncident: () => void;
+    available: boolean;
 }
 
 export const BigEmergencyButton: React.FC<BigEmergencyButtonProps> = ({
@@ -20,6 +21,8 @@ export const BigEmergencyButton: React.FC<BigEmergencyButtonProps> = ({
     logoWidth,
     logoHeight,
     onToggleIncident,
+    available,
+
 }) => {
     const [isYellow, setIsYellow] = useState(initialIsYellow);
 
@@ -31,7 +34,28 @@ export const BigEmergencyButton: React.FC<BigEmergencyButtonProps> = ({
     const logoSource = isYellow
         ? require('../../assets/UAM/Logos_UAM-10.png')
         : require('../../assets/UAM/Logos_UAM-08.png');
-
+if (!available) {
+        return (
+            <Pressable style={styles.buttonContainer}>
+                <View
+                    style={[
+                        styles.button,
+                        {
+                            width: buttonWidth,
+                            height: buttonHeight,
+                            borderRadius: buttonBorderRadius,
+                            backgroundColor: '#F4D73B',
+                        },
+                    ]}
+                >
+                    <Image
+                        source={logoSource}
+                        style={{ width: logoWidth, height: logoHeight }}
+                    />
+                </View>
+            </Pressable>
+        );
+    }
     return (
         <Pressable onPress={handlePress} style={styles.buttonContainer}>
             <View
