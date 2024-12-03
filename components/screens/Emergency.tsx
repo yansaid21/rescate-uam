@@ -4,6 +4,8 @@ import { BigEmergencyButton } from '../atoms/BigEmergencyButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUserInfo } from '../../auth/get';
 import CompleteRegister from '../organisms/CompleteRegister';
+import CustomButton from '../atoms/CustomButton';
+import { router } from 'expo-router';
 
 export default function Emergency() {
   const [role, setRole] = useState('');
@@ -45,9 +47,20 @@ export default function Emergency() {
     setModalVisible(false);
   };
 
+  //ver protocolos (temporal)
+  const handleVerProtocolos = () => {
+    router.push("/loggedIn/protocolsView");
+  }
+
   return (
     <View className="flex p-1 pt-7 bg-white justify-center items-center">
       <Text className="text-2xl font-bold mb-32">BIENVENIDO {role}</Text>
+      <View className='mb-3'>
+          <CustomButton 
+              text="Ver protocolo" 
+              onPress={handleVerProtocolos} 
+          />
+      </View>
       <BigEmergencyButton 
         initialIsYellow={false}
         buttonWidth={150} 
