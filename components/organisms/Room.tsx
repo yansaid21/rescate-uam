@@ -31,6 +31,7 @@ const Room: React.FC<RoomsModalProps> = ({visible, onClose}) => {
     //evaluación del scheme
     const { control, handleSubmit, formState: { errors }  } = useForm<FormData>({
         resolver: zodResolver(RoomScheme), 
+        mode: "onChange",
     });
     const [loading, setLoading] = useState(true);
 

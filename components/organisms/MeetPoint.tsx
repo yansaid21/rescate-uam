@@ -27,6 +27,7 @@ interface FormData {
 const MeetPoint: React.FC<MeetPointsModalProps> = ({ visible, onClose }) => {
     const { control, handleSubmit, formState: { errors }  } = useForm<FormData>({
         resolver: zodResolver(MeetPointScheme), 
+        mode: "onChange",
     });
     const [loading, setLoading] = useState(true);
     

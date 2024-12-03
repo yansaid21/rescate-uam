@@ -38,7 +38,7 @@ export async function loginUser(email: string, password: string, device_name: st
     return json;
 
   } catch (error) {
-    console.error("Error during login:", error);
+    console.log("Error during login:", error);
     throw  error;
   }
 }

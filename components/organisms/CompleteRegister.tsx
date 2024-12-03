@@ -26,10 +26,11 @@ interface FormData {
 }
 
 const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClose }) => {
-    console.log('visible en complete register ', visible);
+    /* console.log('visible en complete register ', visible); */
     
     const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormData>({
         resolver: zodResolver(CompleteRegisterScheme), 
+        mode: "onChange",
     });
 
     const onSubmit = async (data: FormData) => {
@@ -46,7 +47,7 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
                     const role = userData.data.role.id;
                     if (role === 1) {
                         onClose(); // Cierra el modal tras registro exitoso
-                        router.push("/loggedIn/menu");
+                        router.push("/loggedIn/main");
                     } else {
                         onClose(); // Cierra el modal tras registro exitoso
                         router.push("/loggedIn/emergency");

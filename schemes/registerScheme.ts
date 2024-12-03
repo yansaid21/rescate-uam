@@ -29,12 +29,12 @@ export const RegisterScheme = z.object({
             required_error: 'Campo requerido',
         })
         .max(50, { message: "No más de 50 caracteres" })
-        .regex(/^[A-Za-z\s]+$/, { message: "Debe contener letras" }),
+        .regex(/^[A-Za-zÁÉÍÓÚÜáéíóúüñÑ\s]+$/, { message: "Debe contener letras" }),
     lastname: z.string({
             required_error: 'Campo requerido',
         })
         .max(50, { message: "No más de 50 caracteres" })
-        .regex(/^[A-Za-z\s]+$/, { message: "Debe contener letras" }),
+        .regex(/^[A-Za-zÁÉÍÓÚÜáéíóúüñÑ\s]+$/, { message: "Debe contener letras" }),
     termsAccepted: z.boolean().refine(value => value === true, {
         message: "Debe aceptar los términos y condiciones"
     })
