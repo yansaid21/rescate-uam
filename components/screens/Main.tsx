@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View } from "react-native";
+import { Alert, View, BackHandler } from "react-native";
 import TypeEmergencyButton from "../atoms/TypeEmergencyButton";
 import { BigEmergencyButton } from "../atoms/BigEmergencyButton";
 import CompleteRegister from "../organisms/CompleteRegister";
@@ -11,6 +11,7 @@ import { getRiskSituation } from "../../auth/risks";
 import { createIncident } from "../../auth/incident";
 import Incidents from "../organisms/Incidents";
 import { getInstitutionInfo } from "../../auth/institution";
+import { usePathname, useRouter } from "expo-router";
 
 interface UserData {
   data: {
@@ -35,6 +36,46 @@ export default function Main() {
   const [isIncidentActive, setIsIncidentActive] = useState(false);
   const [selectedRiskId, setSelectedRiskId] = useState<number | null>(null);
   const [showReport, setShowReport] = useState(false);
+
+  //validar si se desea cerrar sesión en caso de retroceder
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLogout = async () => {
+    try {
+        await AsyncStorage.removeItem("token");
+        await AsyncStorage.removeItem("id");
+        console.log("Sesión cerrada, token eliminado");
+        router.push("/loggedOut/login"); // Redirigir al login
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+    }
+  };
+
+  const handleBackPress = () => {
+    if (pathname === "/loggedIn/main") {
+        Alert.alert(
+            "Cerrar sesión",
+            "¿Estás seguro de que deseas cerrar sesión?",
+            [
+                { text: "Cancelar", style: "cancel" },
+                { text: "Aceptar", onPress: handleLogout },
+            ]
+        );
+        return true; // Bloquea la acción de retroceso predeterminada
+    }
+
+    return false; // Permite la acción de retroceso normal
+  };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        handleBackPress
+    );
+
+    return () => backHandler.remove(); // Limpieza al desmontar el componente
+  }, [pathname]);
 
   const getRisks = async () => {
     try {

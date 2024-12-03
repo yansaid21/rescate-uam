@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getProtocolsInfo } from '../../auth/protocols';
 import Spinner from "../molecules/Spinner";
-import MySvgComponent from '../atoms/ImageProtocol';
 
 interface Protocol {
     id: number;

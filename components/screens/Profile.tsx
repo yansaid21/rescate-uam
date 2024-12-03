@@ -60,12 +60,6 @@ const Profile = () => {
                         Editar perfil
                     </Link>
                 </View>
-                <View className='flex-row items-center m-2'>
-                    <View className='w-[52px] h-[50px] bg-[#0090D0] rounded-[50px] items-center justify-center mr-3'>
-                        <KeyIcon size={35} color='#fff'/>
-                    </View>
-                    <Link href='/loggedIn/changePassword' className='font-medium text-center text-[24px]'>Cambiar contraseña</Link>
-                </View>
             </View>
             <Link href="/loggedOut/login" onPress={handleLogout}>
                 <View className='justify-items-end items-center m-7'>
