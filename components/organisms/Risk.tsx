@@ -64,7 +64,7 @@ const Risk: React.FC<RiskModalProps> = ({visible, onClose}) => {
                     contentContainerStyle={styles.container} 
                     >
                     <View className='w-[350px] p-5 bg-white rounded-[10px] items-center'>
-                        <Text className='mb-5 text-4xl text-center text-[#0090D0]'>¡Añadir punto de encuentro!</Text>
+                        <Text className='mb-5 text-4xl text-center text-[#0090D0]'>¡Añadir riesgo!</Text>
                         <View className="my-5">
                             <Controller
                                 control={control}
