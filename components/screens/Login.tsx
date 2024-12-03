@@ -72,6 +72,7 @@ export default function Login() {
                 setIsLoading(false);
             }
         } catch (error: any) {
+            setIsLoading(false);
             console.log('en login ', error);
             setErrorMessage(error.message);
             setModalVisible(true);

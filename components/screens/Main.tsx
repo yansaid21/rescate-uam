@@ -101,11 +101,11 @@ export default function Main() {
         if (user && user.data) {
           /* console.log('user data en main ', user.data); */
           setUserData(user);
-          console.log('user.data ', user.data);
+          /* console.log('user.data ', user.data); */
 
           // Solo abre el modal si falta algún dato
           const isInfoIncomplete = !user.data.rhgb || !user.data.social_security || !user.data.phone_number || !user.data.photo_path;
-          console.log(' isInfoIncomplete ', isInfoIncomplete);
+          /* console.log(' isInfoIncomplete ', isInfoIncomplete); */
           setModalVisible(isInfoIncomplete);
           /* console.log("Modal visibility set to:", isInfoIncomplete); */
         }
@@ -198,7 +198,7 @@ export default function Main() {
     };
 
     executeDatabaseOperations();
-  }, [userData]); 
+  }, []); 
 
   if (isLoading) {
     return <Spinner />;
@@ -245,6 +245,7 @@ export default function Main() {
             logoWidth={100} 
             logoHeight={150} 
             onToggleIncident={toggleIncident}
+            available={selectedRiskId? true : false}
           />
         </View>
         {risks.map((risk: any) => (
@@ -253,7 +254,7 @@ export default function Main() {
               text={risk.name} 
               riskId={risk.id}
               isSelected={selectedRiskId === risk.id} 
-              onSelectRisk={setSelectedRiskId}
+              onSelectRisk={() => setSelectedRiskId(risk.id)}
             />
           </View>
         ))}

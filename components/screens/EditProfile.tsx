@@ -106,7 +106,7 @@ const EditProfile = () => {
 
     const handleImageSelect = (imageUri: string) => {
         setPhoto(imageUri);
-        setEditImageModalVisible(false); // Cierra el modal después de seleccionar la imagen
+        //setEditImageModalVisible(false); // Cierra el modal después de seleccionar la imagen
     };
 
     if(isLoading) {
@@ -127,7 +127,7 @@ const EditProfile = () => {
                     
                     {photo ? (
                         <Image 
-                            source={{ uri: `http://${SERVER_IP}:8000${photo}` }} 
+                            source={{ uri: `https://${SERVER_IP}${photo}` }} 
                             style={{ width: 150, height: 150, borderRadius: 100 }} 
                         />
                     ) : (
