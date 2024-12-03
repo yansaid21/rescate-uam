@@ -53,8 +53,10 @@ export default function Emergency() {
         buttonWidth={150} 
         buttonHeight={150}
         buttonBorderRadius={75}
-        logoWidth={100}
+        logoWidth={75}
         logoHeight={120}
+        onToggleIncident={() => {return;}}
+        
       />
       <Text className="text-2xl font-bold mt-5 mb-12">ESTOY A SALVO</Text>
       <BigEmergencyButton 
@@ -64,6 +66,7 @@ export default function Emergency() {
         buttonBorderRadius={75}
         logoWidth={75}
         logoHeight={120}
+        onToggleIncident={() => {return;}}
       />
       <Text className="text-2xl font-bold mt-5">ESTOY EN PELIGRO</Text>
       <CompleteRegister visible={modalVisible} onClose={handleCloseModal} />
