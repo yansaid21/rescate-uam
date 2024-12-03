@@ -53,7 +53,7 @@ export default function Login() {
 
                     switch (userRole) {
                         case 1: 
-                            router.push("/loggedIn/menu");
+                            router.push("/loggedIn/main");
                             break;
                         case 2:
                             router.push("/loggedIn/userBrigMenu");
