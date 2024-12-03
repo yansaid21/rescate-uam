@@ -28,7 +28,8 @@ export default function Login() {
     const [isLoading, setIsLoading] = useState(false);
 
     const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
-        resolver: zodResolver(LoginScheme)
+        resolver: zodResolver(LoginScheme),
+        mode: "onChange",
     });
 
     const onSubmit = async (data: FormData) => {
@@ -75,6 +76,7 @@ export default function Login() {
             console.log('en login ', error);
             setErrorMessage(error.message);
             setModalVisible(true);
+            setIsLoading(false);
         }
     };
 

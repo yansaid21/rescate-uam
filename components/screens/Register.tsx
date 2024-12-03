@@ -31,7 +31,8 @@ const Register = () => {
         resolver: zodResolver(RegisterScheme), 
         defaultValues: {
             termsAccepted: false,
-        }
+        },
+        mode: "onChange",
     });
 
     const [modalVisible, setModalVisible] = useState(false);

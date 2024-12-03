@@ -23,6 +23,7 @@ const Incidents: React.FC<IncidentModalProps> = ({ visible, onClose, risk }) => 
 
     const { control, handleSubmit, formState: { errors }  } = useForm<FormData>({
         resolver: zodResolver(IncidentScheme), 
+        mode: "onChange",
     });
 
     const onSubmit = async (data: FormData) => {

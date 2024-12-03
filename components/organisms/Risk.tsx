@@ -26,6 +26,7 @@ const Risk: React.FC<RiskModalProps> = ({visible, onClose}) => {
     //validaciones con el scheme
     const { control, handleSubmit, formState: { errors }  } = useForm<FormData>({
         resolver: zodResolver(RiskScheme), 
+        mode: "onChange",
     });
     const [loading, setLoading] = useState(true);
 

@@ -1,9 +1,11 @@
-import { View, Text } from 'react-native';
+import { View, Text, Alert, BackHandler } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { BigEmergencyButton } from '../atoms/BigEmergencyButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getUserInfo } from '../../auth/get';
 import CompleteRegister from '../organisms/CompleteRegister';
+import CustomButton from '../atoms/CustomButton';
+import { router, usePathname, useRouter } from 'expo-router';
 
 export default function Emergency() {
   const [role, setRole] = useState('');
@@ -45,9 +47,60 @@ export default function Emergency() {
     setModalVisible(false);
   };
 
+  //validar si se desea cerrar sesión en caso de retroceder
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLogout = async () => {
+    try {
+        await AsyncStorage.removeItem("token");
+        await AsyncStorage.removeItem("id");
+        console.log("Sesión cerrada, token eliminado");
+        router.push("/loggedOut/login"); // Redirigir al login
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+    }
+  };
+
+  const handleBackPress = () => {
+    if (pathname === "/loggedIn/emergency") {
+        Alert.alert(
+            "Cerrar sesión",
+            "¿Estás seguro de que deseas cerrar sesión?",
+            [
+                { text: "Cancelar", style: "cancel" },
+                { text: "Aceptar", onPress: handleLogout },
+            ]
+        );
+        return true; // Bloquea la acción de retroceso predeterminada
+    }
+
+    return false; // Permite la acción de retroceso normal
+  };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        handleBackPress
+    );
+
+    return () => backHandler.remove(); // Limpieza al desmontar el componente
+  }, [pathname]);
+
+  //ver protocolos (temporal)
+  const handleVerProtocolos = () => {
+    router.push("/loggedIn/protocolsView");
+  }
+
   return (
     <View className="flex p-1 pt-7 bg-white justify-center items-center">
       <Text className="text-2xl font-bold mb-32">BIENVENIDO {role}</Text>
+      {/* <View className='mb-3'>
+          <CustomButton 
+              text="Ver protocolo" 
+              onPress={handleVerProtocolos} 
+          />
+      </View> */}
       <BigEmergencyButton 
         initialIsYellow={false}
         buttonWidth={150} 

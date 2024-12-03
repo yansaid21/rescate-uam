@@ -30,6 +30,7 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
     
     const { control, handleSubmit, formState: { errors }, setValue } = useForm<FormData>({
         resolver: zodResolver(CompleteRegisterScheme), 
+        mode: "onChange",
     });
 
     const onSubmit = async (data: FormData) => {
