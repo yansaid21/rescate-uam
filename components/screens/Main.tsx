@@ -57,13 +57,14 @@ export default function Main() {
 
       if (token && id_user) {
         const user = await getUserInfo( Number(id_user), token); 
-          
         if (user && user.data) {
           /* console.log('user data en main ', user.data); */
           setUserData(user);
+          console.log('user.data ', user.data);
 
           // Solo abre el modal si falta algún dato
-          const isInfoIncomplete = !user.rhgb || !user.social_security || !user.phone_number;
+          const isInfoIncomplete = !user.data.rhgb || !user.data.social_security || !user.data.phone_number || !user.data.photo_path;
+          console.log(' isInfoIncomplete ', isInfoIncomplete);
           setModalVisible(isInfoIncomplete);
           /* console.log("Modal visibility set to:", isInfoIncomplete); */
         }

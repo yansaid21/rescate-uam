@@ -13,20 +13,21 @@ export default function Emergency() {
     try {
         const userId = await AsyncStorage.getItem('id'); 
         const token = await AsyncStorage.getItem('token');
-
-        if (userId) {
-            const userData = await getUserInfo(String(token), Number(userId)); 
+        console.log('token ', typeof(token));
+        
+        if (userId && token) {
+            const userData = await getUserInfo(Number(userId), token); 
             if (userData) {
               console.log('userData ', userData);
               
                 await AsyncStorage.setItem('userData', JSON.stringify(userData));
-                if (userData.data.role_id === 2) {
+                if (userData.data.role.id === 2) {
                     setRole('BRIGADISTA');
-                } else if (userData.data.role_id === 3) {
+                } else if (userData.data.role.id === 3) {
                     setRole('USUARIO');
                 }
 
-                if (!userData.data.rhgb || !userData.data.social_security || !userData.data.phone_number) {
+                if (!userData.data.rhgb || !userData.data.social_security || !userData.data.phone_number || !userData.data.photo_path) {
                   setModalVisible(true); 
                 }
             }
