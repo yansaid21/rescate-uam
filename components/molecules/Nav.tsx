@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
           )}
 
           {/* Menú alternativo para brigadier y finalUser */}
-          {(role === 'brigadier' || role === 'finalUser') && (
+          {(role === 2 || role === 3) && (
             <TouchableOpacity>
               <Link href="/loggedIn/userBrigMenu">
                 <Icon name="menu" size={30} className="m-3" color="#fff" />
@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
           )}
 
           {/* Menú general solo para administradores */}
-          {role === 'administrator' && (
+          {role === 1 && (
             <TouchableOpacity>
               <Link href="/loggedIn/menu">
                 <Icon name="menu" size={30} className="m-3" color="#fff" />
