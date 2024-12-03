@@ -15,11 +15,13 @@ const Navbar: React.FC = () => {
         const id_user = await AsyncStorage.getItem('id');
 
         if (token && id_user) {
+
           const rawUser = await getUserInfo( Number(id_user), token); 
           /* console.log('rawUser en el nav', rawUser); */
           
           const user= rawUser.data;
           if (user) {
+
               if (user.role.id === 1) {
                 setRole(1); 
               } else if (user.role.id === 2) {
@@ -52,6 +54,7 @@ const Navbar: React.FC = () => {
             </Link>
           </TouchableOpacity>
 
+
           {/* Condicional para mostrar el botón de crudBrigadist */}
           {(role === 1 || role === 2) && (
             <TouchableOpacity>
@@ -61,11 +64,25 @@ const Navbar: React.FC = () => {
             </TouchableOpacity>
           )}
 
-          <TouchableOpacity>
-            <Link href="/loggedIn/menu">
-              <Icon name="menu" size={30} className="m-3" color="#fff" />
-            </Link>
-          </TouchableOpacity>
+          {/* Menú alternativo para brigadier y finalUser */}
+          {(role === 'brigadier' || role === 'finalUser') && (
+            <TouchableOpacity>
+              <Link href="/loggedIn/userBrigMenu">
+                <Icon name="menu" size={30} className="m-3" color="#fff" />
+              </Link>
+            </TouchableOpacity>
+          )}
+
+          {/* Menú general solo para administradores */}
+          {role === 'administrator' && (
+            <TouchableOpacity>
+              <Link href="/loggedIn/menu">
+                <Icon name="menu" size={30} className="m-3" color="#fff" />
+              </Link>
+            </TouchableOpacity>
+          )}
+
+          {/* Botón de cuenta disponible para todos los roles */}
           <TouchableOpacity>
             <Link href="/loggedIn/account">
               <Icon name="account-circle" size={30} className="m-3" color="#fff" />
