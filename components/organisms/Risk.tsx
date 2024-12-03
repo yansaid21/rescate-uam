@@ -41,12 +41,17 @@ const Risk: React.FC<RiskModalProps> = ({visible, onClose}) => {
                 
                 if (result) {
                     onClose();
-                    router.push("/loggedIn/main");
+                    router.push("/loggedIn/risksMenu");
                 }
             }
         } catch (error: any) {
             console.log('en risk ', error);
         }
+    };
+
+    const handleClose = () => {
+        onClose(); // Ejecuta la lógica de cierre pasada como prop
+        router.push("/loggedIn/risksMenu"); // Redirige al menú de riesgos
     };
 
     return (
@@ -109,7 +114,7 @@ const Risk: React.FC<RiskModalProps> = ({visible, onClose}) => {
                         <View className='mb-3'>
                             <CustomButton 
                                 text="Cancelar" 
-                                onPress={onClose} 
+                                onPress={handleClose} 
                             />
                         </View>
                     </View>
