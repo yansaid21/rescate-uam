@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getAllUsers } from '../../auth/get'; 
+import {getUserInfo } from '../../auth/get'; 
 
 const Navbar: React.FC = () => {
-  const [role, setRole] = useState<string | null>(null);
+  const [role, setRole] = useState<number | null>(null);
 
   useEffect(() => {
     const loadUserRole = async () => {
@@ -15,24 +15,20 @@ const Navbar: React.FC = () => {
         const id_user = await AsyncStorage.getItem('id');
 
         if (token && id_user) {
-          const users = await getAllUsers();
-
-         
-          if (users) {
-       
-            const user = users.find((u: any) => u.id === Number(id_user));
-
-            console.log("Usuario actual:", user); 
-
-            if (user) {
+          const rawUser = await getUserInfo( Number(id_user), token); 
+          /* console.log('rawUser en el nav', rawUser); */
+          
+          const user= rawUser.data;
+          if (user) {
               if (user.role.id === 1) {
-                setRole('administrator'); 
+                setRole(1); 
               } else if (user.role.id === 2) {
-                setRole('brigadier'); 
+                setRole(2); 
               } else {
-                setRole('finalUser'); 
+                setRole(3); 
               }
-            }
+              /* console.log('role del usuario en el nav', role); */
+            
           } else {
             console.error("No se pudieron obtener los usuarios.");
           }
@@ -51,13 +47,13 @@ const Navbar: React.FC = () => {
       <View style={styles.navbar}>
         <View style={styles.iconsContainer}>
           <TouchableOpacity>
-            <Link href="/loggedIn/main">
+            <Link href={role === 1 ? "/loggedIn/main": "/loggedIn/emergency"}>
               <Icon name="notifications" size={30} className="m-3" color="#fff" />
             </Link>
           </TouchableOpacity>
 
           {/* Condicional para mostrar el botón de crudBrigadist */}
-          {(role === 'administrator' || role === 'brigadier') && (
+          {(role === 1 || role === 2) && (
             <TouchableOpacity>
               <Link href="/loggedIn/usersStatus">
                 <Icon name="insert-chart-outlined" type="material" size={30} className="m-3" color="#fff" />
