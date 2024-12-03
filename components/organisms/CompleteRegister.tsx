@@ -10,6 +10,7 @@ import { updateUserInfoComplete } from '../../auth/put';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CompleteRegisterScheme } from '../../schemes/completeRegisterScheme';
 import { Picker } from '@react-native-picker/picker';
+import { getUserInfo } from '../../auth/get';
 
 interface CompleteRegisterModalProps {
     visible: boolean;
@@ -38,11 +39,18 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
             const id_user = await AsyncStorage.getItem('id');
             if (token && id_user) {
                 const result = await updateUserInfoComplete(Number(id_user), token, data);
-                console.log('result in complete register ', result);
+                const userData = await getUserInfo(Number(id_user), token); 
+                console.log('result in complete register ', userData);
                 
-                if (result) {
-                    onClose(); // Cierra el modal tras registro exitoso
-                    router.push("/loggedIn/main");
+                if (userData && result) {
+                    const role = userData.data.role.id;
+                    if (role === 1) {
+                        onClose(); // Cierra el modal tras registro exitoso
+                        router.push("/loggedIn/menu");
+                    } else {
+                        onClose(); // Cierra el modal tras registro exitoso
+                        router.push("/loggedIn/emergency");
+                    }
                 }
             }
         } catch (error: any) {
@@ -62,7 +70,7 @@ const CompleteRegister: React.FC<CompleteRegisterModalProps> = ({ visible, onClo
             <ScrollView contentContainerStyle={styles.container}>
                 <Modal
                     transparent={true}
-                    visible={false}
+                    visible={visible}
                     animationType="slide"
                     onRequestClose={onClose}
                 >
