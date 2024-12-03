@@ -53,15 +53,15 @@ export default function Login() {
 
                     switch (userRole) {
                         case 1: 
-                            router.push("/loggedIn/main");
+                            router.push("/loggedIn/menu");
                             break;
                         case 2:
-                            router.push("/loggedIn/emergency");
+                            router.push("/loggedIn/userBrigMenu");
                         case 3:
-                            router.push("/loggedIn/emergency");
+                            router.push("/loggedIn/userBrigMenu");
                             break;
                         default:
-                            router.push("/loggedIn/emergency");
+                            router.push("/loggedIn/userBrigMenu");
                             break;
                     }
                 } else {
